@@ -1,5 +1,5 @@
 <!doctype html>
-<html data-ng-app="edit.challenge">
+<html data-ng-app="editChallenge">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
@@ -17,88 +17,448 @@
   <![endif]-->
 
   <title>Edit Challenge</title>
+
 </head>
-
-<body>
-
+<body data-ng-controller="mainCtrl">
+  <!-- Needed for routes -->
+  <div ng-view></div>
 
 
   <div class="ui-wrapper">
-    <header class="header">
-      <div class="ui-navbar clearfix">
-        <div class="ui-content">
-          <a id="logo" href="http://localhost:8000" class="text-hide logo">APPIRIO</a>
-          <div class="pull-right main-actions">
-            <nav>
-              <ul>
-                <li data-ng-class="{'active':popoverProfile}">
-                  <a href="javascript:" class="icon icon-profile"></a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <!-- End .main-container -->
+
+        <header class="header">
+
+            <div class="ui-navbar clearfix">
+
+                <div class="ui-content">
+
+                    <a id="logo" href="/" class="text-hide logo">APPIRIO</a>
+
+                    <div class="pull-right main-actions">
+
+
+                        <nav>
+                            <ul>
+                                <li data-ng-class="{'active':popoverProfile}">
+                                    <a href="javascript:" class="icon icon-profile"></a>
+                                </li>
+<!-- 
+                                <li data-ng-class="{active:applicationsPanel}">
+                                    <a href="javascript:" class="icon icon-applications"></a>
+                                </li>
+  -->                               
+                            </ul>
+
+                        </nav>
+
+                    </div>
+                    <!-- End .main-container -->
+
+                </div>
+                <!-- End .ui-content -->
+
+            </div>
+            <!-- End .ui-navbar -->
+
+            <div class="header-action clearfix">
+
+
+                <div class="ui-content">
+
+                    <div class="pull-left">
+                        <h3>Create New Architecture Challenge</h3>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Header Action -->
+
+        </header>
+        <!-- End header -->
+
+        <div class="main" data-ng-class="challengeMap.length > 0 ?'has-challenge-map':''">
+
+            <!--challenge-map-->
+            <aside class="challenge-map" data-resize data-scroll data-ng-style="setChallengePanelHeightPosition()">
+
+                <h3>Challenge Map</h3>
+
+                <div class="challenge-cnt">
+
+                    <a data-du-smooth-scroll data-du-scrollspy href="#section-1" id="map1" class="map {{publicBrowsing.complete ? 'complete':''}} {{isFirstSection? 'current':''}}" data-ng-style="setHeight()">
+                        <div class="bg"></div>
+                        <!--End .bg-->
+                        <h2 class="title" title="Information For Public Browsing">
+                            <span data-ng-style="setWidth()">INFORMATION FOR PUBLIC BROWSING</span>
+                        </h2>
+                        <!--End .title-->
+                        <div class="icon">
+                                <span>
+                                    <i></i>
+                                </span>
+                        </div>
+                    </a>
+                    <!--End .map-->
+
+                    <a data-du-smooth-scroll data-du-scrollspy href="#section-2" id="map2" class="map {{fileBrowsing.complete ? 'complete':''}}" data-ng-style="setHeight()" title="Information For Registered User">
+                        <div class="bg"></div>
+                        <!--End .bg-->
+                        <h2 class="title">
+                            <span data-ng-style="setWidth()">INFORMATION FOR REGISTERED USER</span>
+                        </h2>
+                        <!--End .title-->
+                        <div class="icon">
+                                <span>
+                                    <i></i>
+                                </span>
+                        </div>
+                    </a>
+                    <!--End .map-->
+
+                    <a data-du-smooth-scroll data-du-scrollspy href="#section-3" id="map3" class="map {{requirements.complete ? 'complete':''}}" data-ng-style="setHeight()" title="Requirements">
+                        <div class="bg"></div>
+                        <!--End .bg-->
+                        <h2 class="title">
+                            <span data-ng-style="setWidth()">REQUIREMENTS</span>
+                        </h2>
+                        <!--End .title-->
+                        <div class="icon">
+                                <span>
+                                    <i></i>
+                                </span>
+                        </div>
+                    </a>
+                    <!--End .map-->
+
+                    <a data-du-smooth-scroll data-du-scrollspy href="#section-4" id="map4" class="map {{timeLine.complete ? 'complete':''}}" data-ng-style="setHeight()" title="Timeline">
+                        <div class="bg"></div>
+                        <!--End .bg-->
+                        <h2 class="title">
+                            <span data-ng-style="setWidth()">TIMELINE</span>
+                        </h2>
+                        <!--End .title-->
+                        <div class="icon">
+                                <span>
+                                    <i></i>
+                                </span>
+                        </div>
+                    </a>
+                    <!--End .map-->
+
+                    <a data-du-smooth-scroll data-du-scrollspy href="#section-5" id="map5" class="map {{prizes.complete ? 'complete':''}}" data-ng-style="setHeight()" title="Prizes">
+                        <div class="bg"></div>
+                        <!--End .bg-->
+                        <h2 class="title">
+                            <span data-ng-style="setWidth()">PRIZES</span>
+                        </h2>
+                        <!--End .title-->
+                        <div class="icon">
+                                <span>
+                                    <i></i>
+                                </span>
+                        </div>
+                    </a>
+                    <!--End .map-->
+
+                </div>
+                <!--End .challenge-cnt-->
+
+                <div class="button-holder">
+                    <a href="/" class="btn blue-btn save">SAVE</a>
+                    <!--End .save btn-->
+                    <a href="/" class="btn gray-btn cancel">CANCEL</a>
+                    <!--End .cancel btn-->
+                    <a href="/" class="btn blue-btn {{(publicBrowsing.complete && fileBrowsing.complete && requirements.complete && timeLine.complete && prizes.complete) ? '' : 'disable'}} launch">LAUNCH</a>
+                    <!--End .cancel btn-->
+                </div>
+                <!--End .btn-content-->
+            </aside>
+            <!--End .challenge map-->
+
+            <section id="section-1" class="public-browsing" data-ng-style="setSectionMinHeight()">
+                <header>
+                    <i></i>
+                    <h4>Information for Public Browsing</h4>
+                    <span>I'm a community member — why should I care about your challenge?</span>
+                </header>
+                <!--End .section header-->
+                <div class="content">
+                    <p class="timeline-desc">Topcoder is a marketplace for skills. Your challenge will fail or succeed based on how well it appeals to the community. Take this time to promote it!</p>
+                    <form name="form1">
+                        <label>Challenge Name</label>
+                        <input data-maxlength="80" data-ng-model="publicBrowsing.challengeName" type="text" placeholder="Short, descriptive and catchy is your best bet"/>
+                        <label>Short Description</label>
+                        <textarea class="shortDesc" data-maxlength="100" data-ng-model="publicBrowsing.shortDescription" placeholder="This is will be used in listings and search results, as well as for social media promotion."></textarea>
+                        <label>Long Description</label>
+                        <textarea class="longDesc" data-maxlength="1000" data-ng-model="publicBrowsing.longDescription" placeholder="Give the audience a summary of the challenge and why it will be an interesting problem to solve"></textarea>
+                    </form>
+                </div>
+                <!--End .section content-->
+            </section>
+            <!--End .section-->
+
+            <section id="section-2" class="registered-contestants" data-ng-style="setSectionMinHeight()">
+                <header>
+                    <i></i>
+                    <h4>Information for Registered Contestants</h4>
+                    <span>Provide additional guidance for contestants to excel</span>
+                </header>
+                <!--End .section header-->
+                <div class="content">
+                    <p class="guidance">
+                        At times a picture or diagram is all that’s needed to convey an idea or insight into a problem. Take this time to consider giving your audience any necessary documents, pictures, or other types of files they may need in order to get up to speed with your challenge.
+                    </p>
+                    <!--End .guidance-->
+                    <div class="uploadBar">
+                        <div class="fileField pull-left">
+                            <p class="fileNameDisplay {{fileName ===''? 'fileNameDisplayNoFile' :''}}">{{fileName!==''? fileName :'Select File'}}</p>
+                            <label for="fileUploader" class="fileBrowser btn gray-btn">Browse</label>
+                            <input data-ng-file-select="onFileSelect($files)" type="file" name="myFile" class="fileInput" id="fileUploader">
+                        </div>
+                        <!--End .fileField-->
+                        <a href="javascript:" data-ng-click="doUpload()" class="upload-btn pull-right"></a>
+                        <!--End .upload-btn-->
+                        <div class="fileDescription">
+                            <input data-maxlength="80" type="text" data-ng-model="fileDesc" placeholder="Type Description">
+                        </div>
+                        <!--End .description-->
+                    </div>
+                    <div class="file-holder">
+
+                        <div class="file" data-ng-repeat="file in fileBrowsing.uploadedFiles">
+                            <a href="javascript:" class="close-btn" data-ng-click="removeFile(file)"></a>
+                            <!--End .close btn-->
+                            <i data-size="{{file.size}}">{{file.type}}</i>
+                            <h3>{{file.name}}</h3>
+                            <p>{{file.desc}}</p>
+                        </div>
+                        <!--End .file-->
+
+                        <div class="file uploading" data-ng-if="uploading">
+                            <div class="inner">
+                                <span class="upload-label">Uploading file</span>
+                                <div data-progressbar data-value="progress"></div>
+                                <span class="percentage">{{progress}}%</span>
+                            </div>
+                        </div>
+                        <!--End .uploading-->
+
+                        <div class="file no-file" data-ng-if="!uploading && fileBrowsing.uploadedFiles.length===0">
+                            <div class="inner">
+                                <label><input type="checkbox" data-ng-model="noFile" data-ng-change="changeNoFile(noFile)">No files to attach</label>
+                            </div>
+                        </div>
+                        <!--End .noFile-->
+
+                    </div>
+                    <!--End .file-holder-->
+                </div>
+                <!--End .section content-->
+            </section>
+
+            <!--End .section-->
+            <section id="section-3" class="requirements" data-ng-style="setSectionMinHeight()">
+                <header>
+                    <i></i>
+                    <h4>Requirements</h4>
+                    <span>What are your requirements?</span>
+                </header>
+                <!--End .section header-->
+                <div class="content">
+                    <p class="guidance">
+                        These requirements will form the basis for submission <em>scoring</em>, so write plainly and clearly. Break your requirements up — several smaller, gradeable requirements trumps one long rambling one. 
+                    </p>
+
+                    <form name="requirementForm">
+                        <label class="requirement-desc-label">Content</label>
+                        <textarea class="requirement-desc" data-maxlength="800" data-ng-model="requirements.content" placeholder="Type your requirement here (maximum 800 characters)"></textarea>
+                        <a href="javascript:" data-ng-click="addListItem()" class="btn blue-btn add-requirement"><i></i>Add Requirement</a>
+                    </form>
+                    <!--End .form-->
+                    <div class="requirement-list">
+
+                        <div class="list-item" data-ng-repeat="requirement in requirements.requirementList">
+                            <div class="actions">
+                                <a data-ng-if="!requirement.edit" href="javascript:" data-ng-click="requirement.edit = !requirement.edit" class="edit"></a>
+                                <a data-ng-if="requirement.edit" href="javascript:" data-ng-click="requirement.edit = !requirement.edit" class="save"></a>
+                                <a href="javascript:" data-ng-click="deleteListItem(requirement)" class="delete"></a>
+                            </div>
+                            <!--End .actions-->
+                            <p data-ng-if="!requirement.edit">{{requirement.desc}}</p>
+                            <div data-ng-if="requirement.edit" class="textarea-cnt">
+                                <textarea data-ng-blur="requirement.edit = !requirement.edit" data-maxlength="800" data-ng-model="requirement.desc"></textarea>
+                            </div>
+                            <!--End .DESC-->
+                        </div>
+                        <!--End .list-item-->
+
+                    </div>
+                    <!--End .requirement-list-->
+                </div>
+                <!--End .section content-->
+            </section>
+            <!--End .section-->
+
+            <section id="section-4" class="timeline" data-ng-style="setSectionMinHeight()">
+                <header>
+                    <i></i>
+                    <h4>Timeline</h4>
+                    <span>For how long should the challenge run?</span>
+                </header>
+                <!--End .section header-->
+                <div class="content">
+                    <p class="timeline-desc">The longer you leave a challenge open, the more registrations you’re likely to receive (and the more time you leave submitters to bake some quality in.) Shorter times, of course, can be useful for quick turnaround.</p>
+                    <!--End .description-->
+                    <div class="date-select">
+                        <div class="date-box start-date">
+                            <label>Start Date</label>
+                            <a href="javascript:" class="calendar-btn" data-ng-click="openStartCal($event)"></a>
+                            <div class="date-picker">
+                                <input type="text" data-ng-click="openStartCal($event)" readonly data-datepicker-popup="{{format}}" data-ng-model="stdt" data-is-open="startOpened" data-min-date="minDate" data-show-weeks="{{false}}" data-show-button-bar="{{false}}">
+                            </div>
+
+                            <label class="time-label">Start Time</label>
+                            <!-- End label -->
+                            <span class="time-zone">GMT</span>
+                            <!-- End label -->
+                            <div class="btn-group" data-dropdown data-is-open="status.isopen">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-ng-disabled="disabled">
+                                    <span class="caret"></span>{{timeSelectedStart}}
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li data-ng-repeat="time in times"><a href="javascript:" data-ng-click="setStartTime(time)">{{time.time}}</a></li>
+                                </ul>
+                            </div>
+                            <!-- End .time-select -->
+
+                            <span class="arrow"></span>
+                            <!-- End .arrow -->
+
+                        </div>
+                        <!-- End .start date -->
+                        <div class="date-box end-date">
+                            <label>End Date</label>
+                            <a href="javascript:" class="calendar-btn" data-ng-click="openEndCal($event)"></a>
+                            <div class="date-picker">
+                                <input type="text" data-ng-click="openEndCal($event)" readonly data-datepicker-popup="{{format}}" data-ng-model="enddt" data-is-open="endOpened" data-min-date="stdt" data-show-weeks="{{false}}" data-show-button-bar="{{false}}">
+                            </div>
+
+                            <label class="time-label">End Time</label>
+                            <!-- End label -->
+                            <span class="time-zone">GMT</span>
+                            <!-- End label -->
+                            <div class="btn-group" data-dropdown data-is-open="status.isopenStart">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-ng-disabled="disabled">
+                                    <span class="caret"></span>{{timeSelectedEnd}}
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li data-ng-repeat="time in times"><a href="javascript:" data-ng-click="setEndTime(time)">{{time.time}}</a></li>
+                                </ul>
+                            </div>
+                            <!-- End .time-select -->
+
+                            <span class="arrow"></span>
+                            <!-- End .arrow -->
+
+                        </div>
+                        <!-- End .start date -->
+                    </div>
+                    <!--End .date select-->
+
+                    <div class="date-range">
+                        Duration : {{dateDiff}} {{dateDiff > 1? 'Days':'Day'}}
+                    </div>
+                </div>
+                <!--End .section content-->
+            </section>
+            <!--End .section-->
+
+            <section id="section-5" class="prize" data-ng-style="setSectionMinHeight()">
+                <header>
+                    <i></i>
+                    <h4>Prizes</h4>
+                    <span>How much do the winners receive?</span>
+                </header>
+                <!--End .section header-->
+                <div class="content">
+                    <p class="prize-desc">
+                        Generous prize amounts will give your challenge more attention from the community: more submissions and higher quality.
+                    </p>
+                    <!--End desc-->
+
+                    <div class="price-area">
+                        <div class="box" data-ng-repeat="place in placePrizes.places">
+                            <a data-ng-if="!place.active" href="javascript:" data-ng-click="setPlacePrize(place,$index)" class="add-prize"></a>
+                            <div data-ng-if="place.active" class="set-prize">
+                                <i>{{$index+1}}</i>
+                                <a data-ng-if="$index !== 0" href="javascript:" class="close-btn" data-ng-click="removePlacePrize(place,$index)"></a>
+                                <div class="input-cnt">
+                                    <input data-numbers-only="numbers-only" data-ng-model="place.prize" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End price area-->
+
+                    <div class="total-prize">
+                        Prize Total : ${{totalPrize | number:0}}
+                    </div>
+                    <!--End price area-->
+                    <p class="customer-account-desc">Challenge prizes will be charged to customer account: <span>(additional fees may apply, not shown here.)</span></p>
+                    <!--End customer-account-desc-->
+                    <div class="customer-account-holder">
+                        <input class="customer-account-name" type="text" data-ng-model="customerAccountName" data-ui-autocomplete="autoComplete" >
+                    </div>
+                    <!--End customer-accounts-->
+                </div>
+                <!--End .section content-->
+            </section>
+            <!--End .section-->
+
         </div>
-        <!-- End .ui-content -->
-      </div>
-      <!-- End .ui-navbar -->
+        <!-- End .main -->
 
-      <div class="header-action clearfix">
-        <div class="ui-content">
-          <div class="pull-left">
-            <h3>Create New Architecture Challenge</h3>
-          </div>
-        </div>
-      </div>
-      <!-- End Header Action -->
+    </div>
 
-    </header>
-    <!-- End header -->
+    <!-- TODO: BG This is temporarily a dupe of the AAF footer content. Should be rewritten to include actual aaf/layout/footer file -->
+    <footer>
+        <p>
+            © 2014 Topcoder, Inc. All Rights Reserved. | <a href="http://www.topcoder.com/community/how-it-works/terms/">Terms</a> | <a href="http://www.topcoder.com/community/how-it-works/privacy-policy/">Privacy</a>
+        </p>
+    </footer>
 
-    <!-- Needed for routes -->
-    <div data-ui-view></div>
+    <!-- TODO: evaluate using includes mean style -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jqueryui/jquery-ui.min.js"></script>
+    
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
-  </div>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+    
+    <!-- bowerize these guys -->
+    <!-- TODO: use 'vendor; for 3rd party; don't use 'min' files -->
+    <script src="js/angular/angular-file-upload-shim.js"></script>
+    <script src="js/angular/angular-file-upload.js"></script>
+    <script src="js/angular/angular-scroll.min.js"></script>
+    <script src="js/angular/autocomplete.js"></script>
 
-  <footer>
-    <p>© 2014 Appirio, Inc.</p>
-  </footer>
+    <script src="bower_components/angular-placeholder-tai/lib/tai-placeholder.js"></script>
+    <script src="bower_components/lodash/dist/lodash.js"></script>
 
-  <!-- TODO: evaluate using includes mean style -->
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/jqueryui/jquery-ui.min.js"></script>
-  <script src="bower_components/moment/moment.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- custom js -->
+    <script src="js/app.js"></script>
 
-  <script src="bower_components/angular/angular.js"></script>
-  <!-- <script src="bower_components/angular-route/angular-route.js"></script> -->
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-  <script src="bower_components/restangular/dist/restangular.min.js"></script>
-  <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+    <script src="js/app-directives.js"></script>
+    <script src="js/app-services.js"></script>
+    <script src="js/app-controllers.js"></script>
 
-  <!-- bowerize these guys -->
-  <!-- TODO: use 'vendor; for 3rd party; don't use 'min' files -->
-  <script src="js/angular/angular-file-upload-shim.js"></script>
-  <script src="js/angular/angular-file-upload.js"></script>
-  <script src="js/angular/angular-scroll.min.js"></script>
-  <script src="js/angular/autocomplete.js"></script>
-
-  <script src="bower_components/angular-placeholder-tai/lib/tai-placeholder.js"></script>
-  <script src="bower_components/lodash/dist/lodash.js"></script>
-
-
-  <!-- custom js -->
-  <script src="js/app.js"></script>
-  <script src="js/directives/app-directives.js"></script>
-  <script src="js/services/challenge-service.js"></script>
-  <script src="js/controllers/create-challenge-controller.js"></script>
-  <script src="js/controllers/requirements-controller.js"></script>
-  <script src="js/controllers/challenge-file-upload-controller.js"></script>
-
-  <!--[if IE 9]>
-  <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
-  <![endif]-->
+    <!--[if IE 9]>
+    <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
+    <![endif]-->
 
 </body>
 </html>
