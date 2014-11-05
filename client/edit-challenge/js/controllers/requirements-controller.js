@@ -18,39 +18,60 @@
         $scope.requirements.requirementList = data;
         if ($scope.requirements.requirementList.length > 0) {
           $scope.requirements.complete = true;
+          angular.forEach($scope.requirements.requirementList, function(requirement){
+            requirement.editRequirementText = requirement.requirementText;
+            requirement.edit = false;
+          });
         }
+      }, function(response){
+        console.log('Fail to get all requirements: %o', response.data);
       });
     }
 
     /*create requirement*/
+    $scope.isUploading = false;
     $scope.addRequirement = function () {
-      if (!$scope.requirements.content) {
+      if (!$scope.requirements.content || $scope.isUploading) {
         return;
       }
+      $scope.isUploading = true;
       var requirementData = {
         requirementText: $scope.requirements.content
       };
       ChallengeService.createRequirement($scope.challenge.id, requirementData).then(function(data) {
         ChallengeService.getRequirement($scope.challenge.id, data.id).then(function(data){
+          data.editRequirementText = data.requirementText;
+          data.edit = false;
           $scope.requirements.requirementList.push(data);
           $scope.requirements.content = '';
           if ($scope.requirements.requirementList.length > 0) {
             $scope.requirements.complete = true;
           }
+          $scope.isUploading = false;
+        }, function(response){
+          console.log('Fail to get a requirement: %o', response.data);
+          $scope.isUploading = false;
         });
+      }, function(response){
+        console.log('Fail to create the requirement: %o', response.data);
+        $scope.isUploading = false;
       });
 
     };
 
     /*save or edit requirement*/
     $scope.saveRequirement = function(requirement) {
-      console.log('saveReq: ', requirement);
-      
-      requirement.edit = !requirement.edit;
-      if (!requirement.edit) {
-        ChallengeService.updateRequirement(requirement).then(function(data) {
-          console.log('saved requirement: ', requirement.id);
+      if (requirement.edit) {
+        ChallengeService.updateRequirement(requirement).then(function() {
+          requirement.editRequirementText = requirement.requirementText;
+          requirement.edit = !requirement.edit;
+        }, function(response){
+          requirement.requirementText = requirement.editRequirementText;
+          console.log('Fail to update the requirement: %o', response.data);
+          requirement.edit = !requirement.edit;
         });
+      }else{
+        requirement.edit = !requirement.edit;
       }
     };
 
@@ -62,6 +83,8 @@
         if ($scope.requirements.requirementList.length === 0) {
           $scope.requirements.complete = false;
         }
+      }, function(response){
+        console.log('Fail to delete the requirement: %o', response.data);
       });
     };
 

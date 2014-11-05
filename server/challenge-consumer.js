@@ -125,7 +125,6 @@ module.exports.Challenge = function(domain) {
                     queryParameters[parameterName] = parameter;
                 });
         }
-
         request({
             method: 'POST',
             uri: domain + path,

@@ -29,6 +29,8 @@
     if ($scope.challenge.id) {
       ChallengeService.getFiles($scope.challenge.id).then(function(data) {
         $scope.fileBrowsing.uploadedFiles = data;
+      }, function(response){
+        console.log('Fail to get all files: %o', response.data);
       });
     }
 
@@ -43,6 +45,9 @@
 
     /*start uploading*/
     $scope.uploadFile = function() {
+      if($scope.uploading){
+        return;
+      }
       if (!$scope.fileName) {
         $scope.fileNameInvalid = true;
         return;
@@ -64,13 +69,15 @@
           ChallengeService.getFile($scope.challenge.id, data.id).then(function(data){
             $scope.fileBrowsing.uploadedFiles.push(data);
             resetUploadForm();
-          },function(err){
-            console.log('upload: error: ', err);
+          },function(response){
+            console.log('Fail to get a file: %o', response.data);
+            resetUploadForm();
           });
           // clear form
         },
-        function(error) {
-          console.log('upload: error: ', error);
+        function(response) {
+          console.log('Fail to upload a file: %o', response.data);
+          resetUploadForm();
         },
         function(progress) {
           console.log('upload: progress: ', progress);
@@ -86,8 +93,8 @@
         if ($scope.fileBrowsing.uploadedFiles.length === 0) {
           $scope.fileBrowsing.complete = false;
         }
-      }, function(err){
-        console.log(err);
+      }, function(response){
+        console.log('Fail to delete a file: %o', response.data);
       });
 
     };

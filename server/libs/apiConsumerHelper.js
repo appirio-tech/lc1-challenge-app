@@ -7,9 +7,9 @@
  */
 'use strict';
 
-var config = require('../../config/default.js');
+var config = require('config');
 var challengeConsumer = require('../challenge-consumer').Challenge;
-var Challenge = new challengeConsumer(config.challengeApiDomain);
+var Challenge = new challengeConsumer(config.get('challengeServiceURI'));
 
 exports.Challenge = {
   name: 'Challenge',

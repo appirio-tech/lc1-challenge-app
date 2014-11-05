@@ -19,10 +19,12 @@ function _getAllEntities(model, referenceModel, req, callback) {
     var refId = routeHelper.getRefIdField(referenceModel.name);
     filter[refId] = req.params[refId];
   }
+  console.log('------Ready-to-get-all-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', filter);
   model.all(filter).then(function(data){
-    console.log('-----------get-all-entities-------', data.body);
+    console.log('------Success-to-get-all-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', data.body);
     callback(null, data.body.content);
   }, function(data){
+    console.log('------Fail-to-get-all-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', data.body);
     routeHelper.addErrorMessage(req, data.body.content, 404);
     callback(req.error);
   });
@@ -40,10 +42,12 @@ function _findEntityById(model, referenceModel, req, callback) {
     param[refIdKey] = req.params[refIdKey];
   }
 
+  console.log('------Ready-to-get-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', param);
   model.get(param).then(function(data){
-    console.log('-----------get-one-entity-------', data.body);
+    console.log('------Success-to-get-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', data.body);
     callback(null, data.body.content);
   }, function(data){
+    console.log('------Fail-to-get-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', data.body);
     routeHelper.addErrorMessage(req, data.body.content, 404);
     callback(req.error);
   });
@@ -59,10 +63,12 @@ function _deleteEntityById(model, referenceModel, req, callback){
     var refIdKey = routeHelper.getRefIdField(referenceModel.name);
     param[refIdKey] = req.params[refIdKey];
   }
+  console.log('------Ready-to-delete-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', param);
   model.delete(param).then(function(data){
-    console.log('-----------delete-one-entity-------', data.body);
+    console.log('------Success-to-delete-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', data.body);
     callback(null, data.body);
   }, function(data){
+    console.log('------Fail-to-delete-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', data.body);
     routeHelper.addErrorMessage(req, data.body.content, 404);
     callback(req.error);
   });
@@ -78,9 +84,7 @@ function _deleteEntityById(model, referenceModel, req, callback){
  */
 function getEntities(model, referenceModel, req, res, next) {
   _getAllEntities(model, referenceModel, req, function(err, entities) {
-    if (err) {
-      console.log('Error Message: ' + JSON.stringify(err));
-    } else {
+    if(!err){
       // support simple filtering by field=value
       if (req.query && req.query.filter) {
         var parts = req.query.filter.split('=');
@@ -120,11 +124,13 @@ function createEntity(model, referenceModel, req, res, next) {
     entity[refId] = Number(req.params[refId]);
     postBody[refId] = Number(req.params[refId]);
   }
+  console.log('------Ready-to-create-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', postBody);
   model.create(postBody).then(function(data){
-    console.log('---------create-an-entity-------', data.body);
+    console.log('------Success-create-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', data.body);
     req.data = data.body;
     next();
   }, function(data){
+    console.log('------Fail-create-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', data.body);
     routeHelper.addErrorMessage(req, data.body.content, 400);
     next();
   });
@@ -163,7 +169,6 @@ function updateEntity(model, referenceModel, req, res, next) {
       delete entity[key];
     }
   });
-  console.log(entity);
   var postBody = {body: entity};
 
   var idParamKey = routeHelper.getRefIdField(model.name);
@@ -174,12 +179,13 @@ function updateEntity(model, referenceModel, req, res, next) {
     entity[refId] = Number(req.params[refId]);
     postBody[refId] = Number(req.params[refId]);
   }
+  console.log('------Ready-to-update-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', postBody);
   model.update(postBody).then(function(data){
-    console.log('---------update-an-entity-------', data.body);
+    console.log('------Success-to-update-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', data.body);
     req.data = data.body;
     next();
   }, function(data){
-    console.log(JSON.stringify(postBody));
+    console.log('------Fail-to-update-an-entity---Model: %s---Reference Model: %s---Body: ', model.name, referenceModel!==null? referenceModel.name:'none', data.body);
     routeHelper.addErrorMessage(req, data.body.content, 400);
     next();
   });

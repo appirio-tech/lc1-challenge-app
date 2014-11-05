@@ -23,12 +23,14 @@
       ChallengeService.createChallenge($scope.challenge).then(function(data) {
         $scope.challenge = data;
         $state.go('edit-challenge', {challengeId: $scope.challenge.id});
+      }, function(response){
+        console.log('Fail to create a challenge: %o', response.data);
       });
     }
 
     /*watch challenge object*/
     $scope.$watch('challenge', function(newVal) {
-      if (newVal.title && newVal.title.trim() && newVal.overview && newVal.overview.trim() && newVal.description && newVal.description.trim()) {
+      if (newVal.title && newVal.title.trim() && newVal.overview && newVal.overview.trim() && newVal.description && newVal.description.trim() && newVal.tags && newVal.tags.length!==0) {
         $scope.publicBrowsing.complete = true;
       } else {
         $scope.publicBrowsing.complete = false;
@@ -53,16 +55,11 @@
         $scope.challenge.accountId = String($scope.prizes.customerAccountId);
       }
       // update challenge info
-      if ($scope.publicBrowsing.complete) {
-        ChallengeService.updateChallenge($scope.challenge).then(function(data) {
-          ChallengeService.getChallenge(data.id).then(function(data){
-            $scope.challenge = data;
-            // refetch prizes
-            getPrizes();
-            $window.location = '/';
-          });
+        ChallengeService.updateChallenge($scope.challenge).then(function() {
+          $window.location = '/';
+        }, function(response){
+          console.log('Fail to save the challenge: %o', response.data);
         });
-      }
     };
 
     /*get accounts based on the query string*/
@@ -71,11 +68,21 @@
       // query is field=value
       ChallengeService.getAccounts(query).then(function(data) {
         $scope.accounts = data;
+      }, function(response){
+        console.log('Fail to get all accounts: %o', response.data);
       });
     };
 
-    /*get all tags and initialize the tags inpu and initialize the tags input*/
+    /*get all tags and initialize the tags input and initialize the tags input*/
     $scope.tags = '';
+    //if tags already exist, initialize the tags string for typeahead input element
+    if($scope.challenge.tags){
+      angular.forEach($scope.challenge.tags, function(tag){
+        $scope.tags += tag + ','
+      });
+      $scope.tags = $scope.tags.slice(0, -1);
+    }else{
+    }
     var tagNames = null;
     function getAllTags() {
       ChallengeService.getAllTags().then(function(data) {
@@ -97,10 +104,11 @@
         $scope.$watch('tags', function(){
           $scope.challenge.tags=$("input.tags-input").tagsinput('items');
         });
+      }, function(response){
+        console.log('Fail to get tag list: %o', response.data);
       });
     }
-    //Don't get tags at this time.
-    //getAllTags();
+    getAllTags();
 
     /*launch a challenge*/
     $scope.launch = function() {
@@ -113,8 +121,9 @@
       }
       $scope.challenge.status = 'SUBMISSION';
       ChallengeService.launch($scope.challenge).then(function(data) {
-        console.log('launched challenge: ', $scope.challenge.id);
         $window.location = '/';
+      }, function(response){
+        console.log('Fail to launch challenge: %o', response.data);
       });
     };
 
