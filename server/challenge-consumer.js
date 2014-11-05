@@ -198,7 +198,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            json: body,
+            body: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -490,7 +490,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            json: body,
+            body: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -566,7 +566,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            json: body,
+            body: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -728,7 +728,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            json: body,
+            body: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2071,7 +2071,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            json: body,
+            body: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2147,7 +2147,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            json: body,
+            body: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2309,7 +2309,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            json: body,
+            body: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {

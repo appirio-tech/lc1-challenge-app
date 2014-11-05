@@ -20,7 +20,7 @@ The error message is directly responsed from the remote server.
 Then the url remain in ```http://localhost:8000/edit/#/new```.
 
 ### 2. Edit _"Information for Public Browsing Section"_
->All the following steps are described in the edit page after creating a draft challenge successfully or retrieving an existing challenge.
+>All the following steps are described in the edit page after creating a draft challenge successfully or retrieving an existing challenge. Sample challege id: 177.
 
 This section has 4 fields: Challenge Title, Overview, Description and Tags. And they will be initialized from the challenge entity.
 
@@ -84,6 +84,7 @@ If failure, a log will show up in the console.
 2. The text key in Requirement change from 'body' to 'requirementText' according to the remote api.(in client/edit-challenge/templates/requirement.html)
 3. The prize change from an individual model to a key in the challenge model. (in client/edit-challenge/js/controllers/create-challenge-controller.js and client/edit-challenge/js/services/challenge-service.js)
 4. File storage key change from 'storageType' to 'storageLocation'. (in server/routes/localUploadMiddleware.js)
+5. Store the account and accountId fields to challenge entity. (in client/edit-challenge/js/controllers/create-challenge-controller.js)
 
 ###Interaction issues
 > Some interaction in the page need a proper handler.
@@ -108,6 +109,99 @@ If failure, a log will show up in the console.
 3. If user delete the files, these files won't be remove from the local directory. I think the requirement haven't asked this and the original code base haven't done this too. There will be many options to choose a location to store the file like aws, local etc. So it is no need to do this logic at this time.
 
 #Manifest
+Following Source Code have been updated or created.
+
+###1. client/edit-challenge/js/app.js
+add status 'DRAFT' to the new created challenge.
+
+###2. client/edit-challenge/js/controllers/challenge-file-upload-controller.js
+update the file related CURD operations and front-end functions.
+
+###3. client/edit-challenge/js/controllers/create-challenge-controller.js
+update the challenge and its prizes, tags and accounts related CURD operations and front-end functions.
+
+###4. client/edit-challenge/js/controllers/requirements-controller.js
+update requirement related functions.
+
+###5. client/edit-challenge/js/services/challenge-service.js
+add getFile and getRequirement function to RESTful call list.
+
+###6. client/edit-challenge/templates/requirement.html
+update the template based on the new logic.
+
+###7. config/default.js
+change the challengeServiceURI from 'http://lc1-challenge-service.herokuapp.com/' to 'http://lc1-challenge-service.herokuapp.com'. Otherwise, it will cause errors when requesting in challenge-concumer.js.
+
+###8. docs/edit_api_usage_30046908.md
+The doc you are looking at.
+
+###9. package.json
+add q and request modules.
+
+###10. server/challenge-consumer.js
+change the key from body to json in each used request options. only put and post related method need this updation.
+
+###11. server/libs/apiConsumerHelper.js
+This is a map lib which help to map the api calls in challenge-consumer to Model CURD functions which will be utilized in building model controllers.
+
+###12. server/routes/accounts.js
+change the get route to get json data directly.
+
+###13. server/routes/tags.js
+change the get route to get json data directly.
+
+###14. server/routes/challenges.js
+update each model's controller by calling the new buildcontroller function.
+
+###15. server/routes/localUploadMiddleware.js
+update the field in File object and the upload dir.
+
+###16. server/routes/controllerHelper.js
+update the controller builder. It gets the model data from remote api by calling each model's own CURD functions.
+
+###Note:
+I have implemented 12 api calls in this challenge. They all list in server/libs/apiConsumerHelper.js.
+They covered the functionality in edit page.
+
+#Architecture
+The connection between client, server and remote-api is precise.
+The controllerHelper.js buid CURD operations for each model. And apiConsumerHelper.js maps each model's CURD functions to remote api calls which contained in challenge-consumer.js.
+
+The only one thing we must focus is the referenceModel. The referenceModel has 0-n models. So this architecture is ok for 2 level nesting relationship.
+
+I think it can be enhanced and fulfill for multi-level nesting relationship too.
+
+For 3 levels, it can become 
+	
+	buildController(model, refModel1, refModel2);
+
+For 4 levels:
+	
+	buildController(model, refMOdel1, refModel2, refModel3);
+	
+...
+	
+And javascript support calling a method by passing uncertain amount of parameters. We can enumerate all of the refModel and build the relationship through the modelId.
+
+Such as:
+
+Challenge has many files. Challenge has many submissions. Submission has many files.
+
+Then we get 4 main routers:
+
+1. challenge CURD.
+2. challenge's submission's CURD.
+3. challenge's file's CURD.
+4. submission's files' CURD.
+
+Then they can be handled by following controllers:
+
+1. ChallengeController = buildController(Challenge, null);
+2. SubmissionController = buildController(Submission, Challenge);
+3. ChallengeFileController = buildController(File, Challenge);
+4. SubmissionFileController = buildController(File, Submission, Challenge);
+
+I haven't implemented this version of controllerHelper.js in my submission. But it is possible, theoretically. Maybe in future challenge, I can make it out.
 
 
 
