@@ -28,14 +28,16 @@
         return;
       }
       var requirementData = {
-        body: $scope.requirements.content
+        requirementText: $scope.requirements.content
       };
       ChallengeService.createRequirement($scope.challenge.id, requirementData).then(function(data) {
-        $scope.requirements.requirementList.push(data);
-        $scope.requirements.content = '';
-        if ($scope.requirements.requirementList.length > 0) {
-          $scope.requirements.complete = true;
-        }
+        ChallengeService.getRequirement($scope.challenge.id, data.id).then(function(data){
+          $scope.requirements.requirementList.push(data);
+          $scope.requirements.content = '';
+          if ($scope.requirements.requirementList.length > 0) {
+            $scope.requirements.complete = true;
+          }
+        });
       });
 
     };

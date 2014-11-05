@@ -7,13 +7,14 @@ var _ = require('lodash');
 var fse = require('fs-extra');
 var multiparty = require('multiparty');
 var routeHelper = require('./routeHelper');
+var path = require('path');
 
 
-var uploadDirectory = './upload';
+var uploadDirectory = '/upload';
 
 module.exports.handleUpload = function(req, res, next) {
 
-  var form = new multiparty.Form({uploadDir: './upload'});
+  var form = new multiparty.Form({uploadDir:  + path.join(__dirname, '..', uploadDirectory)});
 
   // parsing form:
   // use callback version to collect fields and files together than event handler.
@@ -22,9 +23,7 @@ module.exports.handleUpload = function(req, res, next) {
     if (err) {
       routeHelper.addError(req, err);
     } else {
-      var file = {
-        id: req.params.challengeId   // all files have the id that's same as challenge.id in json file.
-      };
+      var file = {};
       // add field parameters
       Object.keys(fields).forEach(function(name) {
         file[name] = fields[name][0];
@@ -39,11 +38,11 @@ module.exports.handleUpload = function(req, res, next) {
         filePath : targetPath,
         fileName : fileName,
         size : receivedFile.size,
-        storageType : 'local'     // local by default
+        storageLocation : 'local'     // local by default
       });
 
       // move file, overwrite if exists
-      fse.move(receivedFile.path, targetPath, {clobber: true}, function(err) {
+      fse.move(receivedFile.path, path.join(__dirname, '..', targetPath), {clobber: true}, function(err) {
         if(err) {
           console.log('Error moving file [ ' + targetPath + ' ] ' + JSON.stringify(err));
           routeHelper.addError(req, err);
@@ -52,9 +51,8 @@ module.exports.handleUpload = function(req, res, next) {
 
       // save file data to req.body and pass it to next handler
       req.body = file;
-      
     }
     next();
   });
   
-}
+};

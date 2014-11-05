@@ -34,7 +34,9 @@
     "logfmt": "~1.2.0",
     "multiparty": "^4.0.0",
     "passport": "~0.2.1",
-    "passport-auth0": "~0.2.0"
+    "passport-auth0": "~0.2.0",
+    "request": "~2.47.0",
+    "q": "~1.0.1"
   },
   "engines": {
     "node": "0.10.x"

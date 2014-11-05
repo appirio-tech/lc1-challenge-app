@@ -9,9 +9,9 @@
 	  .module('edit.challenge')
 	  .controller('CreateChallengeController', CreateChallengeController);
 
-	CreateChallengeController.$inject = ['$scope', '$timeout', '$filter', '$state', 'ChallengeService', 'challenge'];
+	CreateChallengeController.$inject = ['$scope', '$timeout', '$filter', '$state', 'ChallengeService', 'challenge', '$window'];
 
-	function CreateChallengeController($scope, $timeout, $filter, $state, ChallengeService, challenge) {
+	function CreateChallengeController($scope, $timeout, $filter, $state, ChallengeService, challenge, $window) {
     
     $scope.challenge = challenge;
     $scope.publicBrowsing = {
@@ -41,32 +41,27 @@
         $scope.challenge.regStartAt = concatenateDateTime($scope.timeLine.stdt, $scope.timeLine.timeSelectedStart);
         $scope.challenge.subEndAt = concatenateDateTime($scope.timeLine.enddt, $scope.timeLine.timeSelectedEnd);
       }
+      // save prize account and accountId
+      if ($scope.prizes.complete) {
+        $scope.challenge.prizes = [];
+        angular.forEach($scope.placePrizes.places, function(prize) {
+          if (prize.active && prize.prize > 0) {
+            $scope.challenge.prizes.push(Number(prize.prize));
+          }
+        });
+        $scope.challenge.account = $scope.prizes.customerAccountName;
+        $scope.challenge.accountId = String($scope.prizes.customerAccountId);
+      }
       // update challenge info
       if ($scope.publicBrowsing.complete) {
         ChallengeService.updateChallenge($scope.challenge).then(function(data) {
-          $scope.challenge = data;
+          ChallengeService.getChallenge(data.id).then(function(data){
+            $scope.challenge = data;
+            // refetch prizes
+            getPrizes();
+            $window.location = '/';
+          });
         });
-      }
-      // save prizes
-      if ($scope.prizes.complete) {
-        var place = 1;
-        angular.forEach($scope.placePrizes.places, function(prize) {
-          if (prize.active && prize.prize > 0) {
-            prize.place = place;
-            if (prize.id) {
-              ChallengeService.updatePrize(prize).then(function(data) {
-                console.log('updated prize: ', data.id);
-              });
-            } else {
-              ChallengeService.createPrize($scope.challenge.id, prize).then(function(data) {
-                console.log('created prize: ', data.id);
-              });
-            }
-            place += 1;
-          }
-        });
-        // refetch prizes
-        getPrizes();
       }
     };
 
@@ -86,14 +81,24 @@
         $scope.allTags = data;
       });
     };
-    getAllTags();
+    //Don't get tags at this time.
+    //getAllTags();
 
     /*launch a challenge*/
     $scope.launch = function() {
+      if( !$scope.publicBrowsing.complete ||
+          !$scope.fileBrowsing.complete ||
+          !$scope.requirements.complete ||
+          !$scope.timeLine.complete ||
+          !$scope.prizes.complete){
+          return;
+      }
+      $scope.challenge.status = 'SUBMISSION';
       ChallengeService.launch($scope.challenge).then(function(data) {
         console.log('launched challenge: ', $scope.challenge.id);
+        $window.location = '/';
       });
-    }
+    };
 
     /*------------------------*/
     /*  file browsing section */
@@ -280,18 +285,21 @@
     };
 
     function getPrizes() {
-      ChallengeService.getPrizes($scope.challenge.id).then(function(data) {
-        for (var i=0; i<data.length; i+=1) {
-          if (data[i].prize) {
-            $scope.placePrizes.places[i] = data[i];
-          }
+      var data = $scope.challenge.prizes || [];
+      for (var i=0; i<data.length; i+=1) {
+        $scope.placePrizes.places[i] = {
+          id: i+1,
+          active: true,
+          prize: data[i]
+        };
+      }
+      if (data.length !== 0 ) {
+        for (var i=data.length; i<5; i+=1) {
+          $scope.placePrizes.places[i] = {active: false, prize: null};
         }
-        if (data.length < 5) {
-          for (var i=data.length; i<5; i+=1) {
-            $scope.placePrizes.places[i] = {active: false, prize: null};
-          }
-        }
-      });
+        $scope.prizes.customerAccountId = $scope.challenge.accountId;
+        $scope.prizes.customerAccountName = $scope.challenge.account;
+      }
     }
     // get prizes in the challenge
     if ($scope.challenge.id) {
@@ -310,11 +318,6 @@
 
     /*remove Place prize*/
     $scope.removePlacePrize = function(place, index) {
-      if (place.id) {
-        ChallengeService.deletePrize(place).then(function(data) {
-          console.log('deleted prize ', data.id);
-        });
-      }
       place.id = null;
       place.active = false;
       place.prize = null;

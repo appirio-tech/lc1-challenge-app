@@ -22,9 +22,9 @@
         </div>
         <!--End .actions-->
 
-        <p data-ng-if="!requirement.edit">{{requirement.body}}</p>
+        <p data-ng-if="!requirement.edit">{{requirement.requirementText}}</p>
         <div data-ng-if="requirement.edit" class="textarea-cnt">
-          <textarea data-maxlength="800" data-ng-model="requirement.body"></textarea>
+          <textarea data-maxlength="800" data-ng-model="requirement.requirementText"></textarea>
         </div>
         <!--End .DESC-->
       </div>

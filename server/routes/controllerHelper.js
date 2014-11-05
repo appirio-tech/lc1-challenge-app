@@ -12,52 +12,58 @@ var routeHelper = require('./routeHelper');
 var fs = require('fs');
 
 
-// get all data from json file
-function _getDataFromJson(jsonfile, callback) {
-  fs.readFile(jsonfile, function(err, fileData) {
-    if (err) {
-      callback(err);
-    } else {
-      var entities = JSON.parse(fileData);
-      callback(null, entities);
-    }
-  });
-}
-
-// get all entitities data by filtering
-function _getAllEntities(model, referenceModel, jsonfile, req, callback) {
-  _getDataFromJson(jsonfile, function(err, entities) {
-    if (err) {
-      callback(err);
-    } else {
-      if (referenceModel) {
-        var refId = routeHelper.getRefIdField(referenceModel);
-        var filteredEntities = _.filter(entities, function(entity) {
-          return entity[refId] === Number(req.params[refId]);
-        });
-        entities = filteredEntities;
-      }
-    }
-    callback(null, entities);
+// get all entities
+function _getAllEntities(model, referenceModel, req, callback) {
+  var filter = {};
+  if(referenceModel){
+    var refId = routeHelper.getRefIdField(referenceModel.name);
+    filter[refId] = req.params[refId];
+  }
+  model.all(filter).then(function(data){
+    console.log('-----------get-all-entities-------', data.body);
+    callback(null, data.body.content);
+  }, function(data){
+    routeHelper.addErrorMessage(req, data.body.content, 404);
+    callback(req.error);
   });
 }
 
 // find an entity by id
-function _findEntityById(model, referenceModel, jsonfile, req, callback) {
-  _getAllEntities(model, referenceModel, jsonfile, req, function(err, entities) {
-    if (err) {
-      routeHelper.addError(req, err);
-    } else {
-      var idParam = routeHelper.getRefIdField(model);
-      var id = Number(req.params[idParam]);
-      for(var i=0; i<entities.length; i++) {
-        if (entities[i].id === id) {
-          callback(null, entities[i]);
-          return;
-        }
-      }
-      routeHelper.addErrorMessage(req, "Entity not found", 404);
-    }
+function _findEntityById(model, referenceModel, req, callback) {
+  var idParamKey = routeHelper.getRefIdField(model.name);
+  var id = Number(req.params[idParamKey]);
+  var param = {};
+  param[idParamKey] = id;
+
+  if (referenceModel) {
+    var refIdKey = routeHelper.getRefIdField(referenceModel.name);
+    param[refIdKey] = req.params[refIdKey];
+  }
+
+  model.get(param).then(function(data){
+    console.log('-----------get-one-entity-------', data.body);
+    callback(null, data.body.content);
+  }, function(data){
+    routeHelper.addErrorMessage(req, data.body.content, 404);
+    callback(req.error);
+  });
+}
+
+function _deleteEntityById(model, referenceModel, req, callback){
+  var idParamKey = routeHelper.getRefIdField(model.name);
+  var id = Number(req.params[idParamKey]);
+  var param = {};
+  param[idParamKey] = id;
+
+  if (referenceModel) {
+    var refIdKey = routeHelper.getRefIdField(referenceModel.name);
+    param[refIdKey] = req.params[refIdKey];
+  }
+  model.delete(param).then(function(data){
+    console.log('-----------delete-one-entity-------', data.body);
+    callback(null, data.body);
+  }, function(data){
+    routeHelper.addErrorMessage(req, data.body.content, 404);
     callback(req.error);
   });
 }
@@ -66,15 +72,14 @@ function _findEntityById(model, referenceModel, jsonfile, req, callback) {
  * This function retrieves all entities in the model filtered by referencing model and single field filter.
  * @param model the entity model
  * @param referenceModel the parent model
- * @param jsonfile the json data file
  * @param req the request
  * @param res the response
  * @param next the next function in the chain
  */
-function getEntities(model, referenceModel, jsonfile, req, res, next) {
-  _getAllEntities(model, referenceModel, jsonfile, req, function(err, entities) {
+function getEntities(model, referenceModel, req, res, next) {
+  _getAllEntities(model, referenceModel, req, function(err, entities) {
     if (err) {
-      routeHelper.addError(req, err);
+      console.log('Error Message: ' + JSON.stringify(err));
     } else {
       // support simple filtering by field=value
       if (req.query && req.query.filter) {
@@ -108,37 +113,34 @@ function getEntities(model, referenceModel, jsonfile, req, res, next) {
  */
 function createEntity(model, referenceModel, req, res, next) {
   var entity = req.body;
+  var postBody = {body: entity};
 
   if (referenceModel) {
-    var refId = routeHelper.getRefIdField(referenceModel);
-    entity[refId] = req.params[refId];
-    // add id same as reference model, the json data file was created to have a same id as parent model.
-    // please ignore the id.
-    entity.id = req.params[refId];
+    var refId = routeHelper.getRefIdField(referenceModel.name);
+    entity[refId] = Number(req.params[refId]);
+    postBody[refId] = Number(req.params[refId]);
   }
-  if (!entity.id) {
-    entity.id = _.random(1, 10);    // add random id
-  }
-  // print the created entity to the console
-  console.log('\nCreate '+model+': ', entity);
-  req.data = entity;
-  next();
+  model.create(postBody).then(function(data){
+    console.log('---------create-an-entity-------', data.body);
+    req.data = data.body;
+    next();
+  }, function(data){
+    routeHelper.addErrorMessage(req, data.body.content, 400);
+    next();
+  });
 }
 
 /**
  * This function gets an entity by id.
  * @param model the entity model
  * @param referenceModel the parent model
- * @param jsonfile the json data file
  * @param req the request
  * @param res the response
  * @param next the next function in the chain
  */
-function getEntity(model, referenceModel, jsonfile, req, res, next) {
-  _findEntityById(model, referenceModel, jsonfile, req, function(err, entity) {
+function getEntity(model, referenceModel, req, res, next) {
+  _findEntityById(model, referenceModel, req, function(err, entity) {
     if (!err) {
-      // print the entity found to the console
-      console.log('\nGet '+model+': ', entity);
       req.data = entity;
     }
     next();
@@ -150,19 +152,35 @@ function getEntity(model, referenceModel, jsonfile, req, res, next) {
  * This function updates an entity.
  * @param model the entity model
  * @param referenceModel the parent model
- * @param jsonfile the json data file
  * @param req the request
  * @param res the response
  * @param next the next function in the chain
  */
-function updateEntity(model, referenceModel, jsonfile, req, res, next) {
-  _findEntityById(model, referenceModel, jsonfile, req, function(err, entity) {
-    if (!err) {
-      _.extend(entity, req.body);
-      // print the updated entity to console
-      console.log('\nUpdate '+model+': ', entity);
-      req.data = entity;
+function updateEntity(model, referenceModel, req, res, next) {
+  var entity = req.body;
+  _.forEach(_.keys(entity), function(key){
+    if(!entity[key]){
+      delete entity[key];
     }
+  });
+  console.log(entity);
+  var postBody = {body: entity};
+
+  var idParamKey = routeHelper.getRefIdField(model.name);
+  postBody[idParamKey] = Number(req.params[idParamKey]);
+
+  if (referenceModel) {
+    var refId = routeHelper.getRefIdField(referenceModel.name);
+    entity[refId] = Number(req.params[refId]);
+    postBody[refId] = Number(req.params[refId]);
+  }
+  model.update(postBody).then(function(data){
+    console.log('---------update-an-entity-------', data.body);
+    req.data = data.body;
+    next();
+  }, function(data){
+    console.log(JSON.stringify(postBody));
+    routeHelper.addErrorMessage(req, data.body.content, 400);
     next();
   });
 
@@ -172,17 +190,14 @@ function updateEntity(model, referenceModel, jsonfile, req, res, next) {
  * This function deletes an entity.
  * @param model the entity model
  * @param referenceModel the parent model
- * @param jsonfile the json data file
  * @param req the request
  * @param res the response
  * @param next the next function in the chain
  */
-function deleteEntity(model, referenceModel, jsonfile, req, res, next) {
-  _findEntityById(model, referenceModel, jsonfile, req, function(err, entity) {
+function deleteEntity(model, referenceModel, req, res, next) {
+  _deleteEntityById(model, referenceModel, req, function(err, result) {
     if (!err) {
-      // print the deleted entity to console
-      console.log('\nDelete '+model+': ', entity);
-      req.data = entity;
+      req.data = result;
     }
     next();
   });
@@ -192,12 +207,12 @@ function deleteEntity(model, referenceModel, jsonfile, req, res, next) {
 /**
  * Build the CRUD controller for a model.
  */
-exports.buildController = function(model, referenceModel, jsonfile) {
+exports.buildController = function(model, referenceModel) {
   var controller = {};
 
   // Get an entity.
   controller.get = function(req, res, next) {
-    getEntity(model, referenceModel, jsonfile, req, res, next);
+    getEntity(model, referenceModel, req, res, next);
   };
 
   // Create an entity.
@@ -207,17 +222,17 @@ exports.buildController = function(model, referenceModel, jsonfile) {
 
   // Update an entity.
   controller.update = function(req, res, next) {
-    updateEntity(model, referenceModel, jsonfile, req, res, next);
+    updateEntity(model, referenceModel, req, res, next);
   };
 
   // Retrieve all entities.
   controller.all = function(req, res, next) {
-    getEntities(model, referenceModel, jsonfile, req, res, next);
+    getEntities(model, referenceModel, req, res, next);
   };
 
   // Delete an entity.
   controller.delete = function(req, res, next) {
-    deleteEntity(model, referenceModel, jsonfile, req, res, next);
+    deleteEntity(model, referenceModel, req, res, next);
   };
 
   return controller;

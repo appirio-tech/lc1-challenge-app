@@ -61,9 +61,13 @@
       ChallengeService.uploadChallengeFile($scope.challenge.id, fileData).then(function(data) {
           $scope.progress = 100;
           // add file to list
-          $scope.fileBrowsing.uploadedFiles.push(data);
+          ChallengeService.getFile($scope.challenge.id, data.id).then(function(data){
+            $scope.fileBrowsing.uploadedFiles.push(data);
+            resetUploadForm();
+          },function(err){
+            console.log('upload: error: ', err);
+          });
           // clear form
-          resetUploadForm();
         },
         function(error) {
           console.log('upload: error: ', error);
@@ -82,6 +86,8 @@
         if ($scope.fileBrowsing.uploadedFiles.length === 0) {
           $scope.fileBrowsing.complete = false;
         }
+      }, function(err){
+        console.log(err);
       });
 
     };

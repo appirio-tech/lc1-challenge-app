@@ -52,6 +52,7 @@
               return {
                 title: 'Untitled Challenge',
                 type: 'Architecture',
+                status: 'DRAFT'
               };
             }
           }

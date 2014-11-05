@@ -25,16 +25,13 @@
       launch: launchChallenge,
 
       getRequirements: getRequirements,
+      getRequirement: getRequirement,
       createRequirement: createRequirement,
       updateRequirement: updateRequirement,
       deleteRequirement: deleteRequirement,
 
-      getPrizes: getPrizes,
-      createPrize: createPrize,
-      updatePrize: updatePrize,
-      deletePrize: deletePrize,
-
       getFiles: getFiles,
+      getFile: getFile,
       uploadChallengeFile: uploadChallengeFile,
       deleteFile: deleteFile,
 
@@ -75,7 +72,7 @@
 
     /*launch the challenge*/
     function launchChallenge(challenge) {
-      return Restangular.one('challenges', challenge.id).customPOST({}, 'launch', {}, {'Content-type':undefined});
+      return Restangular.one('challenges', challenge.id).customPOST(challenge, 'launch', {}, {'Content-type':'application/json'});
     }
 
     /*----------------------*/
@@ -85,6 +82,10 @@
     /*get all requirements in the challenge*/
     function getRequirements(challengeId) {
       return Restangular.one('challenges', challengeId).all('requirements').getList();
+    }
+    /*get a single requirement in the challenge*/
+    function getRequirement(challengeId, requirementId) {
+      return Restangular.one('challenges', challengeId).one('requirements', requirementId).get();
     }
 
     /*add new requirement to the challenge*/
@@ -102,30 +103,6 @@
       return requirement.remove();
     }
 
-    /*----------------*/
-    /* prizes APIs */
-    /*----------------*/
-
-    /*get all prizes in the challenge*/
-    function getPrizes(challengeId) {
-      return Restangular.one('challenges', challengeId).all('prizes').getList();
-    }
-
-    /*add a prize to the challenge*/
-    function createPrize(challengeId, data) {
-      return Restangular.one('challenges', challengeId).all('prizes').post(data);
-    }
-
-    /*update a prize on the challenge*/
-    function updatePrize(prize) {
-      return prize.put();
-    }
-
-    /*delete a prize on the challenge*/
-    function deletePrize(prize) {
-      return prize.remove();
-    }
-
     /*---------------*/
     /* files APIs */
     /*---------------*/
@@ -133,6 +110,11 @@
     /*get all files in the challenge*/
     function getFiles(challengeId) {
       return Restangular.one('challenges', challengeId).all('files').getList();
+    }
+
+    /*get a single file in the challenge*/
+    function getFile(challengeId, fileId) {
+      return Restangular.one('challenges', challengeId).one('files', fileId).get();
     }
 
     /*upload a file to the challenge*/

@@ -8,11 +8,14 @@ var router = express.Router();
 var routeHelper = require('./routeHelper');
 var controllerHelper = require('./controllerHelper');
 var localFileUploader = require('./localUploadMiddleware');
+var apiConsumerHelper = require('../libs/apiConsumerHelper');
+var Challenge = apiConsumerHelper.Challenge;
+var File = apiConsumerHelper.File;
+var Requirement = apiConsumerHelper.Requirement;
 
 
-// mock challenge controller
-var challengeJsonFile = routeHelper.EDIT_DATA_PATH+'/challenges.json';
-var challengeController = controllerHelper.buildController('Challenge', null, challengeJsonFile);
+// challenge controller
+var challengeController = controllerHelper.buildController(Challenge, null);
 
 router.route('/')
   .get(challengeController.all, routeHelper.renderJson)
@@ -22,11 +25,10 @@ router.route('/:challengeId')
   .put(challengeController.update, routeHelper.renderJson)
   .delete(challengeController.delete, routeHelper.renderJson);
 router.route('/:challengeId/launch')
-  .post(challengeController.get, launchChallenge, challengeController.update, routeHelper.renderJson);
+  .post(challengeController.update, routeHelper.renderJson);
 
-// mock requirement controller
-var requirementJsonFile = routeHelper.EDIT_DATA_PATH+'/requirements.json';
-var requirementController = controllerHelper.buildController('Requirement', 'Challenge', requirementJsonFile);
+// requirement controller
+var requirementController = controllerHelper.buildController(Requirement, Challenge);
 
 router.route('/:challengeId/requirements')
   .get(requirementController.all, routeHelper.renderJson)
@@ -37,9 +39,8 @@ router.route('/:challengeId/requirements/:requirementId')
   .delete(requirementController.delete, routeHelper.renderJson);
 
 
-// mock file controller
-var fileJsonFile = routeHelper.EDIT_DATA_PATH+'/files.json';
-var fileController = controllerHelper.buildController('File', 'Challenge', fileJsonFile);
+// file controller
+var fileController = controllerHelper.buildController(File, Challenge);
 
 router.route('/:challengeId/files')
   .get(fileController.all, routeHelper.renderJson)
@@ -48,28 +49,6 @@ router.route('/:challengeId/files/:fileId')
   .get(fileController.get, routeHelper.renderJson)
   .put(fileController.update, routeHelper.renderJson)
   .delete(fileController.delete, routeHelper.renderJson);
-
-
-// mock prize controller
-var prizeJsonFile = routeHelper.EDIT_DATA_PATH+'/prizes.json';
-var prizeController = controllerHelper.buildController('Prize', 'Challenge', prizeJsonFile);
-router.route('/:challengeId/prizes')
-  .get(prizeController.all, routeHelper.renderJson)
-  .post(prizeController.create, routeHelper.renderJson);
-router.route('/:challengeId/prizes/:prizeId')
-  .get(prizeController.get, routeHelper.renderJson)
-  .put(prizeController.update, routeHelper.renderJson)
-  .delete(prizeController.delete, routeHelper.renderJson);
-
-
-// launch challenge, change the status to active
-function launchChallenge(req, res, next) {
-  // challenge is in req.data
-  var challenge = req.data;
-  challenge.status = 'Active';
-  req.body = challenge;
-  next();
-}
 
 
 module.exports = router;
