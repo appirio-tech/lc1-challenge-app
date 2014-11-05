@@ -1,3 +1,13 @@
+#Submission Details
+1. Heroku App: https://blooming-plains-7733.herokuapp.com
+
+2. Pull Request: https://github.com/appirio-tech/lc1-challenge-app/pull/8
+
+3. Video: https://www.dropbox.com/s/n720fji70jlmyqf/2014-11-06_0149.swf?dl=0 (I am sorry I have a network problem when upload this video to screencast.com. So you have to download it and view it.)
+
+
+
+
 #Validations for the functionality in edit page
 
 > This section contains all the validations for the functionality in edit page. Please have the node_modules and bower_compontes installed first and then run ```grunt``` to start the app.
