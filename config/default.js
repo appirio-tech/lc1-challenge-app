@@ -1,14 +1,10 @@
-/**
- * Copyright (c) 2014 TopCoder, Inc. All rights reserved.
- */
-
-/**
- * default config file
- */
 'use strict';
 
-var config = {
-  challengeApiDomain: 'http://lc1-challenge-service.herokuapp.com'
+module.exports = {
+  challengeServiceURI: 'http://lc1-challenge-service.herokuapp.com/',
+  auth0: {
+    Domain: process.env.TC_AUTH0_DOMAIN || 'serenity-tc.auth0.com',
+    Client: process.env.TC_AUTH0_CLIENT || 'foo',
+    Secret: process.env.TC_AUTH0_SECRET || 'bar'
+  }
 };
-
-module.exports = config;

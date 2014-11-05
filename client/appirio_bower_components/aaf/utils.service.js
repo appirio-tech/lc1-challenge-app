@@ -18,7 +18,9 @@
     var _challenges;
 
     var serviceAPI = {
-      apiCall: apiCall,
+      apiGet: apiGet,
+      apiUpdate: apiUpdate,
+      apiPost: apiPost,
       initCase: initCase,
       getBrowser: getBrowser,
       getJsonData: getJsonData,
@@ -77,11 +79,40 @@
       return deferred.promise;
     }
 
-    function apiCall(uri) {
+    //TODO: refactor http calls
+    function apiGet(uri) {
       var deferred = $q.defer();      
       $http({method: 'GET', url: uri})
         .success(function (data, status, headers, config) {
-          $log.debug('data back from api call: ', data.content);
+          $log.debug('data back from get call: ', data.content);
+          deferred.resolve(data.content);
+        })
+        .error(function (data, status, headers, config) {
+          deferred.reject(data);
+        });
+      return deferred.promise;
+    }
+
+    function apiPost(uri, body) {
+      console.log('in api create', uri, body)
+      var deferred = $q.defer();      
+      $http.post(uri, body)
+        .success(function (data, status, headers, config) {
+          $log.debug('data back from create call: ', data.content);
+          deferred.resolve(data.content);
+        })
+        .error(function (data, status, headers, config) {
+          deferred.reject(data);
+        });
+      return deferred.promise;
+    }    
+
+    function apiUpdate(uri, body) {
+      console.log('in api update', uri, body)
+      var deferred = $q.defer();      
+      $http.put(uri, body)
+        .success(function (data, status, headers, config) {
+          $log.debug('data back from update call: ', data.content);
           deferred.resolve(data.content);
         })
         .error(function (data, status, headers, config) {
