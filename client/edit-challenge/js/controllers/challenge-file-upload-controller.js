@@ -9,9 +9,9 @@
     .module('edit.challenge')
     .controller('ChallengeFileUploadController', ChallengeFileUploadController);
 
-  ChallengeFileUploadController.$inject = ['$scope', '$document', '$upload', 'ChallengeService'];
+  ChallengeFileUploadController.$inject = ['$scope', '$timeout', '$document', '$upload', 'ChallengeService'];
 
-  function ChallengeFileUploadController($scope, $document, $upload, ChallengeService) {
+  function ChallengeFileUploadController($scope, $timeout, $document, $upload, ChallengeService) {
 
     function resetUploadForm() {
       $scope.fileName = '';
@@ -42,36 +42,42 @@
     };
 
     /*start uploading*/
-    $scope.uploadFile = function() {
-      if (!$scope.fileName) {
-        $scope.fileNameInvalid = true;
+    var uploadUrl = '/challenges/' + $scope.challenge.id +'/uploadfile';
+    $scope.doUpload = function (file) {
+      if ($scope.fileName === '') {
         return;
       }
-      if (!$scope.fileTitle) {
-        $scope.fileTitleInvalid = true;
-        return;
-      }
-
-      var fileData = {
-        title: $scope.fileTitle,
-        file: $scope.selectedFile
-      };
       $scope.uploading = true;
+      $scope.upload = $upload.upload({
+        url: uploadUrl,
+        method: "POST",
+        data: {
+          title: $scope.fileTitle
+        },
+        file: $scope.selectedFile,
+        fileFormDataName: 'files'
+      });
+      $scope.upload.then(function (uploadResponse) {    // success
 
-      ChallengeService.uploadChallengeFile($scope.challenge.id, fileData).then(function(data) {
-          $scope.progress = 100;
-          // add file to list
-          $scope.fileBrowsing.uploadedFiles.push(data);
-          // clear form
-          resetUploadForm();
-        },
-        function(error) {
-          console.log('upload: error: ', error);
-        },
-        function(progress) {
-          console.log('upload: progress: ', progress);
-        }
-      );
+        ChallengeService.createFile($scope.challenge.id, uploadResponse.data)
+          .then(function(actionResponse) {
+            return ChallengeService.getFile($scope.challenge.id, actionResponse.id);
+          })
+          .then(function(file) {
+            // add file to list
+            $scope.fileBrowsing.uploadedFiles.push(file);
+            // clear form
+            resetUploadForm();            
+          }, function(err) {
+            console.log('createFile: error: ', err);
+          });
+
+      }, function (err) {    // error
+        console.log('doUpload: error: ', err);
+      }, function (evt) {   // progress notify
+        // Math.min is to fix IE which reports 200% sometimes
+        $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
     };
 
     /*remove file*/

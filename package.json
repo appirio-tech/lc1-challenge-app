@@ -34,11 +34,15 @@
     "lodash": "^2.4.1",
     "logfmt": "~1.2.0",
     "multiparty": "^4.0.0",
+    "node-env-file": "^0.1.4",
     "passport": "~0.2.1",
     "passport-auth0": "~0.2.0",
+    "q": "^1.0.1",
+    "request": "^2.47.0",
     "request-json": "~0.5.0",
     "knox": "^0.9.1",
     "batch": "^0.5.1"
+
   },
   "engines": {
     "node": "0.10.x"

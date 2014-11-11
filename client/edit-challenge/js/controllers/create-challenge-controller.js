@@ -21,8 +21,7 @@
     /*save new challenge*/
     if ($scope.challenge && !$scope.challenge.id) {
       ChallengeService.createChallenge($scope.challenge).then(function(data) {
-        $scope.challenge = data;
-        $state.go('edit-challenge', {challengeId: $scope.challenge.id});
+        $state.go('edit-challenge', {challengeId: data.id});
       });
     }
 
@@ -40,34 +39,30 @@
       if ($scope.timeLine.complete) {
         $scope.challenge.regStartAt = concatenateDateTime($scope.timeLine.stdt, $scope.timeLine.timeSelectedStart);
         $scope.challenge.subEndAt = concatenateDateTime($scope.timeLine.enddt, $scope.timeLine.timeSelectedEnd);
-      }
+      };
+
+      if ($scope.prizes.customerAccountName) {
+        $scope.challenge.account = $scope.prizes.customerAccountName;
+      };
+      if ($scope.prizes.customerAccountId) {
+        $scope.challenge.accountId = ''+$scope.prizes.customerAccountId;
+      };
+      // grap prizes
+      var prizes = [];
+      _.each($scope.placePrizes.places, function(place) {
+        if (place.active && place.prize > 0) {
+          prizes.push(Number(place.prize));
+        }
+      });
+      $scope.challenge.prizes = prizes;
+
       // update challenge info
-      if ($scope.publicBrowsing.complete) {
-        ChallengeService.updateChallenge($scope.challenge).then(function(data) {
-          $scope.challenge = data;
-        });
-      }
-      // save prizes
-      if ($scope.prizes.complete) {
-        var place = 1;
-        angular.forEach($scope.placePrizes.places, function(prize) {
-          if (prize.active && prize.prize > 0) {
-            prize.place = place;
-            if (prize.id) {
-              ChallengeService.updatePrize(prize).then(function(data) {
-                console.log('updated prize: ', data.id);
-              });
-            } else {
-              ChallengeService.createPrize($scope.challenge.id, prize).then(function(data) {
-                console.log('created prize: ', data.id);
-              });
-            }
-            place += 1;
-          }
-        });
-        // refetch prizes
-        getPrizes();
-      }
+      ChallengeService.updateChallenge($scope.challenge).then(function(actionResponse) {
+        console.log('updated challenge: ', actionResponse.id);
+      }, function(errorResponse) {
+        console.log('update challenge: error: ', errorResponse);
+      });
+
     };
 
     /*get accounts based on the query string*/
@@ -108,8 +103,9 @@
 
     /*launch a challenge*/
     $scope.launch = function() {
-      ChallengeService.launch($scope.challenge).then(function(data) {
+      ChallengeService.launch($scope.challenge).then(function(actionResponse) {
         console.log('launched challenge: ', $scope.challenge.id);
+        window.location.href = '/';
       });
     }
 
@@ -178,33 +174,13 @@
     };
 
     /*times*/
-    $scope.times = [
-      {'time': '00:00:00'},
-      {'time': '01:00:00'},
-      {'time': '02:00:00'},
-      {'time': '03:00:00'},
-      {'time': '04:00:00'},
-      {'time': '05:00:00'},
-      {'time': '06:00:00'},
-      {'time': '07:00:00'},
-      {'time': '08:00:00'},
-      {'time': '09:00:00'},
-      {'time': '10:00:00'},
-      {'time': '00:00:00'},
-      {'time': '11:00:00'},
-      {'time': '12:00:00'},
-      {'time': '13:00:00'},
-      {'time': '14:00:00'},
-      {'time': '15:00:00'},
-      {'time': '16:00:00'},
-      {'time': '17:00:00'},
-      {'time': '18:00:00'},
-      {'time': '19:00:00'},
-      {'time': '20:00:00'},
-      {'time': '21:00:00'},
-      {'time': '22:00:00'},
-      {'time': '23:00:00'}
-    ];
+    $scope.times = _.times(24, function(n) {
+      if (n <10) {
+        return {'time': '0'+n+':00:00'};
+      } else {
+        return {'time': n+':00:00'};
+      }
+    });
 
     /*set start time*/
     $scope.setStartTime = function(time) {
@@ -217,10 +193,13 @@
       calculateDuration();
     };
 
-    /*set end date*/
-    $scope.$watch('timeLine.stdt', function() {
+    function updateTimeLine(type) {
       if ($scope.timeLine.stdt > $scope.timeLine.enddt) {
-        $scope.timeLine.stdt = angular.copy($scope.timeLine.enddt);
+        if (type === 'stdt') {
+          $scope.timeLine.stdt = angular.copy($scope.timeLine.enddt);
+        } else {
+          $scope.timeLine.enddt = angular.copy($scope.timeLine.stdt);
+        }
       }
       calculateDuration();
       if ($scope.timeLine.stdt && $scope.timeLine.enddt && $scope.timeLine.dateDiff > 0) {
@@ -228,19 +207,16 @@
       } else {
         $scope.timeLine.complete = false;
       }
+    };
+
+    /*set end date*/
+    $scope.$watch('timeLine.stdt', function() {
+      updateTimeLine('stdt');
     });
 
     /*watch end date*/
     $scope.$watch('timeLine.enddt', function() {
-      if ($scope.timeLine.stdt > $scope.timeLine.enddt) {
-        $scope.timeLine.enddt = angular.copy($scope.timeLine.stdt);
-      }
-      calculateDuration();
-      if ($scope.timeLine.stdt && $scope.timeLine.enddt && $scope.timeLine.dateDiff > 0) {
-        $scope.timeLine.complete = true;
-      } else {
-        $scope.timeLine.complete = false;
-      }
+      updateTimeLine('enddt');
     });
 
     /*concatenate date and time*/
@@ -273,15 +249,13 @@
       activeCount: 2,
       complete: false
     };
-
+    // default prize values
     $scope.placePrizes = {
       places: [
         {
-          id: 1,
           active: true,
           prize: '1200'
         }, {
-          id: 2,
           active: true,
           prize: '600'
         }, {
@@ -297,23 +271,25 @@
       ]
     };
 
-    function getPrizes() {
-      ChallengeService.getPrizes($scope.challenge.id).then(function(data) {
-        for (var i=0; i<data.length; i+=1) {
-          if (data[i].prize) {
-            $scope.placePrizes.places[i] = data[i];
+    function populatePrizes() {
+      var prizes = $scope.challenge.prizes;
+      if (!_.isEmpty(prizes)) {
+        for (var i=0; i<prizes.length; i+=1) {
+          if (prizes[i]) {
+            $scope.placePrizes.places[i] = {active: true, prize: prizes[i]};
           }
         }
-        if (data.length < 5) {
-          for (var i=data.length; i<5; i+=1) {
+        if (prizes.length < 5) {
+          for (var i=prizes.length; i<5; i+=1) {
             $scope.placePrizes.places[i] = {active: false, prize: null};
           }
         }
-      });
+      };
     }
+
     // get prizes in the challenge
     if ($scope.challenge.id) {
-      getPrizes();
+      populatePrizes();
     }
 
     /*set Place prize*/
@@ -328,12 +304,6 @@
 
     /*remove Place prize*/
     $scope.removePlacePrize = function(place, index) {
-      if (place.id) {
-        ChallengeService.deletePrize(place).then(function(data) {
-          console.log('deleted prize ', data.id);
-        });
-      }
-      place.id = null;
       place.active = false;
       place.prize = null;
     };
@@ -351,8 +321,13 @@
       });
     };
 
-    /*watch prize change*/
-    $scope.$watch('placePrizes', function(newVal) {
+    /* check prizes and set complete if prize and customer are set*/
+    $scope.checkPrizeComplete = function() {
+      $scope.prizes.complete = (!!($scope.prizes.totalPrize > 0 && $scope.placePrizes.places[0].prize > 0) && $scope.prizes.customerAccountId);
+    }
+
+    /*update prizes when input text loses a focus*/
+    $scope.updatePrizes = function() {
       // reorder prize
       prizeReorder();
 
@@ -367,12 +342,13 @@
           $scope.prizes.totalPrize += parseInt(value.prize);
         }
       });
-      $scope.prizes.complete = (!!($scope.prizes.totalPrize > 0 && $scope.placePrizes.places[0].prize > 0) && $scope.prizes.customerAccountId);
-    }, true);
+      $scope.checkPrizeComplete();
+    };
+    $scope.updatePrizes();
 
     $scope.$watch('prizes.customerAccountId', function() {
-      $scope.prizes.complete = (!!($scope.prizes.totalPrize > 0 && $scope.placePrizes.places[0].prize > 0) && $scope.prizes.customerAccountId);
-    });
+      $scope.checkPrizeComplete();
+    }, true);
 
     /*customer account auto complete*/
     $scope.autoComplete = {
@@ -399,8 +375,11 @@
           });
         },
         select: function(event, ui) {
+          console.log('item: ', ui.item);
+          $scope.checkPrizeComplete();
           // values are in ui.item
           $scope.prizes.customerAccountId = ui.item.customerAccountId;
+          $scope.prizes.customerAccountName = ui.item.label;
         }
       }
     };

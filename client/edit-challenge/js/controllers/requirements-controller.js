@@ -28,26 +28,37 @@
         return;
       }
       var requirementData = {
-        body: $scope.requirements.content
+        challengeId: $scope.challenge.id,   // Swagger API requires this!
+        requirementText: $scope.requirements.content
       };
-      ChallengeService.createRequirement($scope.challenge.id, requirementData).then(function(data) {
-        $scope.requirements.requirementList.push(data);
-        $scope.requirements.content = '';
-        if ($scope.requirements.requirementList.length > 0) {
-          $scope.requirements.complete = true;
-        }
-      });
+
+      ChallengeService.createRequirement($scope.challenge.id, requirementData)
+        .then(function(actionResponse) {
+          // get the created requirement
+          return ChallengeService.getRequirement($scope.challenge.id, actionResponse.id);
+        })
+        .then(function(requirement) {
+          $scope.requirements.requirementList.push(requirement);
+          $scope.requirements.content = '';
+          if ($scope.requirements.requirementList.length > 0) {
+            $scope.requirements.complete = true;
+          }
+          return requirement;
+        }, function(err) {
+          console.log('create requirement: error: ', err);
+        })
+        ;
 
     };
 
     /*save or edit requirement*/
     $scope.saveRequirement = function(requirement) {
-      console.log('saveReq: ', requirement);
-      
       requirement.edit = !requirement.edit;
       if (!requirement.edit) {
-        ChallengeService.updateRequirement(requirement).then(function(data) {
-          console.log('saved requirement: ', requirement.id);
+        ChallengeService.updateRequirement(requirement).then(function(actionResponse) {
+          console.log('saved requirement: ', actionResponse.id);
+        }, function(err) {
+          console.log('save requirement: error: ', err);
         });
       }
     };
@@ -60,6 +71,8 @@
         if ($scope.requirements.requirementList.length === 0) {
           $scope.requirements.complete = false;
         }
+      }, function(err) {
+        console.log('delete requirement: error: ', err);
       });
     };
 

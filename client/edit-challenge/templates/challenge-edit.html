@@ -45,7 +45,7 @@
           <input data-ng-class="{'invalid' : fileNameInvalid}" data-ng-file-select="onFileSelect($files)" type="file" name="myFile" class="fileInput" id="fileUploader">
         </div>
         <!--End .fileField-->
-        <a href="javascript:" data-ng-click="uploadFile()" class="upload-btn pull-right"></a>
+        <a href="javascript:" data-ng-click="doUpload()" class="upload-btn pull-right"></a>
         <!--End .upload-btn-->
         <div class="fileDescription">
           <input data-ng-class="{'invalid' : fileTitleInvalid}" data-maxlength="80" type="text" data-ng-model="fileTitle" placeholder="File Title"/>

@@ -18,7 +18,7 @@
           <i>{{$index+1}}</i>
           <a data-ng-hide="$index === 0 && prizes.activeCount === 1" href="javascript:" class="close-btn" data-ng-click="removePlacePrize(place,$index)"></a>
           <div class="input-cnt">
-            <input data-numbers-only="numbers-only" data-ng-model="place.prize" type="text">
+            <input data-numbers-only="numbers-only" data-ng-model="place.prize" data-ng-blur="updatePrizes()" type="text">
           </div>
         </div>
       </div>

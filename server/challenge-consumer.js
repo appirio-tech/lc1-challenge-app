@@ -61,7 +61,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -131,7 +131,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -199,7 +199,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -277,7 +277,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -345,7 +345,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -423,7 +423,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -491,7 +491,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -567,7 +567,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -653,7 +653,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -729,7 +729,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -807,7 +807,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -880,7 +880,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -956,7 +956,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1042,7 +1042,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1118,7 +1118,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1196,7 +1196,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1264,7 +1264,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1340,7 +1340,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1426,7 +1426,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1502,7 +1502,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1588,7 +1588,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1664,7 +1664,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1748,7 +1748,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1842,7 +1842,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -1926,7 +1926,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2004,7 +2004,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2072,7 +2072,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2148,7 +2148,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2234,7 +2234,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2310,7 +2310,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2388,7 +2388,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2456,7 +2456,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2532,7 +2532,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2608,7 +2608,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2694,7 +2694,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2770,7 +2770,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2856,7 +2856,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -2940,7 +2940,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -3034,7 +3034,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -3118,7 +3118,7 @@ module.exports.Challenge = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {

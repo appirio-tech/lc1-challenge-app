@@ -3,8 +3,31 @@
 var path = require('path'),
   // rootPath shouldn't end with forward slash
   rootPath = path.normalize(__dirname + '/..');
+var env = require('node-env-file');
+
+env(path.join(__dirname, '../.env'));
+
+function getEnv(name) {
+  if (!process.env.hasOwnProperty(name)) {
+    throw new Error('Env setting: ' + name + ' is not configured!');
+  }
+  return process.env[name].trim();
+}
+
 
 module.exports = {
+  //TODO from config.js clean up reduncacy later
+  oauth0: {
+    client: getEnv('TC_AUTH0_CLIENT'),
+    secret: getEnv('TC_AUTH0_SECRET')
+  },
+  challenge: {
+    apiUrl: 'http://lc1-challenge-service.herokuapp.com',
+    defaultTitle: 'Untitled Challenge'
+  },
+
+  // end TODO
+
   root: rootPath,
   challengeServiceURI: 'http://lc1-challenge-service.herokuapp.com/',
   auth0: {

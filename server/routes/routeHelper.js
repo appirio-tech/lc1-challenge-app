@@ -32,6 +32,8 @@ exports.addError = function(req, err, errCode) {
     if (req.error.message.indexOf('violates') > -1 || req.error.message.indexOf('constraint') > -1) {
       errCode = 400;  // return bad request
     }
+  } else if (err && err.result && err.content) {   // from swagger API
+    req.error = err;
   } else if (err.message) {
     req.error.message = err.message;
     if (req.error.message.indexOf('violates') > -1 || req.error.message.indexOf('constraint') > -1) {
@@ -90,6 +92,9 @@ exports.renderJson = function(req, res) {
         },
         content : _.pluck(_.values(req.error.errors), 'message').join('. ')
       });
+    } else if (req.error.result && req.error.content) {   // swagger error response
+      delete req.error.code;
+      res.status(req.error.result.status).json(req.error);
     } else {
       res.status(req.error.code).json({
         result: {

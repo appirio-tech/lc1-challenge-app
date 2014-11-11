@@ -13,10 +13,11 @@
   ChallengeService.$inject = ['$timeout', 'Restangular'];
 
   function ChallengeService($timeout, Restangular) {
+
     var Challenges = Restangular.service('challenges');
-    var Tags = Restangular.service('tags');
     var Accounts = Restangular.service('accounts');
-    
+    var Tags = Restangular.service('tags');
+
     var service = {
       getChallenge: getChallenge,
       createChallenge: createChallenge,
@@ -26,21 +27,19 @@
 
       getRequirements: getRequirements,
       createRequirement: createRequirement,
+      getRequirement: getRequirement,
       updateRequirement: updateRequirement,
       deleteRequirement: deleteRequirement,
 
-      getPrizes: getPrizes,
-      createPrize: createPrize,
-      updatePrize: updatePrize,
-      deletePrize: deletePrize,
-
       getFiles: getFiles,
-      uploadChallengeFile: uploadChallengeFile,
+      createFile: createFile,
+      getFile: getFile,
       deleteFile: deleteFile,
 
       getAllTags: getAllTags,
-      getAccounts: getAccounts
-      
+      getAccounts: getAccounts,
+      getConfig: getConfig
+
     };
     return service;
 
@@ -75,7 +74,7 @@
 
     /*launch the challenge*/
     function launchChallenge(challenge) {
-      return Restangular.one('challenges', challenge.id).customPOST({}, 'launch', {}, {'Content-type':undefined});
+      return Restangular.one('challenges', challenge.id).all('launch').post(challenge);
     }
 
     /*----------------------*/
@@ -92,38 +91,19 @@
       return Restangular.one('challenges', challengeId).all('requirements').post(data);
     }
 
-    /*update a requirement on the challenge*/
+    /*get a requirement in the challenge*/
+    function getRequirement(challengeId, requirementId) {
+      return Restangular.one('challenges', challengeId).one('requirements', requirementId).get();
+    }
+
+    /*update a requirement in the challenge*/
     function updateRequirement(requirement) {
       return requirement.put();
     }
 
-    /*delete a requirement on the challenge*/
+    /*delete a requirement in the challenge*/
     function deleteRequirement(requirement) {
       return requirement.remove();
-    }
-
-    /*----------------*/
-    /* prizes APIs */
-    /*----------------*/
-
-    /*get all prizes in the challenge*/
-    function getPrizes(challengeId) {
-      return Restangular.one('challenges', challengeId).all('prizes').getList();
-    }
-
-    /*add a prize to the challenge*/
-    function createPrize(challengeId, data) {
-      return Restangular.one('challenges', challengeId).all('prizes').post(data);
-    }
-
-    /*update a prize on the challenge*/
-    function updatePrize(prize) {
-      return prize.put();
-    }
-
-    /*delete a prize on the challenge*/
-    function deletePrize(prize) {
-      return prize.remove();
     }
 
     /*---------------*/
@@ -135,14 +115,14 @@
       return Restangular.one('challenges', challengeId).all('files').getList();
     }
 
-    /*upload a file to the challenge*/
-    function uploadChallengeFile(challengeId, fileData) {
-      var fd = new FormData();
-      fd.append("title", fileData.title);
-      fd.append("file", fileData.file);
-      var promise = Restangular.one('challenges', challengeId).withHttpConfig({transformRequest: angular.identity})
-        .customPOST(fd, 'files', {}, {'Content-type':undefined});
-      return promise;
+    /*create a file to the challenge*/
+    function createFile(challengeId, data) {
+      return Restangular.one('challenges', challengeId).all('files').post(data);
+    }
+
+    /*get a file in the challenge*/
+    function getFile(challengeId, fileId) {
+      return Restangular.one('challenges', challengeId).one('files', fileId).get();
     }
 
     /*delete a file*/
@@ -163,6 +143,11 @@
     function getAccounts(query) {
       // query is field=value
       return Accounts.getList({filter: query});
+    }
+
+    /*get the configuration of challenge app*/
+    function getConfig() {
+      return Restangular.all('challenges').customGET('configuration');
     }
 
   };

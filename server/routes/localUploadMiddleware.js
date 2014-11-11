@@ -1,5 +1,6 @@
 /**
  * Copyright (c) 2014 TopCoder, Inc. All rights reserved.
+ file from master
  */
 'use strict';
 

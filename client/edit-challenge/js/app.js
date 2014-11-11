@@ -18,24 +18,29 @@
     //custom
     'directives'
   ])
-
   .config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RestangularProvider',
     function($stateProvider, $locationProvider, $urlRouterProvider, RestangularProvider) {
 
       $locationProvider.hashPrefix('');
 
-      RestangularProvider.addElementTransformer('requirements', false, function(element) {
-        element.edit = false;
-        return element;
-      })
-      .addElementTransformer('prizes', false, function(element) {
-        if (element.prize) {
-          element.active = true;
-        } else {
-          element.active = false;
-        }
-        return element;
-      });
+      RestangularProvider
+        // add a request intereceptor
+        .addRequestInterceptor(function(element, operation, what, url) {
+          var omitted = _.omit(element, function(value) {
+            // - null value causes error on Swagger validation.
+            // - Sequelize has an error when an empty array is passed, challenge-service needs a fix for this
+            return value === null || _.isArray(value) && _.isEmpty(value);
+          });
+          return omitted;
+        })
+        // add a response intereceptor
+        .addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+          if (data.content) {   // swagger all/get response
+            return data.content;
+          } else {
+            return data;
+          }
+        });
 
       // Use $urlRouterProvider to configure redirects(when) and invalid urls(otherwise).
       $urlRouterProvider
@@ -47,19 +52,20 @@
           templateUrl: 'templates/challenge-edit.html',
           controller : 'CreateChallengeController',
           resolve: {
-            challenge: function getChallenge() {
+            config: function getConfig(ChallengeService) {
+              return ChallengeService.getConfig();
+            },
+            challenge: function getChallenge(config) {
               // return new challenge
               return {
-                title: 'Untitled Challenge',
-                type: 'Architecture',
+                title: config.defaultTitle,
+                status: 'DRAFT',
               };
             }
           }
         })
         .state('edit-challenge', {
-          //url: '/{challengeId:[0-9]{1,9}}',
-        //  url: '/challenges/{challengeId:[0-9]{1,9}}/edit',
-        url: '/challenges/{challengeId}/edit',
+          url: '/challenges/{challengeId}/edit',
           templateUrl: 'templates/challenge-edit.html',
           controller : 'CreateChallengeController',
           resolve: {

@@ -4,6 +4,8 @@
   var express = require("express");
   var logfmt = require("logfmt");
   var url = require('url');
+  var config = require("../config/config");
+
   var app = express();
   var passport = require('passport');
   // tc auth stuff
