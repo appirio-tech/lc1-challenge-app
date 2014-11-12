@@ -42,6 +42,7 @@
         .then(function(requirement) {
           $scope.requirements.requirementList.push(requirement);
           $scope.requirements.content = '';
+          angular.element('.requirement-desc').focus();
           if ($scope.requirements.requirementList.length > 0) {
             $scope.requirements.complete = true;
           }
