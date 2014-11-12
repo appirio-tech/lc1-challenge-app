@@ -460,6 +460,11 @@ footer p {
 .main.has-challenge-map section {
 		padding: 4px 48px 60px 30px;
 }
+/* BG: bit of a hack to force enough scroll-length for challenge map to work properly */
+.main.has-challenge-map section:last-child {
+		padding-bottom: 400px;
+}
+
 .main section:last-child {
 		background: none;
 }

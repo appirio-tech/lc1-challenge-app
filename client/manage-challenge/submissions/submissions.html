@@ -62,7 +62,7 @@
               </td>
                <td data-ng-if="!phone" class="action-btn">
                   <a ng-if="!submission.scorecard.id" href="#/challenges/{{vm.challenge.id}}/submissions/{{submission.id}}/new" class="fa fa-2x fa-check-square-o" title="Create Scorecard"></a>
-                  <a ng-if="submission.scorecard.id" href="#/challenges/{{vm.challenge.id}}/submissions/{{submission.id}}/scorecard/{{submission.scorecard.id}}" class="fa fa-2x fa-check-square" title="Review Scorecard"></a>
+                  <a ng-if="submission.scorecard.id" href="#/challenges/{{vm.challenge.id}}/submissions/{{submission.id}}/scorecard/{{submission.scorecard.id}}/edit" class="fa fa-2x fa-check-square" title="Review Scorecard"></a>
               </td>
           </tr>
       </tbody>

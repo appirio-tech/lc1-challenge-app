@@ -18,9 +18,6 @@
       vm.tcChallengeDetailsUrl = tcChallengeDetailsUrl;
       vm.saveScorecard = saveScorecard;
 
-
-      console.log('vm.scoreItems', vm.scoreItems)
-
       //user-agent stuff
       vm.browser = Utils.getBrowser();
       vm.phone = matchmedia.isPhone();

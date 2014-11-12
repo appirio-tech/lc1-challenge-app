@@ -56,7 +56,22 @@
         }
       })
 
-      //show a scorecard for a given submission
+      //show an editable version of the scorecard for a given submission
+      .when("/challenges/:challengeId/submissions/:submissionId/scorecard/:scorecardId/edit", {
+        controller: "ScorecardController",
+        controllerAs: "vm",
+        templateUrl: "scorecard/scorecard-edit.html",
+        resolve: {
+          resolvedScorecard: function getScorecard($route, ChallengeService) {
+            return ChallengeService.getScorecard($route.current.params.challengeId, $route.current.params.scorecardId);
+          },
+          resolvedCurrentChallenge: function getChallenge($route, ChallengeService) {
+            return ChallengeService.getChallenge($route.current.params.challengeId);
+          }
+        }
+      })
+
+      //show a read-only version of the scorecard for a given submission
       .when("/challenges/:challengeId/submissions/:submissionId/scorecard/:scorecardId", {
         controller: "ScorecardController",
         controllerAs: "vm",
