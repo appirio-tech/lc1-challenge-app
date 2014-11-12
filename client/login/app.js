@@ -14,7 +14,12 @@
   	vm.auth0Host = CONSTANTS.auth0Host;
   	vm.clientId = CONSTANTS.auth0ClientId;
 
-    var baseUrl =  $location.protocol() + '://' + $location.host() + ':' + $location.port();
+    var port = '';
+    if ($location.port() !== 80) {
+      port = ':' + $location.port();
+    }
+
+    var baseUrl =  $location.protocol() + '://' + $location.host() + port;
     console.log('$baseurl', baseUrl)
   	vm.redirectUri = baseUrl + '/_auth_/callback';
 
