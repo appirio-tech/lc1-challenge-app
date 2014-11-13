@@ -49,7 +49,7 @@
           {{challenge.account}}
           </td>
           <td class="text-left" data-sortable="'updatedAt'">
-          {{challenge.updatedAt}}
+          {{challenge.updatedAt | date:'MM/dd/yy hh:mm a'  }}
           </td>
           <td data-ng-if="!phone" class="text-left" data-sortable="'status'">
           {{challenge.statusDisplay}}
@@ -69,8 +69,8 @@
     </table>
 
     <div class="custom-pager">
-      <span data-ng-if="!phone" class="label">Showing items <b>{{vm.tableParams.page() * 10 -9 }}-{{vm.tableParams.page() * 10 }}</b> of <b>{{vm.totalCount}}</b></span>
-  
+      <span data-ng-if="!phone" class="label">Showing items <b>{{vm.tableParams.page() * 10 -9 }}-{{vm.tableParams.page() * 10 - 10 + vm.tableParams.data.length}}   </b> of <b>{{vm.totalCount}}</b></span>
+
     </div>
 
   </div>
