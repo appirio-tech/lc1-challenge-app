@@ -8,10 +8,10 @@
    * @name ProfileController
    * @desc Temporary holder for Profile
    * @param {!HeaderService}
-   * @returns 
+   * @returns
    * @ngInject
    */
-  function ProfileController(HeaderService) {
+  function ProfileController($location, HeaderService, TC_URLS) {
     var vm = this;
     vm.popoverProfile = false;
 
@@ -33,7 +33,16 @@
     //Profile Popover Hide
     vm.profile_close = function () {
       vm.popoverProfile = false;
-    }    
+    }
+
+    vm.tcMemberProfileUrl = function(memberHandle) {
+      return TC_URLS.baseMemberProfileUrl + memberHandle;
+    }
+
+    vm.logoutUrl = function() {
+      var currentBaseUrl =  $location.protocol() + '://' + $location.host() + ':' + $location.port();
+      return TC_URLS.baseUrl + 'logout?next=' + currentBaseUrl;
+    }
 
   }
 
