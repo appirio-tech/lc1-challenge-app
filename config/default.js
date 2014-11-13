@@ -76,7 +76,7 @@ module.exports = {
         tempDir: './temp'
       }
     },
-    amazonS3: {
+    s3: {
       /**
        * This path is needed to load the provider during application load
        * NOTE: The path is relative to root of application and should not end in a forward slash

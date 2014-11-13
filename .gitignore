@@ -39,4 +39,4 @@ upload
 temp
 
 #env file
-.env
+.env*
