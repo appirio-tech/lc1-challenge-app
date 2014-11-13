@@ -1,2 +1,3 @@
 TC_AUTH0_CLIENT=foo
 TC_AUTH0_SECRET=bar
+#STORAGE_PROVIDER=s3 #(overrides local setting in default.js)
