@@ -21,6 +21,15 @@ start with `grunt` or `node server/web.js`
 you may need to add a buildpack for node and grunt
 `heroku config:set BUILDPACK_URL=https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git`
 
+## using Amazon S3 storage
+The default setting use local storage, to use S3 set the following values in your .env file or env vars
+```STORAGE_PROVIDER=s3
+AWS_KEY=yourkey
+AWS_SECRET=yoursecret
+AWS_BUCKET=yourbuckt
+AWS_REGION=youregegion(us-east-1)
+```
+
 ## client generation from swagger, both node and angular services
 
 1.  add npm modules required for code gen  

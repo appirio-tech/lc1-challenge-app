@@ -108,7 +108,7 @@ module.exports = function(options, config) {
       batch = new Batch();
 
     var file = {
-      id: req.params.challengeId   // all files have the id that's same as challenge.id in json file.
+    //  id: req.params.challengeId   // all files have the id that's same as challenge.id in json file.
     };
 
     batch.push(function(cb) {
