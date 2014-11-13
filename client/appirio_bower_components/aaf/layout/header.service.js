@@ -11,7 +11,7 @@
    */
   function HeaderService(UserService, Utils) {
 
-    var _useLocal = true;
+    var _useLocal = false;
 
     var serviceAPI = {
       getUserProfile: getUserProfile
