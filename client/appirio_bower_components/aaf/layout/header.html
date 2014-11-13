@@ -37,7 +37,7 @@
             <div class="actions">
               <ul>
                 <li>
-                  <a href="https://www.topcoder.com/member-profile/{{vm.userInfo.handle}}/" target="_blank"
+                  <a href="{{vm.tcMemberProfileUrl(vm.userInfo.handle)}}/" target="_blank"
                      class="icon-my-profile">My Profile</a>
                 </li>
                 <li>
@@ -45,7 +45,7 @@
                      class="icon-account-settings">Account Settings</a>
                 </li>
                 <li>
-                  <a href="https://www.topcoder.com/logout/?TODO:needCallbackURL" class="icon-sign-out">Sign Out</a>
+                  <a href="{{vm.logoutUrl()}}" class="icon-sign-out">Sign Out</a>
                 </li>
               </ul>
             </div>
