@@ -2,6 +2,10 @@
   'use strict';
 
   angular.module('tc.aaf.auth', ['ngCookies'])
+  .constant("AUTH0", {
+    "host": "https://topcoder.auth0.com",
+    "clientId": "c4PVvC1z50DOlOLjLqHb5iw2fGM8teTW"
+  })
   .factory('authInterceptor', AuthInterceptor)
   .service('UserService', UserService)
   .config(function ($httpProvider, $routeProvider) {
@@ -16,7 +20,7 @@
       .when('/_auth_/logout', {
         template: '',
         controller: LogoutHandler
-      });
+      })
   });
 
   /**
@@ -37,7 +41,6 @@
       //clear tokens from qs
       $location.search('jwt', null);
       $location.search('state', null);
-
       $location.path('/').replace();
     }
   }
@@ -85,17 +88,6 @@
   function UserService($q, $window, Utils, TC_URLS) {
     var currentUser;
 
-    //TODO(DG: 11/10/2014): Move this to config
-
-    //github username
-    var whitelist = [
-      'kbowerma',
-      'bryceglass',
-      'gaitonde',
-      'indytechcook',
-      'westonian'
-    ];
-
     return {
       getCurrentUser: function() {
         var deferred = $q.defer();
@@ -104,14 +96,8 @@
           deferred.resolve(currentUser);
         } else {
           Utils.apiGet('/_api_/user').then(function(user) {
-            if (!_.contains(whitelist, user.nickname)) {
-              $window.location.href = TC_URLS.baseUrl;
-              deferred.reject();
-            } else {
-              currentUser = user;
-              deferred.resolve(currentUser);
-            }
-
+            currentUser = user;
+            deferred.resolve(currentUser);
           });
         }
 
