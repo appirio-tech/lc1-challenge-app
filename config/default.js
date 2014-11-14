@@ -5,36 +5,37 @@ var path = require('path'),
   rootPath = path.normalize(__dirname + '/..');
 var env = require('node-env-file');
 
-env(path.join(__dirname, '../.env'));
 
 function getEnv(name) {
-  if (!process.env.hasOwnProperty(name)) {
-    throw new Error('Env setting: ' + name + ' is not configured!');
-  }
+  /*  if production and don't load .env file
+   * must set NODE_ENV on heroku to production for this to work
+   */
+  if ( process.env.NODE_ENV !== 'production' ) {
+    console.log('NOT running production');
+    env(path.join(__dirname, '../.env'));
+    if (!process.env.hasOwnProperty(name)) {
+      throw new Error('Env setting: ' + name + ' is not configured!');
+    }
   return process.env[name].trim();
+  } else {
+    console.log('Running PRODUCTION');
+  }
 }
 
 
 module.exports = {
-  //TODO from config.js clean up reduncacy later
-  oauth0: {
-    client: getEnv('TC_AUTH0_CLIENT'),
-    secret: getEnv('TC_AUTH0_SECRET')
-  },
   challenge: {
     apiUrl: 'http://lc1-challenge-service.herokuapp.com',
     defaultTitle: 'Untitled Challenge'
   },
-
-  // end TODO
-
   root: rootPath,
   challengeServiceURI: 'http://lc1-challenge-service.herokuapp.com/',
   tcAPI: 'https://qa.topcoder.com/',
   auth0: {
     Domain: process.env.TC_AUTH0_DOMAIN || 'topcoder.auth0.com',
-    Client: process.env.TC_AUTH0_CLIENT || 'foo',
-    Secret: process.env.TC_AUTH0_SECRET || 'bar'
+    /* use process.env first, then .env file, last set here */
+    Client: process.env.TC_AUTH0_CLIENT || getEnv('TC_AUTH0_CLIENT') || 'foo',
+    Secret: process.env.TC_AUTH0_SECRET || getEnv('TC_AUTH0_SECRET') || 'bar'
   },
   /**
    * Uploads configuration
@@ -107,3 +108,7 @@ module.exports = {
     }
   }
 };
+
+console.log('DEBUG: from default.js, using auth0: %j',  module.exports.auth0 );
+console.log('DEBUG: the process.env.NODE_ENV is ', process.env.NODE_ENV );
+console.log('DEBUG: AWS_KEY is ', process.env.AWS_KEY);
