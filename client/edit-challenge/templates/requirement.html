@@ -17,13 +17,14 @@
     <!--End .form-->
 
     <div class="requirement-list">
-      <div class="list-item" data-ng-repeat="requirement in requirements.requirementList">
+      <div class="list-item" data-ng-repeat="requirement in requirements.requirementList | orderBy:'id'">
         <div class="actions">
           <a data-ng-show="!requirement.edit" href="javascript:" data-ng-click="saveRequirement(requirement)" class="edit"></a>
           <a data-ng-show="requirement.edit" href="javascript:" data-ng-click="saveRequirement(requirement)" class="save"></a>
           <a href="javascript:" data-ng-click="deleteRequirement(requirement)" class="delete"></a>
         </div>
         <!--End .actions-->
+        <strong>requirement: {{requirement.id}}</strong>
         <div class="requirementItemPreview" data-ng-if="!requirement.edit" data-tc-markdown="requirement.requirementText" data-empty=""></div>
         <!--<p data-ng-if="!requirement.edit">{{requirement.requirementText}}</p>-->
         <div data-ng-if="requirement.edit" class="textarea-cnt">
