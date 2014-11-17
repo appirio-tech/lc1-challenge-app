@@ -14,11 +14,12 @@
         </h3>
         <!-- /* TODO (BG: 10/22/2014): make breadcrumb an Angular component */ -->
         <!--breadcrumb-->
-        <span class="aaf-sa-breadcrumb"><a ng-href="{{vm.tcChallengeDetailsUrl(vm.challenge)}}" target="_blank">{{vm.challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a> / <a ng-href="/manage/#/challenges/{{vm.challenge.id}}/submissions">Submissions</a> / {{vm.scorecard.submissionId}} / Scorecard / {{vm.scorecard.id}} - <span style="font-weight:bold;color:red">{{vm.errorMsg}}</span></span>
+        <span class="aaf-sa-breadcrumb"><a ng-href="{{vm.tcChallengeDetailsUrl(vm.challenge)}}" target="_blank">{{vm.challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a> / <a ng-href="/manage/#/challenges/{{vm.challenge.id}}/submissions">Submissions</a> / {{vm.scorecard.submissionId}} / Scorecard / {{vm.scorecard.id}}</span>
       </div>
     </div>
   </header>
   <div class="ui-container">
+    <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)" >{{alert.msg}}</alert>
     <table data-ng-table="vm.tableParams" class="table subAppTable {{browser==='safari'?'safari':''}}">
       <thead>
         <tr>
@@ -31,7 +32,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="scoreItem in $data">
+        <tr data-ng-repeat="scoreItem in $data" data-ng-class="{warning: (vm.alerts.length > 0 && scoreItem.score === -1), odd: (!$odd && vm.alerts.length < 1)}">
           <td>
             &nbsp;
           </td>

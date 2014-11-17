@@ -45,11 +45,13 @@
                   {{submission.id}}
               </td>
               <td class="text-left" data-sortable="'submission.updatedAt'">
-                  {{submission.updatedAt}}
+                  {{submission.updatedAt | date:'MMM dd yyyy HH:mm a (Z)' }}
               </td>
+              <!--
               <td class="text-left" data-sortable="'submission.scorecard.reviewerId'">
                   {{submission.scorecard.reviewerId}}
               </td>
+              -->
               <td class="text-left" data-sortable="'submission.scorecard.scorePercent'">
                   {{(submission.scorecard.scorePercent || 0).toFixed(1)}}
               </td>

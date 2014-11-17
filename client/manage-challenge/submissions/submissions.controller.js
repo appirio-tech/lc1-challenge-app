@@ -63,10 +63,10 @@
             "colName": "Date Submitted",
             "col": "updatedAt" //submittedAt
           },
-          {
-            "colName": "Reviewer",
-            "col": "scorecard.reviewerId" //reviewer
-          },
+          // {
+          //   "colName": "Reviewer",
+          //   "col": "scorecard.reviewerId" //reviewer
+          // },
           {
             "colName": "Score",
             "col": "scorecard.scorePercent" //score
@@ -94,7 +94,7 @@
           //TODO(DG: 11/17/2014): implement dialog; for now show in a in-page table
           vm.showWinnersTable = true;
         } else {
-          vm.alerts.push({ type: 'warning', msg: "Challenge winners can't be declared until all submissions have been scored." });
+          vm.alerts.push({ type: 'warning', msg: "Challenge winners can't be declared until all scorecards have been submitted." });
         }
       }
 

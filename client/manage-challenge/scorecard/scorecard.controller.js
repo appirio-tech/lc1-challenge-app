@@ -19,9 +19,8 @@
       vm.tcChallengeDetailsUrl = tcChallengeDetailsUrl;
       vm.saveAndNav = saveAndNav;
       vm.submitScorecard = submitScorecard;
-      vm.errorMsg = '';
-
-      console.log("1: ", vm.scorecard);
+      vm.alerts = [];
+      vm.closeAlert = closeAlert;
 
       //user-agent stuff
       vm.browser = Utils.getBrowser();
@@ -70,17 +69,18 @@
         var sum = 0;
 
         _.forEach(scorecardItems, function(scorecardItem) {
-          var scorecardItemScore = scorecardItem.score || 0;
-          sum = sum + scorecardItemScore;
+          var score = 0;
+          if (scorecardItem.score && scorecardItem.score > 0) {
+            score = scorecardItem.score;
+          }
+          sum = sum + score;
         });
 
         vm.scorecard.scoreSum = sum;
         vm.scorecard.scorePercent = (sum / vm.scorecard.scoreMax) * 100;
-        console.log('check score1', vm.scorecard);
       }
 
       function saveAndNav() {
-        console.log('saveAndNav')
         saveScorecard().then(function() {
           $location.path('/challenges/' + vm.challenge.id + '/submissions/');
         })
@@ -107,11 +107,8 @@
         }
 
         //save scorecard
-        console.log('vm.challenge', vm.challenge, scorecardBody)
         ChallengeService.updateScorecard(vm.challenge.id, scorecardBody).then(function(updateChallengeResult) {
-          console.log('after updated scorecard', updateChallengeResult, vm.scorecardItems)
           ChallengeService.updateScorecardItems(vm.challenge.id, vm.scorecardItems).then(function(res) {
-            console.log('after updating scorecard. now resolve', res)
             deferred.resolve();
           });
 
@@ -120,26 +117,20 @@
       }
 
       function allItemsScored() {
-        console.log('vm.scorecardItems', vm.scorecardItems)
         var scorecardItems = vm.scorecard.scorecardItems.content
         var allScored = true;
         _.forEach(scorecardItems, function(scorecardItem) {
-          console.log('score', scorecardItem.requirementId, scorecardItem.score);
           allScored = allScored && (scorecardItem.score >= 0)
-          console.log('allScored', allScored);
         });
         return allScored;
 
       }
 
       function submitScorecard() {
-        console.log('in submitScorecard', vm.scorecard)
-
         var allScored = allItemsScored(vm.scorecard.scorecardItems.content);
-        console.log('allScored', allScored)
 
         if (!allScored) {
-          vm.errorMsg = 'Not all scored';
+          vm.alerts.push({ type: 'warning', msg: "Scorecard can't be submitted until all requirements have been scored." });
         }
         else {
           scoreItems();
@@ -159,6 +150,10 @@
 
           });
         }
+      }
+
+      function closeAlert(index) {
+        vm.alerts.splice(index, 1);
       }
 
     }
