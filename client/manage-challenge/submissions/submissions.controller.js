@@ -9,7 +9,7 @@
      * @name SubmissionsController
      * @ngInject
      */
-    function SubmissionsController($scope, matchmedia, ChallengeService, Utils, TC_URLS, submissionData, resolvedCurrentChallenge) {
+    function SubmissionsController($filter, $location, $q, $scope, matchmedia, ChallengeService, Utils, TC_URLS, submissionData, resolvedCurrentChallenge) {
       var vm = this;
       vm.submissions = submissionData.content;
       vm.totalCount = submissionData.metadata.totalCount;
@@ -42,8 +42,10 @@
         if (index < orderedSubs.length) {
           var sub = orderedSubs[index].scorecard;
           payout.pay = true;
+          payout.reviewerId = sub.reviewerId,
           payout.submissionId = sub.id;
           payout.scorePercent = sub.scorePercent;
+          payout.id = sub.id;
         }
         vm.payouts.push(payout);
       });
@@ -90,16 +92,54 @@
       function initiateAnnounceWinners() {
         //validate that all scorecards have SUBMITTED status
         //if not valid, show error
-        if (allScorecardsSubmitted()) {
+        if (vm.challenge.status !== 'REVIEW') {
+          vm.alerts.push({ type: 'warning', msg: "Challenge needs to be in Review status before winners can be declared." });
+        }
+        else if (!allScorecardsSubmitted()) {
+          vm.alerts.push({ type: 'warning', msg: "Challenge winners can't be declared until all scorecards have been submitted." });
+        } else {
           //TODO(DG: 11/17/2014): implement dialog; for now show in a in-page table
           vm.showWinnersTable = true;
-        } else {
-          vm.alerts.push({ type: 'warning', msg: "Challenge winners can't be declared until all scorecards have been submitted." });
         }
       }
 
       function confirmWinners() {
-        console.log('TODO: Implement confirmed winners. Update statuses and nav to results', vm.challenge, vm.sumbissions, vm.payouts);
+        /*
+        1. Update all scorecards
+        2. update challenge status
+        3. Nav to results
+        */
+
+        var today = $filter('date')(Date.now(), 'yyyy-MM-ddTHH:mmZ', 'UTC'); //, timezone
+
+        var deferred = $q.defer();
+        var scorecardPromises = [];
+        _.forEach(vm.payouts, function(payout) {
+          if (payout.id) {
+            var promise = ChallengeService.updateScorecard(vm.challenge.id, payout);
+            scorecardPromises.push(promise);
+          } else {
+            console.log('no payout for ', payout)
+          }
+        });
+
+        $q.all(scorecardPromises).then(function(res) {
+          vm.challenge.status = 'COMPLETE';
+          var body = {
+            id: vm.challenge.id,
+            title: vm.challenge.title,
+            status: 'COMPLETE',
+            completedAt: today
+          }
+          ChallengeService.updateChallenge(body).then(function(challenge) {
+            deferred.resolve(challenge);
+            $location.path('/challenges/' + vm.challenge.id + '/results');
+          });
+        })
+
+
+        return deferred.promise;
+
       }
 
       function cancelWinners() {

@@ -281,11 +281,11 @@
     function getResults(challengeId) {
       var deferred = $q.defer();
       getSubsAndFiles(challengeId).then(function(subsScores) {
-          var winningSubs = _.filter(subsScores.content, function(item) {
-            return item.scorecard.pay;
-          });
-          subsScores.content = winningSubs;
-          deferred.resolve(subsScores);
+        var winningSubs = _.filter(subsScores.content, function(item) {
+          return item.scorecard.pay;
+        });
+        subsScores.content = winningSubs;
+        deferred.resolve(subsScores);
       });
       return deferred.promise;
     }
