@@ -49,7 +49,7 @@
           {{challenge.account}}
           </td>
           <td class="text-left" data-sortable="'updatedAt'">
-          {{challenge.updatedAt | date:'MM/dd/yy hh:mm a'  }}
+          {{challenge.updatedAt | date:'MMM dd yyyy HH:mm a (Z)' }}
           </td>
           <td data-ng-if="!phone" class="text-left" data-sortable="'status'">
           {{challenge.statusDisplay}}

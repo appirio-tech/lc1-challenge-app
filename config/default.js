@@ -109,6 +109,6 @@ module.exports = {
   }
 };
 
-console.log('DEBUG: from default.js, using auth0: %j',  module.exports.auth0 );
-console.log('DEBUG: the process.env.NODE_ENV is ', process.env.NODE_ENV );
-console.log('DEBUG: AWS_KEY is ', process.env.AWS_KEY);
+//console.log('DEBUG: from default.js, using auth0: %j',  module.exports.auth0 );
+//console.log('DEBUG: the process.env.NODE_ENV is ', process.env.NODE_ENV );
+//console.log('DEBUG: AWS_KEY is ', process.env.AWS_KEY);

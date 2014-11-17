@@ -11,7 +11,10 @@
     	"challenge": {
     		useLocal: false
     	}
-    });
+    })
+    .constant("TC_SCORING", {
+      "MAX_SCORE": 4
+    })
 
 
 })(window, window.angular);

@@ -41,7 +41,7 @@
             {{result.scorecard.place}}
           </td>
           <td class="text-left" data-sortable="'prize'">
-            {{result.scorecard.prize}}
+            {{result.scorecard.prize | noFractionCurrency}}
           </td>
           <td class="text-left" data-sortable="'submission.submitter.handle'">
             <a href="{{vm.tcMemberProfileUrl(result.submission.submitter.handle)}}" target="_blank">{{result.submitterId}}</a>

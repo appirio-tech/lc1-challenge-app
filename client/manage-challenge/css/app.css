@@ -181,7 +181,7 @@ select:focus {
 	outline: none;
 	}
 
-input {
+Xinput {
 	-webkit-appearance:none;
 	}
 
@@ -2639,9 +2639,9 @@ footer {
     .sub-header h3 i{
         width: 33px;
         height: 33px;
-        /* 
+        /*
         border: 1px solid #d7d7d7;
-        border-radius: 4px; 
+        border-radius: 4px;
         background: #fff;
         */
         display: inline-block;
@@ -3388,7 +3388,8 @@ footer {
         .table > tbody > tr > td.action-cell a{
             margin: 11px 0;
         }
-        .table > tbody > tr > td input[type=checkbox]{
+        /* DG: Disabled styling to allowing showing of a checkbox */
+        DEL.table > tbody > tr > td input[type=checkbox]{
             position: absolute;
             opacity: 0;
             left: -1000px;

@@ -13,7 +13,7 @@
    * @returns
    * @ngInject
    */
-  function ChallengeService($http, $q, Utils, TC_DATA_SOURCE) {
+  function ChallengeService($http, $q, Utils, TC_DATA_SOURCE, TC_SCORING) {
     var _challenges;
     var _useLocal = TC_DATA_SOURCE.challenge.useLocal || false;
 
@@ -23,12 +23,14 @@
       //Challenge APIs
       getChallenge: getChallenge,
       getChallenges: getChallenges,
+      updateChallenge: updateChallenge,
       deleteChallenge: deleteChallenge,
 
       //Scorecard APIs
       getScorecard: getScorecard,
       getScorecards: getScorecards,
       createScorecard: createScorecard,
+      updateScorecard: updateScorecard,
       updateScorecardItems: updateScorecardItems,
 
       //Result APIs
@@ -43,9 +45,9 @@
       var deferred = $q.defer();
       Utils.apiGet('/_api_/challenges/' + challengeId + '/submissions').then(function (result) {
         // Enable once statuses are available on submissions
-        // _.forEach(result.content, function(submission) {
-        //   submission.statusDisplay = Utils.initCase(submission.status)
-        // });
+        _.forEach(result.content, function(submission) {
+          submission.statusDisplay = Utils.initCase(submission.status)
+        });
 
         deferred.resolve(result);
       })
@@ -110,6 +112,17 @@
 
     }
 
+    function updateChallenge(challenge) {
+      //TODO(DG: 11/16/2014): replace w/ swagger client or real ajax call
+      //var deferred = $q.defer();
+      // var body = {
+      //   challengeId: challenge.id, //TODO(DG: 11/16/2014): Remove; currently req'd #280
+      // };
+
+      return Utils.apiUpdate('/_api_/challenges/' + challenge.id, challenge);
+    }
+
+
     function deleteChallenge(challengeId) {
       //TODO(DG: 10/21/2014): replace w/ swagger client or real ajax call
         var deferred = $q.defer();
@@ -166,12 +179,11 @@
       } else {
         Utils.apiGet('/_api_/challenges/' + challengeId + '/scorecards').then(function(result) {
           // Add Init cased statuses
-          // _.forEach(result.content, function(scorecard) {
-          //   if (scorecard.status !== null) {
-          //     scorecard.statusDisplay = Utils.initCase(scorecard.status)
-          //   }
-
-          // });
+          _.forEach(result.content, function(scorecard) {
+            if (scorecard.status !== null) {
+              scorecard.statusDisplay = Utils.initCase(scorecard.status)
+            }
+          });
           deferred.resolve(result);
         });
       }
@@ -196,29 +208,47 @@
     }
     function createScorecard(challengeId, submissionId) {
       var deferred = $q.defer();
-      var promises = [];
-      var body = {
-        status: 'VALID',
+      var scorecardItemPromises = [];
+      var maxScore = 0;
+
+      var scoreItemBodies = [];
+      getRequirements(challengeId).then(function(reqs) {
+        console.log('reqs', reqs)
+        maxScore = TC_SCORING.MAX_SCORE * reqs.content.length;
+        _.forEach(reqs.content, function(req) {
+          var body = {
+            "requirementId": req.id,
+            "score": -1
+          };
+          scoreItemBodies.push(body);
+
+        });
+
+      });
+
+      var scorecardBody = {
+        status: 'NEW',
         reviewerId: 222,  //req'd; TODO(DG: 11/12/2014): use real user id
-        submissionId: parseInt(submissionId) //req'd
+        submissionId: parseInt(submissionId), //req'd
+        scoreMax: maxScore
       };
 
-      Utils.apiPost('/_api_/challenges/' + challengeId + '/scorecards', body).then(function(scorecard) {
-        getRequirements(challengeId).then(function(reqs) {
-          _.forEach(reqs.content, function(req) {
-            var body = {
-              "requirementId": req.id,
-              "score": -1
-            };
-            var promise = Utils.apiPost('/_api_/challenges/' + challengeId + '/scorecards/' + scorecard.id + '/scorecardItems', body)
-            promises.push(promise);
-          });
-          $q.all(promises).then(function() {
-            deferred.resolve(scorecard);
-          })
+      Utils.apiPost('/_api_/challenges/' + challengeId + '/scorecards', scorecardBody).then(function(scorecard) {
+        _.forEach(scoreItemBodies, function(scoreItemBody) {
+          var promise = Utils.apiPost('/_api_/challenges/' + challengeId + '/scorecards/' + scorecard.id + '/scorecardItems', scoreItemBody)
+          scorecardItemPromises.push(promise);
         });
+
+        $q.all(scorecardItemPromises).then(function() {
+          deferred.resolve(scorecard);
+        })
+
       })
       return deferred.promise;
+    }
+
+    function updateScorecard(challengeId, scorecard) {
+      return Utils.apiUpdate('/_api_/challenges/' + challengeId + '/scorecards/' + scorecard.id, scorecard);
     }
 
     function updateScorecardItems(challengeId, scorecardItems) {
