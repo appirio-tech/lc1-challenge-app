@@ -1317,3 +1317,8 @@ growl-notification .close-btn {
 growl-notification .close-btn:hover {
 		opacity: .8;
 }
+
+.ui-container .launchSuccessAlert {^M
+       margin-top: 10px;^M
+       margin-bottom: 10px;^M
+}

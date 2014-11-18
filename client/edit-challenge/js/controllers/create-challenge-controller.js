@@ -111,7 +111,7 @@
     $scope.launch = function() {
       ChallengeService.launch($scope.challenge).then(function(actionResponse) {
         console.log('launched challenge: ', $scope.challenge.id);
-        window.location.href = '/';
+        window.location.href = '/manage/#/challenges?launchSuccess='+$scope.challenge.id;
       });
     }
 
