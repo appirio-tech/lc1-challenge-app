@@ -347,7 +347,7 @@
 
     /* check prizes and set complete if prize and customer are set*/
     $scope.checkPrizeComplete = function() {
-      $scope.prizes.complete = (!!($scope.prizes.totalPrize > 0 && $scope.placePrizes.places[0].prize > 0) && $scope.prizes.customerAccountId);
+      $scope.prizes.complete = (!!($scope.prizes.totalPrize > 0 && $scope.placePrizes.places[0].prize > 0) && $scope.challenge.projectId);
     };
 
     /*update prizes when input text loses a focus*/
@@ -370,7 +370,7 @@
     };
     $scope.updatePrizes();
 
-    $scope.$watch('prizes.customerAccountId', function() {
+    $scope.$watch('challenge.projectId', function() {
       $scope.checkPrizeComplete();
     }, true);
 
