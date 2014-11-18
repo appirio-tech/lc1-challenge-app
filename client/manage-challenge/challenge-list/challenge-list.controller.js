@@ -11,7 +11,12 @@
    * @returns
    * @ngInject
    */
-  function ChallengeListController($scope, matchmedia, ChallengeService, Utils, TC_URLS, resolvedChallenges) {
+  function ChallengeListController($scope, matchmedia, ChallengeService, Utils, TC_URLS, resolvedChallenges, $location) {
+    var locationParams = $location.search();
+    $scope.launchedChallenge = locationParams['launchSuccess'];
+    $scope.TC_URLS = TC_URLS;
+
+
     var vm = this;
     vm.challenges = resolvedChallenges.content;
     vm.totalCount = resolvedChallenges.metadata.totalCount;
