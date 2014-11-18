@@ -135,7 +135,7 @@
           var body = {
             id: vm.challenge.id,
             title: vm.challenge.title,
-            status: 'COMPLETE',
+            status: vm.challenge.status,
             completedAt: today
           }
           ChallengeService.updateChallenge(body).then(function(challenge) {
