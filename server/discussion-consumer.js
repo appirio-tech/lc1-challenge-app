@@ -51,7 +51,7 @@ module.exports.Discussion = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -88,6 +88,7 @@ module.exports.Discussion = function(domain) {
      * @param {{integer}} limit - maximum number of records to return
      * @param {{integer}} offset - id to start return values
      * @param {{string}} orderBy - field name to sort {asc [nulls {first | last} ] | desc  [nulls {first | last} }
+     * @param {{string}} fields - fields parameters to get partial response data
      *
      */
     this.getDiscussions = function(parameters) {
@@ -118,6 +119,10 @@ module.exports.Discussion = function(domain) {
             queryParameters['orderBy'] = parameters['orderBy'];
         }
 
+        if (parameters['fields'] !== undefined) {
+            queryParameters['fields'] = parameters['fields'];
+        }
+
         if (parameters.$queryParameters) {
             Object.keys(parameters.$queryParameters)
                 .forEach(function(parameterName) {
@@ -131,7 +136,7 @@ module.exports.Discussion = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -165,6 +170,7 @@ module.exports.Discussion = function(domain) {
      * @method
      * @name Discussion#getDiscussionsByDiscussionId
      * @param {{integer}} discussionId - Id of discussion
+     * @param {{string}} fields - fields parameters to get partial response data
      *
      */
     this.getDiscussionsByDiscussionId = function(parameters) {
@@ -186,6 +192,10 @@ module.exports.Discussion = function(domain) {
             return deferred.promise;
         }
 
+        if (parameters['fields'] !== undefined) {
+            queryParameters['fields'] = parameters['fields'];
+        }
+
         if (parameters.$queryParameters) {
             Object.keys(parameters.$queryParameters)
                 .forEach(function(parameterName) {
@@ -199,7 +209,7 @@ module.exports.Discussion = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -277,7 +287,7 @@ module.exports.Discussion = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -311,6 +321,7 @@ module.exports.Discussion = function(domain) {
      * @method
      * @name Discussion#getDiscussionsByDiscussionIdMessages
      * @param {{integer}} discussionId - Id of discussion
+     * @param {{string}} fields - fields parameters to get partial response data
      *
      */
     this.getDiscussionsByDiscussionIdMessages = function(parameters) {
@@ -332,6 +343,10 @@ module.exports.Discussion = function(domain) {
             return deferred.promise;
         }
 
+        if (parameters['fields'] !== undefined) {
+            queryParameters['fields'] = parameters['fields'];
+        }
+
         if (parameters.$queryParameters) {
             Object.keys(parameters.$queryParameters)
                 .forEach(function(parameterName) {
@@ -345,7 +360,7 @@ module.exports.Discussion = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -380,6 +395,7 @@ module.exports.Discussion = function(domain) {
      * @name Discussion#getDiscussionsByDiscussionIdMessagesByMessageId
      * @param {{integer}} discussionId - Id of discussion
      * @param {{integer}} messageId - Id of message
+     * @param {{string}} fields - fields parameters to get partial response data
      *
      */
     this.getDiscussionsByDiscussionIdMessagesByMessageId = function(parameters) {
@@ -408,6 +424,10 @@ module.exports.Discussion = function(domain) {
             return deferred.promise;
         }
 
+        if (parameters['fields'] !== undefined) {
+            queryParameters['fields'] = parameters['fields'];
+        }
+
         if (parameters.$queryParameters) {
             Object.keys(parameters.$queryParameters)
                 .forEach(function(parameterName) {
@@ -421,7 +441,7 @@ module.exports.Discussion = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -507,7 +527,7 @@ module.exports.Discussion = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -583,7 +603,7 @@ module.exports.Discussion = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -669,7 +689,7 @@ module.exports.Discussion = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {
@@ -704,6 +724,7 @@ module.exports.Discussion = function(domain) {
      * @name Discussion#getDiscussionsByDiscussionIdMessagesByMessageIdMessages
      * @param {{integer}} discussionId - Id of discussion
      * @param {{integer}} messageId - Id of message
+     * @param {{string}} fields - fields parameters to get partial response data
      *
      */
     this.getDiscussionsByDiscussionIdMessagesByMessageIdMessages = function(parameters) {
@@ -732,6 +753,10 @@ module.exports.Discussion = function(domain) {
             return deferred.promise;
         }
 
+        if (parameters['fields'] !== undefined) {
+            queryParameters['fields'] = parameters['fields'];
+        }
+
         if (parameters.$queryParameters) {
             Object.keys(parameters.$queryParameters)
                 .forEach(function(parameterName) {
@@ -745,7 +770,7 @@ module.exports.Discussion = function(domain) {
             uri: domain + path,
             qs: queryParameters,
             headers: headers,
-            body: body,
+            json: body,
             rejectUnauthorized: false
         }, function(error, response, body) {
             if (error) {

@@ -1,7 +1,6 @@
 /*jshint -W069 */
 /**
  * API to host challenge, requirements, scorecard and results
- * generated on 11/10/2014
  * @class Challenge
  * @param {string} domain - The project domain
  */
@@ -2484,6 +2483,7 @@ module.exports.Challenge = function(domain) {
      * @name Challenge#getChallengesByChallengeIdScorecards
      * @param {{integer}} challengeId - API to host challenge, requirements, scorecard and results
      * @param {{string}} fields - partial fields that need to be response. Support (1) comma-separated field list and (2) a/b nested selection.
+     * @param {{string}} filter - {fieldName1}={fieldValue1}&...{fieldNameN}>{fieldValueN}. String value needs to be surrounded by single quotation(‘). fieldValue can contain multiple values using in() format {fieldName}=in({fieldValue1},{fieldValue1}). Operations can be =, > or <.  < and > operations are only for number, integers and dates
      *
      */
     this.getChallengesByChallengeIdScorecards = function(parameters) {
@@ -2507,6 +2507,10 @@ module.exports.Challenge = function(domain) {
 
         if (parameters['fields'] !== undefined) {
             queryParameters['fields'] = parameters['fields'];
+        }
+
+        if (parameters['filter'] !== undefined) {
+            queryParameters['filter'] = parameters['filter'];
         }
 
         if (parameters.$queryParameters) {

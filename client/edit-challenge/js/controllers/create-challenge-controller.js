@@ -58,6 +58,8 @@
         }
       });
       $scope.challenge.prizes = prizes;
+      $scope.challenge.projectSource = 'TOPCODER';
+      $scope.challenge.projectId = $scope.challenge.projectId;
 
       // update challenge info
       ChallengeService.updateChallenge($scope.challenge).then(function(actionResponse) {
