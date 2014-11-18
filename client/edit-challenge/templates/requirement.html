@@ -24,7 +24,7 @@
           <a href="javascript:" data-ng-click="deleteRequirement(requirement)" class="delete"></a>
         </div>
         <!--End .actions-->
-        <strong>requirement: {{requirement.id}}</strong>
+        <strong>requirement: {{$index + 1}}</strong>
         <div class="requirementItemPreview" data-ng-if="!requirement.edit" data-tc-markdown="requirement.requirementText" data-empty=""></div>
         <!--<p data-ng-if="!requirement.edit">{{requirement.requirementText}}</p>-->
         <div data-ng-if="requirement.edit" class="textarea-cnt">
