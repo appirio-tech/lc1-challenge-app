@@ -55,8 +55,8 @@
             <a ng-href="{{vm.toTCChallengeDetailsUrl(challenge)}}" target="_blank" ng-switch-default>{{challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a>
 
           </td>
-          <td class="text-left" data-sortable="'account'">
-          {{challenge.account}}
+          <td class="text-left" data-sortable="'projectId'">
+          <a ng-href="{{vm.toTCProjectUrl(challenge)}}" target="_blank">{{challenge.projectId}} <i ng-if="challenge.projectId" class="fa fa-sm fa-external-link-square"></i> </a>
           </td>
           <td class="text-left" data-sortable="'updatedAt'">
           {{challenge.updatedAt | date:'MMM dd yyyy HH:mm a (Z)' }}

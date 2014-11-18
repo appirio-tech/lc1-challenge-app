@@ -5,7 +5,8 @@
     .constant("TC_URLS", {
       "baseUrl": "http://tcdev22.topcoder.com/",
       "baseChallengeDetailsUrl": "http://tcdev22.topcoder.com/challenge-details/",
-      "baseMemberProfileUrl": "http://tcdev22.topcoder.com/member-profile/"
+      "baseMemberProfileUrl": "http://tcdev22.topcoder.com/member-profile/",
+      "directProjectUrl": "https://qa.topcoder.com/direct/projectOverview.action"
     })
     .constant("TC_DATA_SOURCE", {
     	"challenge": {

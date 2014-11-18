@@ -16,11 +16,11 @@
     $scope.launchedChallenge = locationParams['launchSuccess'];
     $scope.TC_URLS = TC_URLS;
 
-
     var vm = this;
     vm.challenges = resolvedChallenges.content;
     vm.totalCount = resolvedChallenges.metadata.totalCount;
     vm.toTCChallengeDetailsUrl = toTCChallengeDetailsUrl;
+    vm.toTCProjectUrl = toTCProjectUrl;
     vm.deleteChallenge = deleteChallenge;
     vm.alerts = [];
     vm.closeAlert = closeAlert;
@@ -45,8 +45,8 @@
           "col": "title"
         },
         {
-          "colName": "Account",
-          "col": "account"
+          "colName": "Project Id",
+          "col": "projectId"
         },
         {
           "colName": "Last Updated",
@@ -65,6 +65,10 @@
     //helper functions
     function toTCChallengeDetailsUrl(challenge) {
       return TC_URLS.baseChallengeDetailsUrl + challenge.id + '?type=develop&lc=true';
+    }
+
+    function toTCProjectUrl(challenge) {
+      return TC_URLS.directProjectUrl + '?formData.projectId=' + challenge.projectId;
     }
 
     function deleteChallenge(challenge) {
