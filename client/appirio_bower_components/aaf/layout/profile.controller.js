@@ -40,7 +40,12 @@
     }
 
     vm.logoutUrl = function() {
-      var currentBaseUrl =  $location.protocol() + '://' + $location.host() + ':' + $location.port();
+      var port = '';
+      if ($location.port() !== 80) {
+        port = ':' + $location.port();
+      }
+
+      var currentBaseUrl =  $location.protocol() + '://' + $location.host() + port;
       return TC_URLS.baseUrl + 'logout?next=' + currentBaseUrl;
     }
 

@@ -28,7 +28,12 @@
       vm.payouts = [];
 
       var orderedSubs = _.sortBy(vm.submissions, function(sub) {
-        return -1 * sub.scorecard.scorePercent;
+        if (sub.scorecard) {
+          return -1 * sub.scorecard.scorePercent;
+        } else {
+          return 0;
+        }
+
       });
 
       _.forEach(vm.challenge.prizes, function(prize, index) {
@@ -41,11 +46,13 @@
 
         if (index < orderedSubs.length) {
           var sub = orderedSubs[index].scorecard;
-          payout.pay = true;
-          payout.reviewerId = sub.reviewerId,
-          payout.submissionId = sub.id;
-          payout.scorePercent = sub.scorePercent;
-          payout.id = sub.id;
+          if (sub) {
+            payout.pay = true;
+            payout.reviewerId = sub.reviewerId,
+            payout.submissionId = sub.id;
+            payout.scorePercent = sub.scorePercent;
+            payout.id = sub.id;
+          }
         }
         vm.payouts.push(payout);
       });

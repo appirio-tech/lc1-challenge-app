@@ -65,7 +65,7 @@
     function deleteChallenge(challenge) {
       _.remove(vm.challenges, { 'id': challenge.id });
       ChallengeService.deleteChallenge(challenge.id).then(function(res) {
-        vm.alerts.push({ type: 'warning', msg: "Challenge has been deleted" });
+        vm.alerts.push({ type: 'warning', msg: "Challenge has been deleted." });
         vm.totalCount = vm.totalCount - 1;
         vm.tableParams.reload();
       });
