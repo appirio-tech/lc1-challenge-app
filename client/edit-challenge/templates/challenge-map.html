@@ -83,6 +83,11 @@
   </div>
   <!--End .challenge-cnt-->
 
+   <growl-notification ng-if="showSuccessGrowl">
+       <a href="#" ng-click="$growlNotification.remove()" class="close-btn"></a>
+       Your challenge has been saved. You may continue to edit it.
+  </growl-notification>
+   <!--End of the growl notification-->
   <div class="button-holder">
     <a href="" class="btn blue-btn save" data-ng-click="saveChallenge()">SAVE</a>
     <!--End .save btn-->

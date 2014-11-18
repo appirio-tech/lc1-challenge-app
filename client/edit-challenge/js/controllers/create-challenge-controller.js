@@ -37,6 +37,8 @@
 
     /*save current challenge and related info*/
     $scope.saveChallenge = function() {
+      //reset the flag that shows the growl notification
+      $scope.showSuccessGrowl = false;
       if ($scope.timeLine.complete) {
         $scope.challenge.regStartAt = concatenateDateTime($scope.timeLine.stdt, $scope.timeLine.timeSelectedStart);
         $scope.challenge.subEndAt = concatenateDateTime($scope.timeLine.enddt, $scope.timeLine.timeSelectedEnd);
@@ -59,6 +61,9 @@
 
       // update challenge info
       ChallengeService.updateChallenge($scope.challenge).then(function(actionResponse) {
+        //after a successful save show the growl
+        $scope.showSuccessGrowl = true;
+
         console.log('updated challenge: ', actionResponse.id);
       }, function(errorResponse) {
         console.log('update challenge: error: ', errorResponse);
@@ -90,7 +95,7 @@
           typeaheadjs: {
             name: 'tagNames',
             displayKey: 'name',
-            valueKey: 'name',      
+            valueKey: 'name',
             source: tagNames.ttAdapter()
           },
           freeInput: false,
@@ -139,17 +144,33 @@
       complete: false
     };
 
+    var startNew = false;
+	var dtTenSet;
+    var dtMinDate = Date.now();
+    var dtTenDayCounts = 240 * 60 * 60 * 1000;
+	var regStartAt;
+	var subEndAt;
+
     if ($scope.challenge.regStartAt) {
-      var regStartAt = new Date($scope.challenge.regStartAt);
-      $scope.timeLine.stdt = regStartAt;
-      $scope.timeLine.timeSelectedStart = $filter('date')(regStartAt, 'HH:mm:ss');
-    }
+      regStartAt = new Date($scope.challenge.regStartAt);
+	} else {
+      regStartAt = new Date(dtMinDate);
+      $scope.challenge.regStartAt = regStartAt.toISOString();
+
+      dtTenSet = new Date(dtMinDate + dtTenDayCounts);
+      $scope.challenge.subEndAt = dtTenSet.toISOString();
+	}
+    $scope.timeLine.stdt = regStartAt;
+    $scope.timeLine.timeSelectedStart = $filter('date')(regStartAt, 'HH:mm:ss');
 
     if ($scope.challenge.subEndAt) {
-      var subEndAt = new Date($scope.challenge.subEndAt);
-      $scope.timeLine.enddt = subEndAt;
-      $scope.timeLine.timeSelectedEnd = $filter('date')(subEndAt, 'HH:mm:ss');
+      subEndAt = new Date($scope.challenge.subEndAt);
+    } else {
+      subEndAt = new Date(dtMinDate + dtTenDayCounts);
+      $scope.challenge.subEndAt = subEndAt.toISOString();
     }
+    $scope.timeLine.enddt = subEndAt;
+    $scope.timeLine.timeSelectedEnd = $filter('date')(subEndAt, 'HH:mm:ss');
 
     /*open start calendar*/
     $scope.openStartCal = function($event) {
