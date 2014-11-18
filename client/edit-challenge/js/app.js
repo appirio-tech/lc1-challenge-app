@@ -16,7 +16,7 @@
     'ui.router',
     'ngSanitize',
     'duScroll',
-
+    'growlNotifications',
     //custom
     'directives'
   ])
