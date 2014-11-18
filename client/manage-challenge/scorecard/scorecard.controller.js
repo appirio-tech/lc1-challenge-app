@@ -38,7 +38,7 @@
         var sort = {sequence: 'asc'};
         var headers = [
           {
-            "colName": "Id",
+            "colName": "No.",
             "col": "sequence"
           },
           {
