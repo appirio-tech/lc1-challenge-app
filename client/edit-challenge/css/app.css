@@ -1283,3 +1283,37 @@ margin-left: 15px;
 .descriptionPreview ul li, .requirementItemPreview ul li{
 list-style-type: disc;
 }
+
+/*growl notification*/
+
+growl-notifications{
+  position: fixed;
+  bottom: 150px;
+  left: 30px;
+   z-index: 1000;
+}
+growl-notification{
+
+  padding: 15px;
+  margin-bottom: 40px;
+  color: #31708f;
+  background-color: #d9edf7;
+  border: 1px solid transparent;
+  border-color: #bce8f1;
+  border-radius: 4px;
+
+}
+
+growl-notification .close-btn {
+		display: block;
+		position: absolute;
+		width: 20px;
+		height: 20px;
+		background: url("../img/button-icons.png") no-repeat -5px -39px;
+		right: 5px;
+		top: -15px;
+		opacity: 1;
+}
+growl-notification .close-btn:hover {
+		opacity: .8;
+}

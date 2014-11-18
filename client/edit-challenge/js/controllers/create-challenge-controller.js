@@ -37,6 +37,9 @@
 
     /*save current challenge and related info*/
     $scope.saveChallenge = function() {
+
+      //reset the flag that shows the growl notification
+      $scope.showSuccessGrowl = false;
       if ($scope.timeLine.complete) {
         $scope.challenge.regStartAt = concatenateDateTime($scope.timeLine.stdt, $scope.timeLine.timeSelectedStart);
         $scope.challenge.subEndAt = concatenateDateTime($scope.timeLine.enddt, $scope.timeLine.timeSelectedEnd);
@@ -59,6 +62,8 @@
 
       // update challenge info
       ChallengeService.updateChallenge($scope.challenge).then(function(actionResponse) {
+        //after a successful save show the growl
+        $scope.showSuccessGrowl = true;
         console.log('updated challenge: ', actionResponse.id);
       }, function(errorResponse) {
         console.log('update challenge: error: ', errorResponse);

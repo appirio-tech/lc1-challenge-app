@@ -6,10 +6,15 @@ install in 2 steps:
 `npm install`
 
 **Second**
+Change directory to client and run 'bower install' to install the required angulajs bower components
+i.e. 'cd client && bower install'
+
+**Third**
 you must create a `.env` file with the following minimum settings
 ```
 TC_AUTH0_CLIENT=foo
 TC_AUTH0_SECRET=bar
+STORAGE_PROVIDER=local or s3 depending on your choice
 ```
 you may copy `env_sample` to `.env`
 
