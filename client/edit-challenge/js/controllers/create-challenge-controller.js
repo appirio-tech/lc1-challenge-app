@@ -139,17 +139,33 @@
       complete: false
     };
 
+    var startNew = false;
+	var dtTenSet;
+    var dtMinDate = Date.now();
+    var dtTenDayCounts = 240 * 60 * 60 * 1000;
+	var regStartAt;
+	var subEndAt;
+
     if ($scope.challenge.regStartAt) {
-      var regStartAt = new Date($scope.challenge.regStartAt);
-      $scope.timeLine.stdt = regStartAt;
-      $scope.timeLine.timeSelectedStart = $filter('date')(regStartAt, 'HH:mm:ss');
-    }
+      regStartAt = new Date($scope.challenge.regStartAt);
+	} else {
+      regStartAt = new Date(dtMinDate);
+      $scope.challenge.regStartAt = regStartAt.toISOString();
+
+      dtTenSet = new Date(dtMinDate + dtTenDayCounts);
+      $scope.challenge.subEndAt = dtTenSet.toISOString();
+	}
+    $scope.timeLine.stdt = regStartAt;
+    $scope.timeLine.timeSelectedStart = $filter('date')(regStartAt, 'HH:mm:ss');
 
     if ($scope.challenge.subEndAt) {
-      var subEndAt = new Date($scope.challenge.subEndAt);
-      $scope.timeLine.enddt = subEndAt;
-      $scope.timeLine.timeSelectedEnd = $filter('date')(subEndAt, 'HH:mm:ss');
+      subEndAt = new Date($scope.challenge.subEndAt);
+    } else {
+      subEndAt = new Date(dtMinDate + dtTenDayCounts);
+      $scope.challenge.subEndAt = subEndAt.toISOString();
     }
+    $scope.timeLine.enddt = subEndAt;
+    $scope.timeLine.timeSelectedEnd = $filter('date')(subEndAt, 'HH:mm:ss');
 
     /*open start calendar*/
     $scope.openStartCal = function($event) {
