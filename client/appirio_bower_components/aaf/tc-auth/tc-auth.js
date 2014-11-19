@@ -82,7 +82,7 @@
             redirectUrl = currentBaseUrl + '/login';
           }
           else {
-            redirectUrl = TC_URLS.baseUrl + '/?action=showlogin?next=' + currentBaseUrl;
+            redirectUrl = TC_URLS.baseUrl + '?action=showlogin?next=' + currentBaseUrl;
           }
           $window.location.href =  redirectUrl
         }
