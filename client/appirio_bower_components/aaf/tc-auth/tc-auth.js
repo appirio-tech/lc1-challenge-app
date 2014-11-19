@@ -78,11 +78,11 @@
           var redirectUrl;
           var currentBaseUrl =  $location.protocol() + '://' + $location.host() + port;
           console.log('host, baseUrl', $location.host(), currentBaseUrl);
-          if ($location.host() === 'localhost') {
-            redirectUrl = currentBaseUrl + '/login';
+          if ($location.host().indexOf('topcoder') >= 0) {
+            redirectUrl = TC_URLS.baseUrl + '?action=showlogin?next=' + currentBaseUrl;
           }
           else {
-            redirectUrl = TC_URLS.baseUrl + '?action=showlogin?next=' + currentBaseUrl;
+            redirectUrl = currentBaseUrl + '/login';
           }
           $window.location.href =  redirectUrl
         }
