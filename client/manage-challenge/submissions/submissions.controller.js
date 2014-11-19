@@ -26,6 +26,7 @@
       vm.browser = Utils.getBrowser();
       vm.phone = matchmedia.isPhone();
       vm.payouts = [];
+      vm.total = 0;
 
       var orderedSubs = _.sortBy(vm.submissions, function(sub) {
         if (sub.scorecard) {
@@ -55,6 +56,7 @@
           }
         }
         vm.payouts.push(payout);
+        vm.total = vm.total + prize;
       });
 
       activate();
