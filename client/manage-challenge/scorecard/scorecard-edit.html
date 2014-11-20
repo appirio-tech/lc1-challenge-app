@@ -46,12 +46,12 @@
           <td>
         <!-- {{$index}} -->
             <div class="btn-group pull-left" data-toggle="buttons-radio" data-container="body" >
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Remove score selection" tooltip-append-to-body="true" btn-radio="-1" checked="checked" ><span class="fa fa-ban"></i></button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Incomplete or does not meet Expectations" tooltip-append-to-body="true" btn-radio="0">0</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Well below expectations" tooltip-append-to-body="true" btn-radio="1">1</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Slightly below expectations" tooltip-append-to-body="true" btn-radio="2">2</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Meets expectations" tooltip-append-to-body="true" btn-radio="3">3</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Exceeds expectations" tooltip-append-to-body="true" btn-radio="4">4</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event); class="btn btn-score" tooltip="Remove score selection" tooltip-append-to-body="true" btn-radio="-1" checked="checked" ><span class="fa fa-ban"></i></button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Incomplete or does not meet Expectations" tooltip-append-to-body="true" btn-radio="0">0</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Well below expectations" tooltip-append-to-body="true" btn-radio="1">1</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Slightly below expectations" tooltip-append-to-body="true" btn-radio="2">2</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Meets expectations" tooltip-append-to-body="true" btn-radio="3">3</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Exceeds expectations" tooltip-append-to-body="true" btn-radio="4">4</button>
 
             </div>
           </td>
