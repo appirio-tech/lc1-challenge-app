@@ -3,9 +3,9 @@
   <header class="sub-header">
     <div class="ui-container">
         <!--actions-->
-        <div class="actions desktop">
-            <!-- TODO: hook up dialog -->
-            <a ng-click="vm.initiateAnnounceWinners()" data-toggle="modal" data-target="#myModal" class="btn" style="width:180px">Announce Winners</a>
+        <div class="actions desktop" ng-switch on="vm.readyToAnnounce">
+            <a ng-if="!vm.readyToAnnounce" ng-click="vm.initiateAnnounceWinners()" class="btn" style="width:180px">Announce Winners</a>
+            <a ng-if="vm.readyToAnnounce" data-toggle="modal" data-target="#myModal" class="btn" style="width:180px">Announce Winners</a>
         </div>
         <!--title-->
         <div>
@@ -74,49 +74,8 @@
     <div class="custom-pager">
         <span data-ng-if="!phone" class="label">Showing items <b>1-{{vm.tableParams.total()}}</b> of <b>{{vm.tableParams.total()}}</b></span>
     </div>
-<!-- inline annouce winner
-    <div ng-show="vm.showWinnersTable">
-      <h1>Lock in Winners and Finish Challenge</h1>
-      <table class="table table-striped table-bordered table-condensed">
-        <thead>
-        <tr>
-          <th>Place</th>
-          <th>Prize</th>
-          <th>Submission ID</th>
-          <th>Score</th>
-          <th class="checkAll">Pay</th>
-        </tr>
-        </thead>
-        <tbody data-ng-repeat="payout in vm.payouts">
-            <tr data-ng-class="$odd?'odd':''">
-                <td class="text-left">
-                    {{payout.place}}
-                </td>
-                <td class="text-left">
-                    {{payout.prize | noFractionCurrency }}
-                </td>
-                <td class="text-left">
-                    {{payout.submissionId}}
-                </td>
-                <td class="text-left">
-                    {{payout.scorePercent | number:1}}
-                </td>
-                <td>
-              <input type="checkbox" ng-model="payout.pay" ng-disabled="!payout.submissionId">
-                </td>
 
-            </tr>
-        </tbody>
-      </table>
-      <div class="text-right" style="margin-bottom: 10px;">
-        <a ng-click="vm.confirmWinners()" class="btn" style="width:180px">Confirm</a>
-        <a ng-click="vm.cancelWinners()" class="btn" style="width:180px">Cancel</a>
-      </div>
-    </div>
-
-  -->
-
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
        <div class="modal-dialog">
            <div class="modal-content">
                <div class="modal-header">
@@ -151,19 +110,13 @@
                            <td>
                                <input type="checkbox" ng-model="payout.pay" ng-disabled="!payout.submissionId">
                            </td>
-   
+
                        </tr>
                        </tbody>
                        <tfoot>
-                       <tr data-ng-class="$odd?'odd':''">
-                           <td></td>
-                           <td class="text-left">{{vm.total | noFractionCurrency}}</td>
-                           <td></td>
-                           <td></td>
-                       </tr>
                        </tfoot>
                    </table>
-   
+
                </div>
                <div class="modal-footer">
                    <button ng-click="vm.cancelWinners()" type="button" class="btn-default btn" data-dismiss="modal">Cancel</button>
