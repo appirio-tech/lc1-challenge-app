@@ -22,7 +22,11 @@
         <a href="javascript:" data-ng-click="editDescription=false" data-ng-class="{active: !editDescription}">Preview</a></label>
 
         <div class="descriptionPreview" data-tc-markdown="challenge.description" data-ng-show="!editDescription" data-empty="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></div>
+<<<<<<< HEAD
         <textarea data-ng-show="editDescription" class="longDesc" data-maxlength="1000" data-ng-model="challenge.description" placeholder="Give the audience a summary of the challenge and why it will be an interesting problem to solve"></textarea>
+=======
+        <textarea data-ng-show="editDescription" class="longDesc" data-maxlength="40000" data-ng-model="challenge.description" placeholder="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></textarea>
+>>>>>>> 34571905b7dda4a53d39c3b53aa2600d65287431
 
         <label>Tags</label>
         <input class="tags-input" type="text" data-ng-model="tags" data-role="tagsinput"/>

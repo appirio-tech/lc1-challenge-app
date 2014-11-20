@@ -7,7 +7,7 @@
     'ui.bootstrap',
     'matchmedia-ng',
     'taiPlaceholder',
-    'ngTable', //TODO: replace w/ ng-grid
+    'ngTable', //TODO(DG: 11/19/2014): replace w/ ng-grid
 
     'tc.aaf',
     'tc.challenge'

@@ -23,10 +23,13 @@
       vm.closeAlert = closeAlert;
       vm.tcMemberProfileUrl = tcMemberProfileUrl;
 
+      vm.readyToAnnounce = readyToAnnounce();
+
       //user-agent stuff
       vm.browser = Utils.getBrowser();
       vm.phone = matchmedia.isPhone();
       vm.payouts = [];
+      vm.total = 0;
 
       var orderedSubs = _.sortBy(vm.submissions, function(sub) {
         if (sub.scorecard) {
@@ -46,16 +49,18 @@
         };
 
         if (index < orderedSubs.length) {
-          var sub = orderedSubs[index].scorecard;
-          if (sub) {
+          var scorecard = orderedSubs[index].scorecard;
+          if (scorecard) {
             payout.pay = true;
-            payout.reviewerId = sub.reviewerId,
-            payout.submissionId = sub.id;
-            payout.scorePercent = sub.scorePercent;
-            payout.id = sub.id;
+            payout.reviewerId = scorecard.reviewerId,
+            payout.submissionId = scorecard.submissionId;
+            payout.scorePercent = scorecard.scorePercent;
+            payout.id = scorecard.id;
           }
         }
+
         vm.payouts.push(payout);
+        vm.total = vm.total + prize;
       });
 
       activate();
@@ -105,9 +110,6 @@
         }
         else if (!allScorecardsSubmitted()) {
           vm.alerts.push({ type: 'warning', msg: "Challenge winners can't be declared until all scorecards have been submitted." });
-        } else {
-          //TODO(DG: 11/17/2014): implement dialog; for now show in a in-page table
-          vm.showWinnersTable = true;
         }
       }
 
@@ -117,7 +119,6 @@
         2. update challenge status
         3. Nav to results
         */
-
         var today = $filter('date')(Date.now(), 'yyyy-MM-ddTHH:mmZ', 'UTC'); //, timezone
 
         var deferred = $q.defer();
@@ -145,7 +146,6 @@
           });
         })
 
-
         return deferred.promise;
 
       }
@@ -169,6 +169,13 @@
 
       function tcMemberProfileUrl(memberHandle) {
         return TC_URLS.baseMemberProfileUrl + memberHandle;
+      }
+
+      function readyToAnnounce() {
+        var ready = false;
+        ready = (vm.challenge.status === 'REVIEW');
+        ready = ready && allScorecardsSubmitted();
+        return ready;
       }
 
     }
