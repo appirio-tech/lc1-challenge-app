@@ -135,10 +135,6 @@ body.no-application-scroll {
 	overflow: hidden;
 	}
 
-.modal-open {
-	overflow: auto;
-	}
-
 @media (min-width: 768px) {
 	body.no-application-scroll {
 		overflow: auto;
@@ -863,239 +859,6 @@ footer {
 	.ui-autocomplete li:hover {
 		background-color: #fcd4a8;
 		}
-
-/* Modal */
-.modal-dialog {
-	margin: 25px auto 0 auto;
-	}
-
-	.modal-dialog .modal-body,
-	.modal-dialog .modal-footer {
-		background-color: #e1ebf4;
-		}
-
-	.modal-dialog .modal-body {
-		border-left: #fff solid 1px;
-		border-right: #fff solid 1px;
-		}
-
-	.modal-dialog .modal-footer {
-		box-shadow: rgba(0,0,0,.1) 0 -2px 4px;
-		background-color: #fffffe;
-		padding: 6px 0 5px 0;
-		position: relative;
-		text-align: center;
-		}
-
-	.modal-dialog .modal-content {
-		box-shadow: rgba(0,0,0,.25) 0 2px 6px;
-		border-width: 0;
-		}
-
-	.modal-dialog .modal-header {
-		background-color: #455560;
-		}
-
-		.modal-dialog .modal-header h3 {
-			color: #fff;
-			font-size: 16px;
-			font-weight: normal;
-			padding-left: 2px;
-			}
-
-		.modal-dialog .modal-header .icon-close {
-			height: 40px;
-			position: absolute;
-			top: 0;
-			right: 0;
-			width: 40px;
-			}
-
-		.modal-dialog .modal-header .icon-close:before {
-			background-image: url(../img/desktop/icons.png);
-			background-position: -80px -30px;
-			display: block;
-			margin-top: 12px;
-			margin-left: 12px;
-			height: 15px;
-			width: 15px;
-			content: '';
-			}
-
-		.modal-dialog .modal-header .icon-close:hover:before {
-			opacity: .7;
-			}
-
-		.modal-dialog .modal-body {
-			padding: 0;
-			height: 198px;
-			overflow: auto;
-			}
-
-/* Advance Search */
-.modal-advance-search .modal-dialog {
-	width: 300px;
-	}
-
-.modal-advance-search .modal-content {
-	border-radius: 0;
-	}
-
-	.modal-advance-search .form-group {
-		border-top: #fff solid 1px;
-		margin: 0;
-		padding: 7px 0;
-		}
-
-	.modal-advance-search .form-group:before,
-	.modal-advance-search .form-group:after {
-		clear: both;
-		display: table;
-		content: '';
-		}
-
-	.modal-advance-search .form-group label {
-		color: #455560;
-		float: left;
-		font-size: 14px;
-		font-weight: normal;
-		line-height: 32px;
-		overflow: hidden;
-		padding-left: 12px;
-		text-overflow:ellipsis;
-		white-space: nowrap;
-		width: 100px;
-		}
-
-	.modal-advance-search .form-group .form-control {
-		width: 62%;
-		}
-
-	.modal-advance-search .form-group select {
-		border: #ccc solid 1px;
-		border-radius: 4px;
-		height: 32px;
-		line-height: 32px;
-		padding: 5px 6px;
-		width: 62%;
-		}
-
-	.modal-advance-search .form-group .switch {
-		float: right;
-		margin-right: 12px;
-		}
-
-	.modal-advance-search .btn-primary {
-		height: 36px;
-		line-height: 22px;
-		width: 147px;
-		}
-
-/* Settings Modal */
-.modal-settings .modal-dialog {
-	width: 300px;
-	}
-
-	.modal-settings .modal-content {
-		border-radius: 0;
-		}
-
-	.modal-settings .form-group {
-		border-top: #fff solid 1px;
-		margin: 0;
-		padding: 7px 0;
-		}
-
-	.modal-settings .form-group:before,
-	.modal-settings .form-group:after {
-		clear: both;
-		display: table;
-		content: '';
-		}
-
-	.modal-settings .form-group label {
-		color: #455560;
-		float: left;
-		font-size: 14px;
-		font-weight: normal;
-		line-height: 32px;
-		padding-left: 12px;
-		}
-
-	.modal-settings .form-group .switch {
-		float: right;
-		margin-right: 12px;
-		}
-
-	.modal-settings .btn-primary {
-		height: 36px;
-		line-height: 22px;
-		width: 147px;
-		}
-
-@media (min-width: 320px) and (orientation: portrait) {
-
-	.modal-dialog {
-		margin: 78px auto 0 auto;
-		}
-
-	.modal-dialog .modal-body {
-		height: auto;
-		}
-}
-
-@media (min-width: 480px) {
-
-	.modal-dialog {
-		margin: 25px auto 0 auto;
-		}
-
-	.modal-settings .modal-dialog,
-	.modal-advance-search .modal-dialog {
-		width: 378px;
-		}
-
-	.modal-advance-search .form-group .form-control {
-		width: 70%;
-		}
-
-	.modal-advance-search .form-group select {
-		width: 70%;
-		}
-}
-
-@media (min-width: 640px) {
-	.modal-dialog .modal-body {
-		height: 198px;
-		}
-}
-
-@media (min-width: 768px) {
-	.modal-dialog .modal-body {
-		height: auto;
-		}
-
-	.modal-advance-search .modal-dialog {
-		width: 478px;
-		}
-
-	.modal-advance-search .form-group label {
-		width: 100px;
-		}
-
-	.modal-settings .modal-dialog {
-		width: 478px;
-		}
-
-	.modal-advance-search .form-group .form-control {
-		width: 75%;
-		}
-
-	.modal-advance-search .form-group select {
-		width: 75%;
-		}
-
-}
 
 /* Popover */
 .ui-popover {
@@ -2454,20 +2217,6 @@ footer {
     }
 }
 
-@media (min-width: 768px) {
-	.modal-backdrop {
-		position: static;
-		}
-
-	.modal-open .modal {
-		display: none !important;
-		}
-
-	.modal-open {
-		overflow: auto;
-		}
-}
-
 .popover-setting {
 	display: none;
 	box-shadow: rgba(0,0,0,.25) 0 2px 6px;
@@ -3765,4 +3514,79 @@ h3.aaf-sa-subappname {
 	font-size: .8em;
 	margin-top: -2px;
 	display: block;
+}
+
+#score-list {
+    margin-bottom: 0px;
+}
+
+#score-list > tbody > tr > td:first-child{
+    padding-left: 17px;
+    padding-top: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#score-list > tbody > tr.odd > td {
+    background: none repeat scroll 0% 0% #F3F3F3;
+}
+#score-list > tbody > tr > td {
+    background: none repeat scroll 0% 0% white;
+}
+#score-list > tbody > tr > .prize-icon,
+#score-list > tbody > tr.odd > .prize-icon{
+    background-image: url(../img/desktop/prize-icon.png);
+    background-size: 30px 36px;
+    background-repeat: no-repeat;
+    background-position: 6px 6px;
+}
+
+#score-list > tfoot > tr {
+    height: 48px;
+}
+#score-list > tfoot > tr > td {
+    padding-left: 0px;
+}
+
+#myModal .modal-footer .btn{
+    height: 36px;
+    box-shadow: none;
+    color: #FFF;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+}
+
+#myModal .modal-footer .btn.btn-primary{
+    color: #FFF;
+    background-color: #428BCA;
+    border-color: #357EBD;
+}
+
+#myModal .modal-footer .btn.btn-default{
+    color: #333;
+    background-color: #FFF;
+    border-color: #CCC;
+}
+
+
+#myModal .modal-header {
+    height: 60px;
+}
+
+#myModal .modal-body {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
