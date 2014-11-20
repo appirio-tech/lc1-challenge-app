@@ -75,7 +75,7 @@
         <span data-ng-if="!phone" class="label">Showing items <b>1-{{vm.tableParams.total()}}</b> of <b>{{vm.tableParams.total()}}</b></span>
     </div>
 
-   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
        <div class="modal-dialog">
            <div class="modal-content">
                <div class="modal-header">
@@ -120,7 +120,7 @@
                </div>
                <div class="modal-footer">
                    <button ng-click="vm.cancelWinners()" type="button" class="btn-default btn" data-dismiss="modal">Cancel</button>
-                   <button ng-click="vm.confirmWinners()" type="button" class="btn btn-primary">Confirm</button>
+                   <button ng-click="vm.confirmWinners()" type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
                </div>
            </div><!-- /.modal-content -->
        </div><!-- /.modal-dialog -->
