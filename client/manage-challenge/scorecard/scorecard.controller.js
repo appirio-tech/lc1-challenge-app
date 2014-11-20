@@ -33,6 +33,12 @@
 
       activate();
 
+    $scope.setActive = function (event){
+		  angular.element(event.target).siblings().removeClass("active-btn");
+		  angular.element(event.target).addClass('active-btn');
+		  angular.element(event.target).attr('active');
+	  }
+
       function activate() {
         //table stuff
         var sort = {sequence: 'asc'};
