@@ -77,7 +77,7 @@
           $log.error('tc-auth: auth failed', rejection);
           var redirectUrl;
           var currentBaseUrl =  $location.protocol() + '://' + $location.host() + port;
-          console.log('host, baseUrl', $location.host(), currentBaseUrl);
+          //console.log('host, baseUrl', $location.host(), currentBaseUrl);
           if ($location.host().indexOf('topcoder') >= 0) {
             redirectUrl = TC_URLS.baseUrl + '?action=showlogin?next=' + currentBaseUrl;
           }
