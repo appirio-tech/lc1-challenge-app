@@ -21,6 +21,7 @@
       vm.cancelWinners = cancelWinners;
       vm.alerts = [];
       vm.closeAlert = closeAlert;
+      vm.tcMemberProfileUrl = tcMemberProfileUrl;
 
       //user-agent stuff
       vm.browser = Utils.getBrowser();
@@ -74,10 +75,10 @@
             "colName": "Date Submitted",
             "col": "updatedAt" //submittedAt
           },
-          // {
-          //   "colName": "Reviewer",
-          //   "col": "scorecard.reviewerId" //reviewer
-          // },
+          {
+            "colName": "Reviewer",
+            "col": "scorecard.reviewerHandle" //reviewer
+          },
           {
             "colName": "Score",
             "col": "scorecard.scorePercent" //score
@@ -166,6 +167,10 @@
 
       function closeAlert(index) {
         vm.alerts.splice(index, 1);
+      }
+
+      function tcMemberProfileUrl(memberHandle) {
+        return TC_URLS.baseMemberProfileUrl + memberHandle;
       }
 
     }

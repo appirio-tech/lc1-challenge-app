@@ -13,7 +13,7 @@
    * @returns
    * @ngInject
    */
-  function ChallengeService($http, $q, Utils, TC_DATA_SOURCE, TC_SCORING) {
+  function ChallengeService($http, $q, UserService, Utils, TC_DATA_SOURCE, TC_SCORING) {
     var _challenges;
     var _useLocal = TC_DATA_SOURCE.challenge.useLocal || false;
 
@@ -223,25 +223,30 @@
 
         });
 
-        var scorecardBody = {
-          status: 'NEW',
-          reviewerId: 222,  //req'd; TODO(DG: 11/12/2014): use real user id
-          submissionId: parseInt(submissionId), //req'd
-          scoreMax: maxScore,
-          scorePercent: 0
-        };
+        UserService.getCurrentUser().then(function(user) {
+          var scorecardBody = {
+            status: 'NEW',
+            reviewerId: user.id,  //req'd; TODO(DG: 11/12/2014): use real user id
+            reviewerHandle: user.handle,
+            submissionId: parseInt(submissionId), //req'd
+            scoreMax: maxScore,
+            scorePercent: 0
+          };
 
-        Utils.apiPost('/_api_/challenges/' + challengeId + '/scorecards', scorecardBody).then(function(scorecard) {
-          _.forEach(scoreItemBodies, function(scoreItemBody) {
-            var promise = Utils.apiPost('/_api_/challenges/' + challengeId + '/scorecards/' + scorecard.id + '/scorecardItems', scoreItemBody)
-            scorecardItemPromises.push(promise);
-          });
+          Utils.apiPost('/_api_/challenges/' + challengeId + '/scorecards', scorecardBody).then(function(scorecard) {
+            _.forEach(scoreItemBodies, function(scoreItemBody) {
+              var promise = Utils.apiPost('/_api_/challenges/' + challengeId + '/scorecards/' + scorecard.id + '/scorecardItems', scoreItemBody)
+              scorecardItemPromises.push(promise);
+            });
 
-          $q.all(scorecardItemPromises).then(function() {
-            deferred.resolve(scorecard);
+            $q.all(scorecardItemPromises).then(function() {
+              deferred.resolve(scorecard);
+            })
+
           })
+        });
 
-        })
+
 
 
       });

@@ -47,11 +47,11 @@
               <td class="text-left" data-sortable="'submission.updatedAt'">
                   {{submission.updatedAt | date:'MMM dd yyyy HH:mm a (Z)' }}
               </td>
-              <!--
-              <td class="text-left" data-sortable="'submission.scorecard.reviewerId'">
-                  {{submission.scorecard.reviewerId}}
+
+              <td class="text-left" data-sortable="'submission.scorecard.reviewerHandle'">
+                  <a ng-href="{{vm.tcMemberProfileUrl(submission.scorecard.reviewerHandle)}}" target="_blank">{{submission.scorecard.reviewerHandle}}</a>
               </td>
-              -->
+
               <td class="text-left" data-sortable="'submission.scorecard.scorePercent'">
                   {{(submission.scorecard.scorePercent || 0).toFixed(1)}}
               </td>
@@ -61,7 +61,7 @@
               <!-- TODO: logic for actions -->
               <td data-ng-if="!phone" class="action-btn">
                   <!-- use download attribute to do download -->
-                  <a href="{{submission.file.filePath + submission.file.fileName}}" download class="fa fa-2x fa-download" title="Download Submission"></a>
+                  <a href="{{submission.file.fileUrl}}" download class="fa fa-2x fa-download" title="Download Submission"></a>
               </td>
                <td data-ng-if="!phone" class="action-btn">
                   <a ng-if="!submission.scorecard.id" href="#/challenges/{{vm.challenge.id}}/submissions/{{submission.id}}/new" class="fa fa-2x fa-check-square-o" title="Create Scorecard"></a>
@@ -109,7 +109,7 @@
         </tbody>
       </table>
       <div class="text-right" style="margin-bottom: 10px;">
-        <a ng-click="vm.confirmWinners()" class="btn" style="width:180px">Submit</a>
+        <a ng-click="vm.confirmWinners()" class="btn" style="width:180px">Confirm</a>
         <a ng-click="vm.cancelWinners()" class="btn" style="width:180px">Cancel</a>
       </div>
     </div>

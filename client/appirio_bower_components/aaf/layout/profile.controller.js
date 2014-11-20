@@ -46,7 +46,7 @@
       }
 
       var currentBaseUrl =  $location.protocol() + '://' + $location.host() + port;
-      return TC_URLS.baseUrl + 'logout?next=' + currentBaseUrl;
+      return TC_URLS.baseUrl + '/?action=logout?next=' + currentBaseUrl;
     }
 
   }
