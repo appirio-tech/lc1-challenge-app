@@ -111,11 +111,14 @@ module.exports.Challenge = function(domain) {
         var path = '/challenges';
 
         var body;
+
+
         var queryParameters = {};
         var headers = {authorization: parameters.headers.authorization};
 
         if (parameters.body !== undefined) {
             body = parameters['body'];
+            body.projectSource = 'TOPCODER';
         }
 
         if (parameters['body'] === undefined) {
@@ -145,6 +148,7 @@ module.exports.Challenge = function(domain) {
                 if (/^application\/(.*\\+)?json/.test(response.headers['content-type'])) {
                     try {
                         body = JSON.parse(body);
+                        console.log('body %j', body);
                     } catch (e) {
 
                     }
@@ -154,6 +158,7 @@ module.exports.Challenge = function(domain) {
                         response: response,
                         body: body
                     });
+                    console.log('body %j', body);
                 } else {
                     deferred.reject({
                         response: response,
