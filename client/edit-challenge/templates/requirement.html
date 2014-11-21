@@ -7,14 +7,14 @@
   <!--End .section header-->
   <div class="content">
   <p class="guidance">
-    These requirements will form the basis for submission <em>scoring</em>, so write plainly and clearly. Break your requirements up — several smaller, gradeable requirements are better than one long rambling one. 
+    These requirements will form the basis for submission <em>scoring</em>, so write plainly and clearly. Break your requirements up — several smaller, gradeable requirements are better than one long rambling one.
   </p>
     <form name="requirementForm">
       <label class="requirement-desc-label">Content
         <a href="javascript:" data-ng-click="editRequirement=true" data-ng-class="{active: editRequirement}">Write</a>
         <a href="javascript:" data-ng-click="editRequirement=false" data-ng-class="{active: !editRequirement}">Preview</a></label>
       <div class="requirementPreview" data-tc-markdown="requirements.content" data-ng-show="!editRequirement" data-empty="Type your requirement here"></div>
-      <textarea class="requirement-desc" data-ng-model="requirements.content" data-ng-show="editRequirement" placeholder="Type your requirement here"></textarea>
+      <textarea data-maxlength="10000" class="requirement-desc" data-ng-model="requirements.content" data-ng-show="editRequirement" placeholder="Type your requirement here"></textarea>
       <a href="javascript:" data-ng-click="addRequirement()" class="btn blue-btn add-requirement"><i></i>Add Requirement</a>
     </form>
     <!--End .form-->
@@ -31,7 +31,7 @@
         <div class="requirementItemPreview" data-ng-if="!requirement.edit" data-tc-markdown="requirement.requirementText" data-empty=""></div>
         <!--<p data-ng-if="!requirement.edit">{{requirement.requirementText}}</p>-->
         <div data-ng-if="requirement.edit" class="textarea-cnt">
-          <textarea data-maxlength="800" data-ng-model="requirement.requirementText"></textarea>
+          <textarea data-maxlength="10000" data-ng-model="requirement.requirementText"></textarea>
         </div>
         <!--End .DESC-->
       </div>
