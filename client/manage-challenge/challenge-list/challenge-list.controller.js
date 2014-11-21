@@ -13,7 +13,8 @@
    */
   function ChallengeListController($scope, matchmedia, ChallengeService, Utils, TC_URLS, resolvedChallenges, $location) {
     var locationParams = $location.search();
-    $scope.launchedChallenge = locationParams['launchSuccess'];
+    $scope.launchedChallenge = locationParams['launchSuccess']
+    $scope.challengeUrl = $scope.launchedChallenge + '?type=develop&lc=true';
     $scope.TC_URLS = TC_URLS;
 
     var vm = this;
