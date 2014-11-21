@@ -182,6 +182,13 @@ a:active {
 		box-shadow: none;
 		outline: none;
 }
+.btn.add-new{
+    width: 157px;
+    text-align: left;
+}
+.btn.add-new i{
+        background-position: -36px -200px;
+    }
 /*page header*/
 
 header.header {
@@ -247,6 +254,222 @@ header .header-action h3 {
 		white-space: nowrap;
 		padding-left: 30px;
 }
+
+/*new styles*/
+.sub-header{
+    height: 37px;
+    border-bottom: 1px solid #d7d7d7;
+    background: #f3f3f3;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+    .sub-header .ui-container{
+        margin: 0;
+    }
+    .mobile{
+        display: block;
+    }
+    .desktop{
+        display: none;
+    }
+@media (min-width: 768px) {
+    .mobile{
+        display: none;
+    }
+    .desktop{
+        display: block;
+    }
+    .sub-header{
+        height: 53px;
+        padding-top: 8px;
+    }
+    .sub-header .ui-container{
+        margin: 0 32px;
+    }
+}
+    .sub-header .ui-container > h3{
+        font-size: 15px;
+        font-weight: normal;
+        color: #455560;
+        line-height: 36px;
+        margin-left: 11px;
+    }
+        .sub-header h3 i{
+            display: none;
+        }
+@media (min-width: 768px) {
+    .sub-header .ui-container > h3{
+        font-size: 20px;
+        font-weight: normal;
+        line-height: 32px;
+        padding-top: 1px;
+        margin-left: 0;
+    }
+    .sub-header h3 i{
+        width: 33px;
+        height: 33px;
+        /* 
+        border: 1px solid #d7d7d7;
+        border-radius: 4px; 
+        background: #fff;
+        */
+        display: inline-block;
+        float: left;
+        margin-right: 15px;
+        cursor: pointer;
+        /* Additions to accomodate fa icons */
+        padding-left: 6px;
+		padding-top: 5px;
+    }
+}
+    .sub-header .actions{
+        float: right;
+        font-size: 0;
+    }
+        .sub-header .actions a,
+        .sub-header .actions .btn-group{
+            margin-left: 12px;
+        }
+		
+		
+		
+		
+/*btn style*/
+.btn{
+    height: 36px;
+    border: 1px solid #2b83af;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 #9acce5 inset;
+    background: #3499cb;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 34px;
+    padding: 0;
+}
+.btn:hover{
+	color: #fff;
+    background: #2a7aa2;
+    border-color: #1f5e7e;
+}
+.btn.active{
+    box-shadow: none;
+    background: #fff;
+    cursor: default;
+    color: #3499cb;
+}
+.btn.add-new{
+    width: 157px;
+    text-align: left;
+}
+.btn.btn-gray{
+    background: #949ca1;
+    border: 1px solid #767d82;
+    box-shadow: 0 1px 0 #caced0 inset;
+}
+.btn.btn-gray:hover{
+    background: #889196;
+}
+.action-btns{
+    float: left;
+}
+.btn.list,.btn.grid{
+    padding: 0 2px;
+}
+.btn.week-month{
+    width: 89px;
+}
+    .btn i{
+        height: 34px;
+        width: 36px;
+        background: url("../img/desktop/icons.png");
+        display: block;
+        float: left;
+    }
+    .btn.add-new i{
+        background-position: -36px -200px;
+    }
+    .btn.filter i{
+        background-position: -35px -232px;
+    }
+    .btn.filter.active i{
+        background-position: -75px -267px;
+    }
+    .btn.grid i{
+        background-position: -72px -199px;
+    }
+    .btn.grid.active i{
+        background-position: -72px -233px;
+    }
+    .btn.list i{
+        background-position: 0 -199px;
+    }
+    .btn.list.active i{
+        background-position: 0 -233px;
+    }
+    .action-btns .btn.btn-copy i{
+        background-position: -110px -200px;
+    }
+    .action-btns .btn.btn-delete i{
+        background-position: -150px -200px;
+    }
+    .action-btns .btn.btn-action i{
+        background-position: -110px -235px;
+    }
+
+    .action-btns .btn.btn-action.active i{
+        background-position: -150px -235px;
+    }
+
+    .mobile.actions .btn{
+        width: 45px;
+        border: none;
+        border-left: 1px solid #ccc;
+        height: 36px;
+        background: transparent;
+        border-radius: 0;
+        text-align: center;
+        padding: 9px 13px 7px;
+        margin-left: 0;
+        box-shadow: none;
+    }
+    .mobile.actions .btn.add-btn{
+        width: auto;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 20px;
+        color: #3499cb;
+    }
+    .mobile.actions .btn.cal{
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 20px;
+        color: #3499cb;
+    }
+    .mobile.actions .btn-group{
+        margin-left: 0;
+    }
+        .mobile .btn i{
+            width: 21px;
+            height: 20px;
+            display: inline-block;
+            background: url("../img/mobile/icons.png");
+        }
+        .mobile .btn.filter i{
+            background-position: 0 -200px;
+        }
+        .mobile .btn.list i{
+            background-position: -23px -200px;
+        }
+        .mobile .btn.grid i{
+            background-position: -95px -200px;
+        }
+        .mobile .btn.add-btn i{
+            background-position: -70px -200px;
+            margin-right: 5px;
+        }
+		
 /*footer styles*/
 
 footer {
@@ -280,6 +503,7 @@ footer p {
 		right: 0;
 		background: #fbfbfb;
 		height: 770px;
+		margin-top: 52px;
 }
 /*challenge map title*/
 
@@ -456,15 +680,11 @@ footer p {
 		display: block;
 		padding: 4px 30px 60px 30px;
 		background: url("../img/section-border.png") 0 100% repeat-x;
+		margin-top:53px;
 }
 .main.has-challenge-map section {
 		padding: 4px 48px 60px 30px;
 }
-/* BG: bit of a hack to force enough scroll-length for challenge map to work properly */
-.main.has-challenge-map section:last-child {
-		padding-bottom: 400px;
-}
-
 .main section:last-child {
 		background: none;
 }
