@@ -43,7 +43,7 @@
 
     function getSubmissions(challengeId) {
       var deferred = $q.defer();
-      Utils.apiGet('/_api_/challenges/' + challengeId + '/submissions').then(function (result) {
+      Utils.apiGet('/challenges/' + challengeId + '/submissions').then(function (result) {
         // Enable once statuses are available on submissions
         _.forEach(result.content, function(submission) {
           submission.statusDisplay = Utils.initCase(submission.status)
@@ -59,7 +59,7 @@
     function getSubsAndFiles(challengeId) {
       var deferred = $q.defer();
       getSubsAndScorecards(challengeId).then(function(subsScores) {
-        Utils.apiGet('/_api_/challenges/' + challengeId + '/files/').then(function(res) {
+        Utils.apiGet('/challenges/' + challengeId + '/files/').then(function(res) {
 
           var files = res.content;
           angular.forEach(files, function(file, key) {
@@ -80,7 +80,7 @@
     /* Challenge APIs */
     function getChallenge(challengeId) {
       var deferred = $q.defer();
-      Utils.apiGet('/_api_/challenges/' + challengeId).then(function(res) {
+      Utils.apiGet('/challenges/' + challengeId).then(function(res) {
         deferred.resolve(res.content);
       });
 
@@ -99,7 +99,7 @@
         if (_useLocal) {
           return Utils.getJsonData('appirio_bower_components/challenge/data/challenges.json');
         } else {
-          Utils.apiGet('/_api_/challenges').then(function(challenges) {
+          Utils.apiGet('/challenges').then(function(challenges) {
             _.forEach(challenges.content, function(challenge) {
               challenge.statusDisplay = Utils.initCase(challenge.status)
             });
@@ -119,7 +119,7 @@
       //   challengeId: challenge.id, //TODO(DG: 11/16/2014): Remove; currently req'd #280
       // };
 
-      return Utils.apiUpdate('/_api_/challenges/' + challenge.id, challenge);
+      return Utils.apiUpdate('/challenges/' + challenge.id, challenge);
     }
 
 
@@ -131,7 +131,7 @@
           return deferred.resolve();
         } else {
           _.remove(_challenges, { 'id': challengeId });
-          return Utils.apiDelete('/_api_/challenges/' + challengeId);
+          return Utils.apiDelete('/challenges/' + challengeId);
         }
         return deferred.promise;
 
@@ -139,7 +139,7 @@
 
     function getRequirements(challengeId) {
       var deferred = $q.defer();
-      Utils.apiGet('/_api_/challenges/' + challengeId + '/requirements').then(function(result) {
+      Utils.apiGet('/challenges/' + challengeId + '/requirements').then(function(result) {
         deferred.resolve(result);
       });
       return deferred.promise;
@@ -150,7 +150,7 @@
       var deferred = $q.defer();
 
       //get scorecard items + associated requirements for a single scorecard
-      Utils.apiGet('/_api_/challenges/' + challengeId + '/scorecards/' + scorecardId).then(function(result) {
+      Utils.apiGet('/challenges/' + challengeId + '/scorecards/' + scorecardId).then(function(result) {
         getScorecardItems(challengeId, scorecardId).then(function(scorecardItems) {
           result.content.scorecardItems = scorecardItems;
           getRequirements(challengeId, scorecardId).then(function(requirements) {
@@ -177,7 +177,7 @@
           }));
         });
       } else {
-        Utils.apiGet('/_api_/challenges/' + challengeId + '/scorecards').then(function(result) {
+        Utils.apiGet('/challenges/' + challengeId + '/scorecards').then(function(result) {
           // Add Init cased statuses
           _.forEach(result.content, function(scorecard) {
             if (scorecard.status !== null) {
@@ -192,20 +192,13 @@
 
     function getScorecardItems(challengeId, scorecardId) {
       var deferred = $q.defer();
-      Utils.apiGet('/_api_/challenges/' + challengeId + '/scorecards/' + scorecardId + '/scorecardItems').then(function(result) {
+      Utils.apiGet('/challenges/' + challengeId + '/scorecards/' + scorecardId + '/scorecardItems').then(function(result) {
         deferred.resolve(result);
       });
 
       return deferred.promise;
     }
 
-    function deleteScorecard() {
-      var body = {
-        id: 12
-      };
-
-      return Utils.apiPost('/_api_/challenges/4/scorecards', body);
-    }
     function createScorecard(challengeId, submissionId) {
       var deferred = $q.defer();
       var scorecardItemPromises = [];
@@ -225,17 +218,17 @@
 
         UserService.getCurrentUser().then(function(user) {
           var scorecardBody = {
-            status: 'NEW',
-            reviewerId: user.id,  //req'd; TODO(DG: 11/12/2014): use real user id
-            reviewerHandle: user.handle,
-            submissionId: parseInt(submissionId), //req'd
-            scoreMax: maxScore,
-            scorePercent: 0
+            "status": "NEW",
+            "reviewerId": user.id,  //req'd; TODO(DG: 11/12/2014): use real user id
+            "reviewerHandle": user.handle,
+            "submissionId": parseInt(submissionId), //req'd
+            "scoreMax": maxScore,
+            "scorePercent": 0
           };
 
-          Utils.apiPost('/_api_/challenges/' + challengeId + '/scorecards', scorecardBody).then(function(scorecard) {
+          Utils.apiPost('/challenges/' + challengeId + '/scorecards', scorecardBody).then(function(scorecard) {
             _.forEach(scoreItemBodies, function(scoreItemBody) {
-              var promise = Utils.apiPost('/_api_/challenges/' + challengeId + '/scorecards/' + scorecard.id + '/scorecardItems', scoreItemBody)
+              var promise = Utils.apiPost('/challenges/' + challengeId + '/scorecards/' + scorecard.id + '/scorecardItems', scoreItemBody)
               scorecardItemPromises.push(promise);
             });
 
@@ -255,7 +248,7 @@
     }
 
     function updateScorecard(challengeId, scorecard) {
-      return Utils.apiUpdate('/_api_/challenges/' + challengeId + '/scorecards/' + scorecard.id, scorecard);
+      return Utils.apiUpdate('/challenges/' + challengeId + '/scorecards/' + scorecard.id, scorecard);
     }
 
     function updateScorecardItems(challengeId, scorecardItems) {
@@ -280,7 +273,7 @@
       if (scorecardItem.comment) {
         body.comment = scorecardItem.comment
       }
-      return Utils.apiUpdate('/_api_/challenges/' + challengeId + '/scorecards/' + scorecardId + '/scorecardItems/' + scorecardItem.id, body);
+      return Utils.apiUpdate('/challenges/' + challengeId + '/scorecards/' + scorecardId + '/scorecardItems/' + scorecardItem.id, body);
 
     }
 

@@ -158,7 +158,7 @@
         var submissions = vm.submissions
         var allSubmitted = true;
         _.forEach(submissions, function(submission) {
-          allSubmitted = allSubmitted && (submission.scorecard.status === 'SUBMITTED')
+          allSubmitted = allSubmitted && submission.scorecard && (submission.scorecard.status === 'SUBMITTED')
         });
         return allSubmitted;
       }
