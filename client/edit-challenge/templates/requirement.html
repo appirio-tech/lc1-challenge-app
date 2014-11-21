@@ -11,6 +11,9 @@
   </p>
     <form name="requirementForm">
       <label class="requirement-desc-label">Content
+        <a style="white-space: nowrap; margin-right: 85px" href="http://daringfireball.net/projects/markdown/syntax" target="_blank">
+            <img ng-src="https://markdownjournal.com/mkd.png"/> Markdown Help
+        <a/>
         <a href="javascript:" data-ng-click="editRequirement=true" data-ng-class="{active: editRequirement}">Write</a>
         <a href="javascript:" data-ng-click="editRequirement=false" data-ng-class="{active: !editRequirement}">Preview</a></label>
       <div class="requirementPreview" data-tc-markdown="requirements.content" data-ng-show="!editRequirement" data-empty="Type your requirement here"></div>

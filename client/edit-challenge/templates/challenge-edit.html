@@ -16,7 +16,12 @@
         <input data-maxlength="80" data-ng-model="challenge.title" type="text" placeholder="Short, descriptive and catchy is your best bet"/>
         <label>Challenge Overview <span style="font-size: .8em;">(Limit 100 chars)</label>
         <textarea class="shortDesc" data-maxlength="100" data-ng-model="challenge.overview" placeholder="This is will be used in listings and search results, as well as for social media promotion (tweets, Facebook summary, etc.)"></textarea>
+
+
         <label class="desc">Description
+          <a style="white-space: nowrap; margin-right: 85px" href="http://daringfireball.net/projects/markdown/syntax" target="_blank">
+              <img ng-src="https://markdownjournal.com/mkd.png"/> Markdown Help
+          <a/>
         <a href="javascript:void(0);" data-ng-click="editDescription=true" data-ng-class="{active: editDescription}">Write</a>
         <a href="javascript::void(0);" data-ng-click="editDescription=false" data-ng-class="{active: !editDescription}">Preview</a></label>
 
