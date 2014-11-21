@@ -67,7 +67,7 @@
 
       //helper functions
       function tcChallengeDetailsUrl(challenge) {
-        return TC_URLS.baseChallengeDetailsUrl + challenge.id;
+        return TC_URLS.baseChallengeDetailsUrl + challenge.id + '?type=develop&lc=true';
       }
 
       function scoreItems() {
