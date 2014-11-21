@@ -137,9 +137,11 @@ module.exports = function(options, config) {
       var fileName = part.filename;
       headers['Content-Length'] = part.byteCount;
       var targetPath = '/challenges' + '/' + req.params.challengeId + '/' + fileName;
+      var fileUrl = targetPath + '/' + fileName;
       _.extend(file, {
-        filePath : targetPath,
-        fileName : fileName,
+        // filePath : targetPath,
+        //fileName : fileName,
+        fileUrl : fileUrl,
         size : part.byteCount,
         // storageLocation configured in config. same as name of storage provider
         // challenge service is using storageLocation so chaned storageType to storage location

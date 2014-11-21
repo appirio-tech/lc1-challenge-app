@@ -11,15 +11,17 @@
 </head>
 
 <body ng-controller="LoginController as vm">
-    <h1>Temp Login Page for Louder Crowd</h1>
     <div >
-	    <!-- TODO: make host and redirect url configuable -->
-	    <div ng-repeat="connection in vm.connections">
-		    <a href="{{vm.auth0Host}}/authorize?response_type=code&scope=openid%20profile&client_id={{vm.clientId}}&redirect_uri={{vm.redirectUri}}&connection={{connection.name}}">{{connection.displayName}}</a>
-	    </div>
+      <h1>Temp Login Page for Louder Crowd</h1>
+      <div ng-repeat="connection in vm.connections">
+        <a href="{{vm.auth0Host}}/authorize?response_type=code&scope=openid%20profile&client_id={{vm.clientId}}&redirect_uri={{vm.redirectUri}}&connection={{connection.name}}">{{connection.displayName}}</a>
+      </div>
 	  </div>
 
   <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="appirio_bower_components/aaf/tc-auth/tc-auth.js"></script>
 
   <!-- Custom App Code -->
   <script src="app.js"></script>

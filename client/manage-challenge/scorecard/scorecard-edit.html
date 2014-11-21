@@ -4,32 +4,22 @@
     <div class="ui-container">
       <!--actions-->
       <div class="actions desktop">
-        <a href="javascript:void(0);" ng-click="vm.saveScorecard(vm.challenge)" class="btn" style="width:90px">Save</a>
+        <a href="javascript:void(0);" ng-click="vm.submitScorecard()" class="btn" style="width:90px">Submit</a>
+        <a href="javascript:void(0);" ng-click="vm.saveAndNav()" class="btn" style="width:90px">Save</a>
         <a href="javascript:history.back()" class="btn" style="width:100px">Cancel</a>
       </div>
-      <!--actions-->
-      <div class="actions mobile">
-
-        <a href="javascript:" class="btn filter {{filter_popover_open?'active':''}}" data-ng-click="filter_open()"><i></i></a>
-
-        <div class="btn-group">
-          <label class="btn {{view}}" data-ng-click="toggleView()"><i></i>
-          </label>
-        </div>
-      </div>
-      <!--title-->
       <div>
         <h3 class="aaf-sa-subappname">
           <i class="fa fa-check-square-o"></i>Scorecard
         </h3>
-        <!-- TODO: remove hard-coded link; -->
         <!-- /* TODO (BG: 10/22/2014): make breadcrumb an Angular component */ -->
         <!--breadcrumb-->
-        <span class="aaf-sa-breadcrumb"><a href="http://tcdev22.topcoder.com/challenge-details/{{vm.challenge.id}}" target="_blank">{{vm.challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a> / <a href="#/challenges/{{vm.challenge.id}}/submissions">Submissions</a> / {{vm.scorecard.id}} / Scorecard </span>
+        <span class="aaf-sa-breadcrumb"><a ng-href="{{vm.tcChallengeDetailsUrl(vm.challenge)}}" target="_blank">{{vm.challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a> / <a ng-href="/manage/#/challenges/{{vm.challenge.id}}/submissions">Submissions</a> / {{vm.scorecard.submissionId}} / Scorecard / {{vm.scorecard.id}}</span>
       </div>
     </div>
   </header>
   <div class="ui-container">
+    <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)" >{{alert.msg}}</alert>
     <table data-ng-table="vm.tableParams" class="table subAppTable {{browser==='safari'?'safari':''}}">
       <thead>
         <tr>
@@ -42,26 +32,26 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="scoreItem in $data">
+        <tr data-ng-repeat="scoreItem in $data" data-ng-class="{warning: (vm.alerts.length > 0 && scoreItem.score === -1), odd: (!$odd && vm.alerts.length < 1)}">
           <td>
             &nbsp;
           </td>
           <td class="text-left">
-            {{scoreItem.id}}
+            {{$index + 1}}
           </td>
-          <td class="text-left">
+          <td class="text-left" style="max-width:300px;">
             {{scoreItem.requirement.requirementText}}
           </td>
 
           <td>
         <!-- {{$index}} -->
             <div class="btn-group pull-left" data-toggle="buttons-radio" data-container="body" >
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Remove score selection" tooltip-append-to-body="true" btn-radio="-1" checked="checked" ><span class="fa fa-ban"></i></button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Incomplete or does not meet Expectations" tooltip-append-to-body="true" btn-radio="0">0</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Well below expectations" tooltip-append-to-body="true" btn-radio="1">1</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Slightly below expectations" tooltip-append-to-body="true" btn-radio="2">2</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Meets expectations" tooltip-append-to-body="true" btn-radio="3">3</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Exceeds expectations" tooltip-append-to-body="true" btn-radio="4">4</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event); class="btn btn-score" tooltip="Remove score selection" tooltip-append-to-body="true" btn-radio="-1" checked="checked" ><span class="fa fa-ban"></i></button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Incomplete or does not meet Expectations" tooltip-append-to-body="true" btn-radio="0">0</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Well below expectations" tooltip-append-to-body="true" btn-radio="1">1</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Slightly below expectations" tooltip-append-to-body="true" btn-radio="2">2</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Meets expectations" tooltip-append-to-body="true" btn-radio="3">3</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Exceeds expectations" tooltip-append-to-body="true" btn-radio="4">4</button>
 
             </div>
           </td>

@@ -4,7 +4,7 @@
     <div class="ui-container">
       <!--actions-->
       <div class="actions desktop">
-        <a href="javascript:void(0);" ng-click="vm.saveScorecard(vm.challenge)" class="btn" style="width:90px">Save</a>
+        <a href="javascript:void(0);" ng-click="vm.saveScorecard()" class="btn" style="width:90px">Save</a>
         <a href="javascript:history.back()" class="btn" style="width:100px">Cancel</a>
       </div>
       <!--actions-->
@@ -48,9 +48,9 @@
             &nbsp;
           </td>
           <td class="text-left">
-            {{scoreItem.id}}
+            {{$index + 1}}
           </td>
-          <td class="text-left">
+          <td class="text-left" style="max-width:300px;">
             {{scoreItem.requirement.requirementText}}
           </td>
 

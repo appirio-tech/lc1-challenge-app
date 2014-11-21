@@ -49,7 +49,7 @@
             var defer = $q.defer();
             ChallengeService.createScorecard($route.current.params.challengeId, $route.current.params.submissionId).then(
               function(scorecard) {
-                $location.path('/challenges/' + $route.current.params.challengeId + '/submissions/' + $route.current.params.submissionId + '/scorecard/' + scorecard.id).replace();
+                $location.path('/challenges/' + $route.current.params.challengeId + '/submissions/' + $route.current.params.submissionId + '/scorecard/' + scorecard.id + '/edit').replace();
             });
             return defer.promise;
           },

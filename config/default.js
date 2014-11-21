@@ -30,12 +30,12 @@ module.exports = {
   },
   root: rootPath,
   challengeServiceURI: 'http://lc1-challenge-service.herokuapp.com/',
+  tcAPI: 'https://qa.topcoder.com/',
   auth0: {
-    Domain: process.env.TC_AUTH0_DOMAIN || 'serenity-tc.auth0.com',
+    Domain: process.env.TC_AUTH0_DOMAIN || 'topcoder.auth0.com',
     /* use process.env first, then .env file, last set here */
     Client: process.env.TC_AUTH0_CLIENT || getEnv('TC_AUTH0_CLIENT') || 'foo',
     Secret: process.env.TC_AUTH0_SECRET || getEnv('TC_AUTH0_SECRET') || 'bar'
-
   },
   /**
    * Uploads configuration
@@ -78,7 +78,7 @@ module.exports = {
         tempDir: './temp'
       }
     },
-    s3: {
+    S3: {
       /**
        * This path is needed to load the provider during application load
        * NOTE: The path is relative to root of application and should not end in a forward slash
@@ -109,6 +109,6 @@ module.exports = {
   }
 };
 
-console.log('DEBUG: from default.js, using auth0: %j',  module.exports.auth0 );
-console.log('DEBUG: the process.env.NODE_ENV is ', process.env.NODE_ENV );
-console.log('DEBUG: AWS_KEY is ', process.env.AWS_KEY);
+//console.log('DEBUG: from default.js, using auth0: %j',  module.exports.auth0 );
+//console.log('DEBUG: the process.env.NODE_ENV is ', process.env.NODE_ENV );
+//console.log('DEBUG: AWS_KEY is ', process.env.AWS_KEY);

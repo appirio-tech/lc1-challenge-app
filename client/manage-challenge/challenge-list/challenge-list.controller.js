@@ -11,12 +11,19 @@
    * @returns
    * @ngInject
    */
-  function ChallengeListController($scope, matchmedia, ChallengeService, Utils, TC_URLS, resolvedChallenges) {
+  function ChallengeListController($scope, matchmedia, ChallengeService, Utils, TC_URLS, resolvedChallenges, $location) {
+    var locationParams = $location.search();
+    $scope.launchedChallenge = locationParams['launchSuccess'];
+    $scope.TC_URLS = TC_URLS;
+
     var vm = this;
     vm.challenges = resolvedChallenges.content;
     vm.totalCount = resolvedChallenges.metadata.totalCount;
     vm.toTCChallengeDetailsUrl = toTCChallengeDetailsUrl;
+    vm.toTCProjectUrl = toTCProjectUrl;
     vm.deleteChallenge = deleteChallenge;
+    vm.alerts = [];
+    vm.closeAlert = closeAlert;
 
     //user-agent stuff
     vm.browser = Utils.getBrowser();
@@ -38,8 +45,8 @@
           "col": "title"
         },
         {
-          "colName": "Account",
-          "col": "account"
+          "colName": "Project Id",
+          "col": "projectId"
         },
         {
           "colName": "Last Updated",
@@ -57,16 +64,25 @@
 
     //helper functions
     function toTCChallengeDetailsUrl(challenge) {
-      return TC_URLS.baseChallengeDetailsUrl + challenge.id;
+      return TC_URLS.baseChallengeDetailsUrl + challenge.id + '?type=develop&lc=true';
+    }
+
+    function toTCProjectUrl(challenge) {
+      return TC_URLS.directProjectUrl + '?formData.projectId=' + challenge.projectId;
     }
 
     function deleteChallenge(challenge) {
       _.remove(vm.challenges, { 'id': challenge.id });
       ChallengeService.deleteChallenge(challenge.id).then(function(res) {
+        vm.alerts.push({ type: 'warning', msg: "Challenge has been deleted." });
         vm.totalCount = vm.totalCount - 1;
         vm.tableParams.reload();
       });
 
+    }
+
+    function closeAlert(index) {
+      vm.alerts.splice(index, 1);
     }
 
   }

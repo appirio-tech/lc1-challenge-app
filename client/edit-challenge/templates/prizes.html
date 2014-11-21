@@ -2,12 +2,12 @@
   <header>
     <i></i>
     <h4>Prizes</h4>
-    <span>HOW MUCH DO THE WINNERS RECEIVE?</span>
+    <span>How much do the winners receive?</span>
   </header>
   <!--End .section header-->
   <div class="content">
     <p class="prize-desc">
-      Everyone likes to be rewarded for their hard work. Generous prize amounts will give your challenge more attention from the community: more submissions and higher quality.
+      Generous prize amounts will give your challenge more attention from the community: expect more submissions and higher quality.
     </p>
     <!--End desc-->
 
@@ -29,10 +29,10 @@
       Prize Total : ${{prizes.totalPrize | number:0}}
     </div>
     <!--End price area-->
-    <p class="customer-account-desc">Challenge prizes will be charged to customer account: <span>(additional fees may apply, not shown here.)</span></p>
+    <p class="customer-account-desc">Challenge prizes will be charged to Topcoder project id (e.g. 1234):  <span>(additional fees may apply, not shown here.)</span></p>
     <!--End customer-account-desc-->
     <div class="customer-account-holder">
-      <input class="customer-account-name" type="text" data-ng-model="prizes.customerAccountName" data-ui-autocomplete="autoComplete" >
+      <input class="customer-account-name" type="text" data-ng-model="challenge.projectId"  >
     </div>
     <!--End customer-accounts-->
   </div>

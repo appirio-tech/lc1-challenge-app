@@ -7,21 +7,26 @@
     <header>
       <i></i>
       <h4>Information for Public Browsing</h4>
-      <span>SUMMARIZE YOUR CHALLENGE AND CONVINCE THE COMMUNITY TO REGISTER</span>
+      <span>I'm a community member — why should I care about your challenge?</span>
     </header>
     <!--End .section header-->
     <div class="content">
+    <p class="timeline-desc">Topcoder is a marketplace for skills. Your challenge will fail or succeed based on how well it appeals to the community. Take this time to promote it!</p>    
       <form name="form1">
         <label>Challenge Title</label>
-        <input data-maxlength="80" data-ng-model="challenge.title" type="text" placeholder="Give it a title, ones that inspire"/>
-        <label>Overview</label>
-        <textarea class="shortDesc" data-maxlength="100" data-ng-model="challenge.overview" placeholder="Give the audience a overview of this challenge"></textarea>
+        <input data-maxlength="80" data-ng-model="challenge.title" type="text" placeholder="Short, descriptive and catchy is your best bet"/>
+        <label>Challenge Overview <span style="font-size: .8em;">(Limit 100 chars)</label>
+        <textarea class="shortDesc" data-maxlength="100" data-ng-model="challenge.overview" placeholder="This is will be used in listings and search results, as well as for social media promotion (tweets, Facebook summary, etc.)"></textarea>
         <label class="desc">Description
         <a href="javascript:" data-ng-click="editDescription=true" data-ng-class="{active: editDescription}">Write</a>
         <a href="javascript:" data-ng-click="editDescription=false" data-ng-class="{active: !editDescription}">Preview</a></label>
 
         <div class="descriptionPreview" data-tc-markdown="challenge.description" data-ng-show="!editDescription" data-empty="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></div>
-        <textarea data-ng-show="editDescription" class="longDesc" data-maxlength="1000" data-ng-model="challenge.description" placeholder="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></textarea>
+<<<<<<< HEAD
+        <textarea data-ng-show="editDescription" class="longDesc" data-maxlength="1000" data-ng-model="challenge.description" placeholder="Give the audience a summary of the challenge and why it will be an interesting problem to solve"></textarea>
+=======
+        <textarea data-ng-show="editDescription" class="longDesc" data-maxlength="40000" data-ng-model="challenge.description" placeholder="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></textarea>
+>>>>>>> 34571905b7dda4a53d39c3b53aa2600d65287431
 
         <label>Tags</label>
         <input class="tags-input" type="text" data-ng-model="tags" data-role="tagsinput"/>
@@ -35,12 +40,12 @@
     <header>
       <i></i>
       <h4>Information for Registered Contestants</h4>
-      <span>PROVIDE ADDITIONAL GUIDANCE FOR CONTESTANTS TO EXCEL</span>
+      <span>Provide additional guidance for contestants to excel</span>
     </header>
     <!--End .section header-->
     <div class="content">
       <p class="guidance">
-        At times a picture or diagram is all that’s needed to convey an idea or insight into a problem. Take this time to consider giving your audience any necessary documents, pictures, or other types of files they may need in order to get up to speed with your challenge.
+      At times a picture or diagram is all that’s needed to convey an idea or insight into a problem. Take this time to consider giving your audience any necessary documents, pictures, or other types of files they may need in order to get up to speed with your challenge.
       </p>
       <!--End .guidance-->
       <div class="uploadBar">
@@ -79,7 +84,7 @@
 
         <div class="file no-file" data-ng-if="!uploading && fileBrowsing.uploadedFiles.length===0">
           <div class="inner">
-            <label><input type="checkbox" data-ng-model="noFile" data-ng-change="changeNoFile(noFile)">No files to attach to the challenge</label>
+            <label><input type="checkbox" data-ng-model="noFile" data-ng-change="changeNoFile(noFile)">No files to attach</label>
           </div>
         </div>
         <!--End .noFile-->

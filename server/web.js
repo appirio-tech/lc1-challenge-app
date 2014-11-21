@@ -59,6 +59,13 @@
   app.use('/tags', tags);
   app.use('/accounts', accounts);
 
+  //TODO(DG: 11/14/2104): enable if we want app specific error handling
+  // app.use(function (err, req, res, next) {
+  //   if (err.name === 'UnauthorizedError') {
+  //     res.status(401).send('invalid token...');
+  //   }
+  // });
+
   //server config
   var port = Number(process.env.PORT || 8000);
 

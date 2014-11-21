@@ -41,17 +41,17 @@
             {{result.scorecard.place}}
           </td>
           <td class="text-left" data-sortable="'prize'">
-            {{result.scorecard.prize}}
+            {{result.scorecard.prize | noFractionCurrency}}
           </td>
           <td class="text-left" data-sortable="'submission.submitter.handle'">
-            <a href="{{vm.tcMemberProfileUrl(result.submission.submitter.handle)}}" target="_blank">{{result.submitterId}}</a>
+            <a href="{{vm.tcMemberProfileUrl(result.submitterHandle)}}" target="_blank">{{result.submitterHandle}}</a>
           </td>
           <td data-ng-if="!phone" class="text-left" data-sortable="'scoreSum'">
-          {{result.scorecard.scoreSum}}
+          {{result.scorecard.scorePercent | number:1}}
 
           </td>
           <td class="action-btn">
-            <a ng-href="{{result.file.filePath + result.file.fileName}}" class="fa fa-2x fa-download" title="Download Submission"></a>
+            <a ng-href="{{result.file.fileUrl}}" class="fa fa-2x fa-download" title="Download Submission"></a>
           </td>
         </tr>
         </tbody>

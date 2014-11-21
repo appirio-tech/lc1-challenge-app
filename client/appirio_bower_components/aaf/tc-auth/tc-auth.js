@@ -2,6 +2,14 @@
   'use strict';
 
   angular.module('tc.aaf.auth', ['ngCookies'])
+  .constant("AUTH0", {
+    "host": "https://topcoder.auth0.com",
+    "clientId": "c4PVvC1z50DOlOLjLqHb5iw2fGM8teTW"
+  })
+  .constant("TC_URLS", {
+    "baseUrl": "http://tcdev22.topcoder.com/"
+  })
+
   .factory('authInterceptor', AuthInterceptor)
   .service('UserService', UserService)
   .config(function ($httpProvider, $routeProvider) {
@@ -16,7 +24,7 @@
       .when('/_auth_/logout', {
         template: '',
         controller: LogoutHandler
-      });
+      })
   });
 
   /**
@@ -37,7 +45,6 @@
       //clear tokens from qs
       $location.search('jwt', null);
       $location.search('state', null);
-
       $location.path('/').replace();
     }
   }
@@ -45,7 +52,7 @@
   /**
    * @ngInject
    */
-  function AuthInterceptor($cookies, $location, $log, $q, $window) {
+  function AuthInterceptor($cookies, $location, $log, $q, $window, TC_URLS) {
     return {
       //Add Auth Header
       request: function (config) {
@@ -62,10 +69,22 @@
       responseError: function (rejection) {
         //console.log('have an auth error; redirect to login', rejection)
         if (rejection.status === 401) {
-          //TODO(DG: 10/30/2014): Properly handle the case where the user is not authenticated
+          var port = '';
+          if ($location.port() !== 80) {
+            port = ':' + $location.port();
+          }
+
           $log.error('tc-auth: auth failed', rejection);
-          var baseUrl =  $location.protocol() + '://' + $location.host() + ':' + $location.port();
-          $window.location.href = baseUrl + '/login';
+          var redirectUrl;
+          var currentBaseUrl =  $location.protocol() + '://' + $location.host() + port;
+          //console.log('host, baseUrl', $location.host(), currentBaseUrl);
+          if ($location.host().indexOf('topcoder') >= 0) {
+            redirectUrl = TC_URLS.baseUrl + '?action=showlogin?next=' + currentBaseUrl;
+          }
+          else {
+            redirectUrl = currentBaseUrl + '/login';
+          }
+          $window.location.href =  redirectUrl
         }
         return $q.reject(rejection);
       }
@@ -85,17 +104,6 @@
   function UserService($q, $window, Utils, TC_URLS) {
     var currentUser;
 
-    //TODO(DG: 11/10/2014): Move this to config
-
-    //github username
-    var whitelist = [
-      'kbowerma',
-      'bryceglass',
-      'gaitonde',
-      'indytechcook',
-      'westonian'
-    ];
-
     return {
       getCurrentUser: function() {
         var deferred = $q.defer();
@@ -104,14 +112,8 @@
           deferred.resolve(currentUser);
         } else {
           Utils.apiGet('/_api_/user').then(function(user) {
-            if (!_.contains(whitelist, user.nickname)) {
-              $window.location.href = TC_URLS.baseUrl;
-              deferred.reject();
-            } else {
-              currentUser = user;
-              deferred.resolve(currentUser);
-            }
-
+            currentUser = user;
+            deferred.resolve(currentUser);
           });
         }
 

@@ -3,9 +3,9 @@
   <header class="sub-header">
     <div class="ui-container">
         <!--actions-->
-        <div class="actions desktop">
-            <!-- TODO: remove disabled; hook up dialog -->
-            <a href="javascript:void(0);" class="btn" style="width:180px">Announce Winners</a>
+        <div class="actions desktop" ng-switch on="vm.readyToAnnounce">
+            <a ng-if="!vm.readyToAnnounce" ng-click="vm.initiateAnnounceWinners()" class="btn" style="width:180px">Announce Winners</a>
+            <a ng-if="vm.readyToAnnounce" data-toggle="modal" data-target="#myModal" class="btn" style="width:180px">Announce Winners</a>
         </div>
         <!--title-->
         <div>
@@ -14,11 +14,12 @@
           </h3>
           <!-- /* TODO (BG: 10/22/2014): make breadcrumb an Angular component */ -->
           <!--breadcrumb-->
-          <span class="aaf-sa-breadcrumb"><a ng-href="{{vm.tcChallengeDetailsUrl(vm.challenge)}}" target="_blank">{{vm.challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a> / Submissions </span>
+          <span class="aaf-sa-breadcrumb"><a ng-href="{{vm.tcChallengeDetailsUrl(vm.challenge)}}" target="_blank">{{vm.challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a> / Submissions</span>
         </div>
     </div>
   </header>
   <div class="ui-container">
+    <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)" >{{alert.msg}}</alert>
     <table data-ng-table="vm.tableParams" class="table subAppTable {{browser==='safari'?'safari':''}}">
       <thead>
       <tr>
@@ -33,32 +34,34 @@
       </tr>
       </thead>
       <tbody data-ng-repeat="submission in $data">
-          <tr data-ng-class="$odd?'odd':''">
+          <tr data-ng-class="{warning: (vm.alerts.length > 0 && submission.scorecard.status !== 'SUBMITTED'), odd: (!$odd && vm.alerts.length < 1)}">
               <td>
                   &nbsp; {{vm.tableParams.total | json}}
               </td>
               <td data-ng-if="phone" class="text-left" data-sortable="'col1'">
                   <a href="javascript:" class="add-btn {{submission.expand?'expand':''}}" data-ng-click="toggleExpand(submission)"></a>
               </td>
-              <td class="text-left" data-sortable="'id'">
+              <td class="text-left" data-sortable="'submission.id'">
                   {{submission.id}}
               </td>
-              <td class="text-left" data-sortable="'updatedAt'">
-                  {{submission.updatedAt}}
+              <td class="text-left" data-sortable="'submission.updatedAt'">
+                  {{submission.updatedAt | date:'MMM dd yyyy HH:mm a (Z)' }}
               </td>
-              <td class="text-left" data-sortable="'updatedBy'">
-                  {{submission.updatedBy}}
+
+              <td class="text-left" data-sortable="'submission.scorecard.reviewerHandle'">
+                  <a ng-href="{{vm.tcMemberProfileUrl(submission.scorecard.reviewerHandle)}}" target="_blank">{{submission.scorecard.reviewerHandle}}</a>
               </td>
-              <td class="text-left" data-sortable="'scoreSum'">
-                  {{submission.scorecard.scoreSum || 0}}
+
+              <td class="text-left" data-sortable="'submission.scorecard.scorePercent'">
+                  {{(submission.scorecard.scorePercent || 0).toFixed(1)}}
               </td>
               <td data-ng-if="!phone" class="text-left" data-sortable="'status'">
-                  {{submission.scorecard.statusDisplay}}
+                  {{submission.scorecard.statusDisplay || 'New'}}
               </td>
               <!-- TODO: logic for actions -->
               <td data-ng-if="!phone" class="action-btn">
                   <!-- use download attribute to do download -->
-                  <a href="{{submission.file.filePath + submission.file.fileName}}" download class="fa fa-2x fa-download" title="Download Submission"></a>
+                  <a href="{{submission.file.fileUrl}}" download class="fa fa-2x fa-download" title="Download Submission"></a>
               </td>
                <td data-ng-if="!phone" class="action-btn">
                   <a ng-if="!submission.scorecard.id" href="#/challenges/{{vm.challenge.id}}/submissions/{{submission.id}}/new" class="fa fa-2x fa-check-square-o" title="Create Scorecard"></a>
@@ -71,6 +74,58 @@
     <div class="custom-pager">
         <span data-ng-if="!phone" class="label">Showing items <b>1-{{vm.tableParams.total()}}</b> of <b>{{vm.tableParams.total()}}</b></span>
     </div>
+
+   <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+       <div class="modal-dialog">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                   <h4 class="modal-title" style="float: left">Lock in Winners and Finish Challenge</h4>
+               </div>
+               <div class="modal-body">
+                   <table id="score-list" class="table table-striped">
+                       <thead>
+                       <tr>
+                           <th>Place</th>
+                           <th>Prize</th>
+                           <th>Submission ID</th>
+                           <th>Score</th>
+                           <th class="checkAll">Pay</th>
+                       </tr>
+                       </thead>
+                       <tbody data-ng-repeat="payout in vm.payouts">
+                       <tr data-ng-class="$odd?'odd':''">
+                           <td class="text-left prize-icon">
+                               {{payout.place}}
+                           </td>
+                           <td class="text-left">
+                               {{payout.prize | noFractionCurrency }}
+                           </td>
+                           <td class="text-left">
+                               {{payout.submissionId}}
+                           </td>
+                           <td class="text-left">
+                               {{payout.scorePercent | number:1}}
+                           </td>
+                           <td>
+                               <input type="checkbox" ng-model="payout.pay" ng-disabled="!payout.submissionId">
+                           </td>
+
+                       </tr>
+                       </tbody>
+                       <tfoot>
+                       </tfoot>
+                   </table>
+
+               </div>
+               <div class="modal-footer">
+                   <button ng-click="vm.cancelWinners()" type="button" class="btn-default btn" data-dismiss="modal">Cancel</button>
+                   <button ng-click="vm.confirmWinners()" type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+               </div>
+           </div><!-- /.modal-content -->
+       </div><!-- /.modal-dialog -->
+   </div>
+
 
   </div>
 </div>
