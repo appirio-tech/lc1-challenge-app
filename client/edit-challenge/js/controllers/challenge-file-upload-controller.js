@@ -28,6 +28,11 @@
     /*get files in the challenge*/
     if ($scope.challenge.id) {
       ChallengeService.getFiles($scope.challenge.id).then(function(data) {
+        _.forEach(data, function(datum) {
+          datum.name = datum.fileUrl.substring(datum.fileUrl.lastIndexOf('/') + 1);
+          datum.extension = datum.fileUrl.substring(datum.fileUrl.lastIndexOf('.') + 1);
+        })
+
         $scope.fileBrowsing.uploadedFiles = data;
       });
     }
@@ -62,9 +67,11 @@
         ChallengeService.getFile($scope.challenge.id, actionResponse.id)
           .then(function(file) {
             // add file to list
+            file.name = file.fileUrl.substring(file.fileUrl.lastIndexOf('/') + 1);
+            file.extension = file.fileUrl.substring(file.fileUrl.lastIndexOf('.') + 1);
             $scope.fileBrowsing.uploadedFiles.push(file);
             // clear form
-            resetUploadForm();      
+            resetUploadForm();
           }, function(err) {
             console.log('getFile: error: ', err);
           });

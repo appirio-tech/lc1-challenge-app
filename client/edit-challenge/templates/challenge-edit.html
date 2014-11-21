@@ -17,8 +17,8 @@
         <label>Challenge Overview <span style="font-size: .8em;">(Limit 100 chars)</label>
         <textarea class="shortDesc" data-maxlength="100" data-ng-model="challenge.overview" placeholder="This is will be used in listings and search results, as well as for social media promotion (tweets, Facebook summary, etc.)"></textarea>
         <label class="desc">Description
-        <a href="javascript:" data-ng-click="editDescription=true" data-ng-class="{active: editDescription}">Write</a>
-        <a href="javascript:" data-ng-click="editDescription=false" data-ng-class="{active: !editDescription}">Preview</a></label>
+        <a href="javascript:void(0);" data-ng-click="editDescription=true" data-ng-class="{active: editDescription}">Write</a>
+        <a href="javascript::void(0);" data-ng-click="editDescription=false" data-ng-class="{active: !editDescription}">Preview</a></label>
 
         <div class="descriptionPreview" data-tc-markdown="challenge.description" data-ng-show="!editDescription" data-empty="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></div>
         <textarea data-ng-show="editDescription" class="longDesc" data-maxlength="40000" data-ng-model="challenge.description" placeholder="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></textarea>
@@ -49,7 +49,7 @@
           <input data-ng-class="{'invalid' : fileNameInvalid}" data-ng-file-select="onFileSelect($files)" type="file" name="myFile" class="fileInput" id="fileUploader">
         </div>
         <!--End .fileField-->
-        <a href="javascript:" data-ng-click="doUpload()" class="upload-btn pull-right"></a>
+        <a href="javascript::void(0);" data-ng-click="doUpload()" class="upload-btn pull-right"></a>
         <!--End .upload-btn-->
         <div class="fileDescription">
           <input data-ng-class="{'invalid' : fileTitleInvalid}" data-maxlength="80" type="text" data-ng-model="fileTitle" placeholder="File Title"/>
@@ -59,10 +59,10 @@
 
       <div class="file-holder">
         <div class="file" data-ng-repeat="file in fileBrowsing.uploadedFiles">
-          <a href="javascript:" class="close-btn" data-ng-click="deleteFile(file)"></a>
+          <a href="javascript:void(0);" class="close-btn" data-ng-click="deleteFile(file)"></a>
           <!--End .close btn-->
-          <i data-size="{{file.size}}">{{file.storageLocation}}</i>
-          <h3>{{file.fileName}}</h3>
+          <i data-size="{{file.size | bytes}}">{{file.extension}}</i>
+          <h3>{{file.name}}</h3>
           <p>{{file.title}}</p>
         </div>
         <!--End .file-->
