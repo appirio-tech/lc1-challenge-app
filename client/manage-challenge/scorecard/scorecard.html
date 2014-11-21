@@ -2,34 +2,19 @@
   <!--sub headers-->
   <header class="sub-header">
     <div class="ui-container">
-      <!--actions-->
-      <div class="actions desktop">
-        <a href="javascript:void(0);" ng-click="vm.saveScorecard()" class="btn" style="width:90px">Save</a>
-        <a href="javascript:history.back()" class="btn" style="width:100px">Cancel</a>
-      </div>
-      <!--actions-->
-      <div class="actions mobile">
-
-        <a href="javascript:" class="btn filter {{filter_popover_open?'active':''}}" data-ng-click="filter_open()"><i></i></a>
-
-        <div class="btn-group">
-          <label class="btn {{view}}" data-ng-click="toggleView()"><i></i>
-          </label>
-        </div>
-      </div>
-      <!--title-->
+    <!--  removed actions here -->
       <div>
         <h3 class="aaf-sa-subappname">
-          <i class="fa fa-check-square-o"></i>Scorecard -  MAKE READ ONLY
+          Scorecard for your submission to  ‘{{vm.challenge.title}}’
         </h3>
-        <!-- TODO: remove hard-coded link; -->
-        <!-- /* TODO (BG: 10/22/2014): make breadcrumb an Angular component */ -->
-        <!--breadcrumb-->
-        <span class="aaf-sa-breadcrumb"><a href="http://tcdev22.topcoder.com/challenge-details/{{vm.challenge.id}}" target="_blank">{{vm.challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a> / <a href="#/challenges/{{vm.challenge.id}}/submissions">Submissions</a> / {{vm.scorecard.id}} / Scorecard </span>
+         <h5 class="aaf-sa-subappname">
+          Reviewd by "Reviewer Name and Date Here"
+        </h5>
       </div>
     </div>
   </header>
   <div class="ui-container">
+    <!-- <h2>  this will become the read only view scoreacard (remove me)</h2> -->
     <table data-ng-table="vm.tableParams" class="table subAppTable {{browser==='safari'?'safari':''}}">
       <thead>
         <tr>
@@ -42,36 +27,41 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="scoreItem in $data">
+        <tr data-ng-repeat="scoreItem in $data" >
           <td>
             &nbsp;
           </td>
-          <td class="text-left">
-            {{$index + 1}}
+          <td class="text-left ng-binding">
+            <h4>
+              {{scoreItem.id}}&nbsp;
+            </h4>
           </td>
-          <td class="text-left" style="max-width:300px;">
-            {{scoreItem.requirement.requirementText}}
+          <td class="text-left ng-binding">
+          <div>
+            <h4>
+              {{scoreItem.requirement.requirementText}}
+            </h4>
+          </div>
+          <div class="nik-user-comment" data-ng-if="needToShowComment(scoreItem)">
+               <span>{{scoreItem.comment}}</span>
+          </div>
           </td>
 
           <td>
         <!-- {{$index}} -->
-            <div class="btn-group pull-left" data-toggle="buttons-radio" data-container="body" >
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Remove score selection" tooltip-append-to-body="true" btn-radio="-1" checked="checked" ><span class="fa fa-ban"></i></button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Incomplete or does not meet Expectations" tooltip-append-to-body="true" btn-radio="0">0</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Well below expectations" tooltip-append-to-body="true" btn-radio="1">1</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Slightly below expectations" tooltip-append-to-body="true" btn-radio="2">2</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Meets expectations" tooltip-append-to-body="true" btn-radio="3">3</button>
-              <button type="button" ng-model="scoreItem.score" class="btn btn-score" tooltip="Exceeds expectations" tooltip-append-to-body="true" btn-radio="4">4</button>
-
-            </div>
+            <b class="ng-binding">{{scoreItem.score}}</b>/4
           </td>
-          <td data-ng-if="!phone" class="text-left" data-sortable="'col4'">
-            <textarea ng-model="scoreItem.comment" rows="3" cols="50" placeholder="Optional comment"></textarea>
+          <td data-ng-if="!phone&&needToShowComment(scoreItem)" class="text-left" data-sortable="'col4'">
+            <a>1 comment<a>
           </td>
         </tr>
       </tbody>
     </table>
     <!--end table-->
+    <div class="text-right">
+      <h2> Total Score - {{vm.totalScore}}/{{vm.outOfScore}}</h2>
+    </div>
+    <br>
 
   </div>
 </div>

@@ -22,6 +22,18 @@
       vm.alerts = [];
       vm.closeAlert = closeAlert;
 
+
+
+      // vm.scorecard.scorecardItems.content[2].comment = ""; // check for no comments situation
+
+      // view page of scorecard total score and total score out of
+
+      vm.totalScore = totalScore(resolvedScorecard.content);
+      vm.outOfScore = outOfScore(resolvedScorecard.content);
+
+
+
+
       //user-agent stuff
       vm.browser = Utils.getBrowser();
       vm.phone = matchmedia.isPhone();
@@ -156,6 +168,28 @@
 
           });
         }
+      }
+
+              // 8.  At the bottom of your page put a sum of the score out of the possible points,
+        // you may assume that each scorecard item is a maximum of 4 points.
+        // So for this challenge the scorecard the max score is 6 x 4 = 24 points
+
+      function totalScore(scorecard) {
+        var sum = 0;
+        for (var i = scorecard.scorecardItems.content.length - 1; i >= 0; i--) {
+          sum+=scorecard.scorecardItems.content[i].score
+        };
+        return sum;
+      }
+
+
+      function outOfScore(scorecard) {
+        return scorecard.scorecardItems.content.length*4;// assumed that score is on 4
+      }
+
+      // control to hide/show the comment column
+      $scope.needToShowComment = function(item){
+        return item.comment != "";
       }
 
       function closeAlert(index) {
