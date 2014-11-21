@@ -31,7 +31,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         if (parameters['filter'] !== undefined) {
             queryParameters['filter'] = parameters['filter'];
@@ -112,7 +112,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         if (parameters.body !== undefined) {
             body = parameters['body'];
@@ -183,7 +183,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -256,7 +256,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -333,7 +333,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -402,7 +402,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -480,7 +480,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -554,7 +554,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -635,7 +635,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -720,7 +720,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -796,7 +796,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -875,7 +875,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -953,7 +953,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1034,7 +1034,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1119,7 +1119,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1195,7 +1195,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1273,7 +1273,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1347,7 +1347,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1428,7 +1428,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1513,7 +1513,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1590,7 +1590,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1676,7 +1676,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1758,7 +1758,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1847,7 +1847,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -1940,7 +1940,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2023,7 +2023,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2101,7 +2101,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2175,7 +2175,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2256,7 +2256,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2341,7 +2341,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2417,7 +2417,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2496,7 +2496,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2574,7 +2574,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2654,7 +2654,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2731,7 +2731,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2817,7 +2817,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2898,7 +2898,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -2985,7 +2985,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -3074,7 +3074,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 
@@ -3167,7 +3167,7 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {authorization: parameters.headers.authorization};
 
         path = path.replace('{challengeId}', parameters['challengeId']);
 

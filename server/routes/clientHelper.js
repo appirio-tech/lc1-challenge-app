@@ -24,6 +24,7 @@ function wrapApiMethod(apiMethod) {
     var params = req.params;
     _.extend(params, req.query);
     params.body = req.body;
+    params.headers = req.headers;
 
     // invoke API method
     var promise = apiMethod(params); // returns promise
