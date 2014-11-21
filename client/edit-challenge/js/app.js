@@ -17,6 +17,8 @@
     'ngSanitize',
     'duScroll',
     'growlNotifications',
+    //'ngCookies',
+    'tc.aaf',
     //custom
     'directives'
   ])

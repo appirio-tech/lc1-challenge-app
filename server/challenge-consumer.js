@@ -112,7 +112,9 @@ module.exports.Challenge = function(domain) {
 
         var body;
         var queryParameters = {};
-        var headers = {};
+        var headers = {
+            authorization: parameters.headers.authorization
+        };
 
         if (parameters.body !== undefined) {
             body = parameters['body'];
