@@ -484,8 +484,9 @@ footer p {
 .main section header span {
 		line-height: 24px;
 		display: block;
-		font-size: 18px;
+		font-size: 16px;
 		color: #8ba5b8;
+		text-transform: uppercase;
 }
 .main section header i {
 		position: absolute;
@@ -563,7 +564,7 @@ footer p {
 		height: 35px;
 }
 .main section .content p.guidance {
-		height: 236px;
+		min-height: 140px;
 		border-bottom: 1px solid #cccccc;
 		line-height: 24px;
 		font-size: 16px;
@@ -642,7 +643,7 @@ footer p {
 
 .main section .content .file-holder {
 		display: block;
-		padding-bottom: 200px;
+		padding-bottom: 20px;
 		overflow: hidden;
 }
 .main section .content .file-holder .file {
