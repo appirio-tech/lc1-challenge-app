@@ -8,6 +8,7 @@
   angular.module('edit.challenge', [
 
     //3rd party
+    'ngRoute',
     'ui.autocomplete',
     'ui.bootstrap',
     'taiPlaceholder',
