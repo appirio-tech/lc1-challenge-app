@@ -1274,14 +1274,14 @@ footer p {
 	/*height: 100px;*/
 	margin-right: 196px;
 }
-.descriptionPreview li, .requirementItemPreview li{
+.descriptionPreview li, .requirementItemPreview li, .requirementPreview li {
 
 list-style-type: decimal;
 list-style-position: inside;
 margin-left: 15px;
 -webkit-padding-start: 20px;
 }
-.descriptionPreview ul li, .requirementItemPreview ul li{
+.descriptionPreview ul li, .requirementItemPreview ul li, .requirementPreview ul li{
 list-style-type: disc;
 }
 
