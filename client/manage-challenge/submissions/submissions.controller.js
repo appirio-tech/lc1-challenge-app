@@ -56,6 +56,7 @@
             payout.submissionId = scorecard.submissionId;
             payout.scorePercent = scorecard.scorePercent;
             payout.id = scorecard.id;
+            payout.status = 'SUBMITTED';
           }
         }
 
@@ -138,7 +139,8 @@
             id: vm.challenge.id,
             title: vm.challenge.title,
             status: vm.challenge.status,
-            completedAt: today
+            completedAt: today,
+            projectSource: 'TOPCODER'
           }
           ChallengeService.updateChallenge(body).then(function(challenge) {
             deferred.resolve(challenge);
@@ -172,10 +174,7 @@
       }
 
       function readyToAnnounce() {
-        var ready = false;
-        ready = (vm.challenge.status === 'REVIEW');
-        ready = ready && allScorecardsSubmitted();
-        return ready;
+        return (vm.challenge.status === 'REVIEW') && allScorecardsSubmitted();
       }
 
     }

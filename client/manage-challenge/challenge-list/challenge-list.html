@@ -58,6 +58,11 @@
           <td class="text-left" data-sortable="'projectId'">
           <a ng-href="{{vm.toTCProjectUrl(challenge)}}" target="_blank">{{challenge.projectId}} <i ng-if="challenge.projectId" class="fa fa-sm fa-external-link-square"></i> </a>
           </td>
+          <!--
+          <td class="text-left" data-sortable="'creatorHandle'">
+            <a ng-href="{{vm.tcMemberProfileUrl(challenge.creatorHandle)}}" target="_blank">{{challenge.creatorHandle}}</a>
+          </td>
+          -->
           <td class="text-left" data-sortable="'updatedAt'">
           {{challenge.updatedAt | date:'MMM dd yyyy HH:mm a (Z)' }}
           </td>

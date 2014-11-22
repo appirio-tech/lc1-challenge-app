@@ -3,7 +3,7 @@
   <header class="sub-header">
     <div class="ui-container">
         <!--actions-->
-        <div class="actions desktop" ng-switch on="vm.readyToAnnounce">
+        <div class="actions desktop" ng-switch on="vm.readyToAnnounce" ng-hide="vm.challenge.status === 'COMPLETE'">
             <a ng-if="!vm.readyToAnnounce" ng-click="vm.initiateAnnounceWinners()" class="btn" style="width:180px">Announce Winners</a>
             <a ng-if="vm.readyToAnnounce" data-toggle="modal" data-target="#myModal" class="btn" style="width:180px">Announce Winners</a>
         </div>
@@ -39,7 +39,7 @@
                   &nbsp; {{vm.tableParams.total | json}}
               </td>
               <td data-ng-if="phone" class="text-left" data-sortable="'col1'">
-                  <a href="javascript:" class="add-btn {{submission.expand?'expand':''}}" data-ng-click="toggleExpand(submission)"></a>
+                  <a href="javascript:void(0);" class="add-btn {{submission.expand?'expand':''}}" data-ng-click="toggleExpand(submission)"></a>
               </td>
               <td class="text-left" data-sortable="'submission.id'">
                   {{submission.id}}

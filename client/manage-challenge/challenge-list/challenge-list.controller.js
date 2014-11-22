@@ -49,6 +49,10 @@
           "colName": "Project Id",
           "col": "projectId"
         },
+        // {
+        //   "colName": "Created By",
+        //   "col": "creatorHandle"
+        // },
         {
           "colName": "Last Updated",
           "col": "updatedAt"
@@ -79,14 +83,11 @@
         vm.totalCount = vm.totalCount - 1;
         vm.tableParams.reload();
       });
-
     }
 
     function closeAlert(index) {
       vm.alerts.splice(index, 1);
     }
-
   }
-
 
 })(window, window.angular);
