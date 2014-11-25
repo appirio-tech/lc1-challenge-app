@@ -68,7 +68,7 @@
       },
       responseError: function (rejection) {
         //console.log('have an auth error; redirect to login', rejection)
-        if (rejection.status === 401) {
+        if (rejection.status >= 400) {
           var port = '';
           if ($location.port() !== 80) {
             port = ':' + $location.port();

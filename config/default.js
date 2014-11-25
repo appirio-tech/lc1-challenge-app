@@ -37,6 +37,7 @@ module.exports = {
     Client: process.env.TC_AUTH0_CLIENT || getEnv('TC_AUTH0_CLIENT') || 'foo',
     Secret: process.env.TC_AUTH0_SECRET || getEnv('TC_AUTH0_SECRET') || 'bar'
   },
+  authDisabled: process.env.AUTH_DISABLED,
   /**
    * Uploads configuration
    * @type {Object}
