@@ -329,7 +329,12 @@
     /*remove Place prize*/
     $scope.removePlacePrize = function(place, index) {
       place.active = false;
+      // need this to update the total prize when one is deleted
+      $scope.prizes.totalPrize = $scope.prizes.totalPrize - place.prize;
       place.prize = null;
+      $scope.prizes.activeCount =   $scope.prizes.activeCount -1;
+      // now call prize reorder, for the case that we delete the non-right most prize
+      prizeReorder();
     };
 
     /*reorder prizes in descending order*/
