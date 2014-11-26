@@ -49,10 +49,10 @@
           "colName": "Project Id",
           "col": "projectId"
         },
-        // {
-        //   "colName": "Created By",
-        //   "col": "creatorHandle"
-        // },
+        {
+          "colName": "Created By",
+          "col": "creatorHandle"
+        },
         {
           "colName": "Last Updated",
           "col": "updatedAt"
