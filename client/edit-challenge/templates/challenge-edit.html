@@ -51,7 +51,7 @@
         <div class="fileField pull-left">
           <p class="fileNameDisplay {{fileName ==='' ? 'fileNameDisplayNoFile' : ''}}">{{fileName!=='' ? fileName : 'Select File'}}</p>
           <label for="fileUploader" class="fileBrowser btn gray-btn">Browse</label>
-          <input data-ng-class="{'invalid' : fileNameInvalid}" data-ng-file-select="onFileSelect($files)" type="file" name="myFile" class="fileInput" id="fileUploader">
+          <input data-ng-class="{'invalid' : fileNameInvalid}" data-ng-file-select="onFileSelect($files)" type="file" name="myFile" class="fileInput" id="fileUploader" tabindex="-1">
         </div>
         <!--End .fileField-->
         <a href="javascript::void(0);" data-ng-click="doUpload()" class="upload-btn pull-right"></a>
@@ -64,7 +64,7 @@
 
       <div class="file-holder">
         <div class="file" data-ng-repeat="file in fileBrowsing.uploadedFiles">
-          <a href="javascript:void(0);" class="close-btn" data-ng-click="deleteFile(file)"></a>
+          <a href="javascript:void(0);" class="close-btn" data-ng-click="deleteFile(file)" tabindex="-1" ></a>
           <!--End .close btn-->
           <i data-size="{{file.size | bytes}}">{{file.extension}}</i>
           <h3>{{file.name}}</h3>
@@ -83,7 +83,7 @@
 
         <div class="file no-file" data-ng-if="!uploading && fileBrowsing.uploadedFiles.length===0">
           <div class="inner">
-            <label><input type="checkbox" data-ng-model="noFile" data-ng-change="changeNoFile(noFile)">No files to attach</label>
+            <label><input type="checkbox" data-ng-model="noFile" data-ng-change="changeNoFile(noFile)" tabindex="-1">No files to attach</label>
           </div>
         </div>
         <!--End .noFile-->

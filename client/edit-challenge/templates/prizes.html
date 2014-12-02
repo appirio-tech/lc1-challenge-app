@@ -13,10 +13,10 @@
 
     <div class="price-area">
       <div class="box" data-ng-repeat="place in placePrizes.places">
-        <a data-ng-if="!place.active" href="javascript:" data-ng-click="setPlacePrize(place,$index)" class="add-prize"></a>
+        <a data-ng-if="!place.active" href="javascript:" data-ng-click="setPlacePrize(place,$index)" class="add-prize" tabindex="-1" ></a>
         <div data-ng-if="place.active" class="set-prize">
           <i>{{$index+1}}</i>
-          <a data-ng-hide="prizes.activeCount === 1" href="javascript:" class="close-btn" data-ng-click="removePlacePrize(place,$index)"></a>
+          <a data-ng-hide="prizes.activeCount === 1" href="javascript:" class="close-btn" data-ng-click="removePlacePrize(place,$index)" tabindex="-1"></a>
           <div class="input-cnt">
             <input data-numbers-only="numbers-only" data-ng-model="place.prize" data-ng-blur="updatePrizes()" type="text">
           </div>
