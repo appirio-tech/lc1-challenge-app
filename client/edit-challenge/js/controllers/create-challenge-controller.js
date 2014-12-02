@@ -14,6 +14,7 @@
 	function CreateChallengeController($scope, $timeout, $filter, $state, ChallengeService, challenge) {
 
     $scope.challenge = challenge;
+    $scope.setTitleToFocus = true;
     $scope.editDescription = true;
     $scope.publicBrowsing = {
       complete: false
