@@ -11,11 +11,11 @@
    * @returns
    * @ngInject
    */
-  function ChallengeListController($scope, matchmedia, ChallengeService, Utils, TC_URLS, resolvedChallenges, $location) {
+  function ChallengeListController($scope, matchmedia, ChallengeService, Utils, ConfigService, resolvedChallenges, $location) {
     var locationParams = $location.search();
     $scope.launchedChallenge = locationParams['launchSuccess']
     $scope.challengeUrl = $scope.launchedChallenge + '?type=develop&lc=true';
-    $scope.TC_URLS = TC_URLS;
+    $scope.ConfigService = ConfigService;
 
     var vm = this;
     vm.challenges = resolvedChallenges.content;
@@ -69,11 +69,11 @@
 
     //helper functions
     function toTCChallengeDetailsUrl(challenge) {
-      return TC_URLS.baseChallengeDetailsUrl + challenge.id + '?type=develop&lc=true';
+      return ConfigService.getBaseChallengeDetailsUrl() + challenge.id + '?type=develop&lc=true';
     }
 
     function toTCProjectUrl(challenge) {
-      return TC_URLS.directProjectUrl + '?formData.projectId=' + challenge.projectId;
+      return ConfigService.getProjectUrl() + '?formData.projectId=' + challenge.projectId;
     }
 
     function deleteChallenge(challenge) {

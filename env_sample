@@ -6,3 +6,5 @@ AWS_SECRET=bar
 AWS_BUCKET=foo
 AWS_REGION=bar
 AUTH_DISABLED=false
+TC_WWW_URL=http://localhost
+TC_PROJECT_BASE_URL=http://localhost

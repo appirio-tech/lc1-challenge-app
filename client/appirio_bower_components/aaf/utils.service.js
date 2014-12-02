@@ -123,7 +123,6 @@
 
     function apiPatch(uri, body) {
       var deferred = $q.defer();
-      console.log('$http.patch', $http.patch);
       $http({
         method: 'PATCH',
         url: uri,

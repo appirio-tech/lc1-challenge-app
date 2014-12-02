@@ -9,7 +9,7 @@
    * @name ResultsController
    * @ngInject
    */
-  function ResultsController($scope, matchmedia, ChallengeService, Utils, TC_URLS, resolvedChallengeResults, resolvedCurrentChallenge) {
+  function ResultsController($scope, matchmedia, ChallengeService, Utils, ConfigService, resolvedChallengeResults, resolvedCurrentChallenge) {
     var vm = this;
     vm.results = resolvedChallengeResults.content;
     vm.totalCount = resolvedChallengeResults.metadata.totalCount;
@@ -51,11 +51,11 @@
 
     //helper functions
     function tcChallengeDetailsUrl(challenge) {
-      return TC_URLS.baseChallengeDetailsUrl + challenge.id + '?type=develop&lc=true';
+      return ConfigService.getBaseChallengeDetailsUrl() + challenge.id + '?type=develop&lc=true';
     }
 
     function tcMemberProfileUrl(memberHandle) {
-      return TC_URLS.baseMemberProfileUrl + memberHandle;
+      return ConfigService.getBaseMemberProfileUrl() + memberHandle;
     }
 
   }

@@ -9,7 +9,7 @@
      * @name SubmissionsController
      * @ngInject
      */
-    function SubmissionsController($filter, $location, $q, $scope, matchmedia, ChallengeService, Utils, TC_URLS, submissionData, resolvedCurrentChallenge) {
+    function SubmissionsController($filter, $location, $q, $scope, matchmedia, ChallengeService, Utils, ConfigService, submissionData, resolvedCurrentChallenge) {
       var vm = this;
       vm.submissions = submissionData.content;
       vm.totalCount = submissionData.metadata.totalCount;
@@ -100,7 +100,7 @@
 
       //helper functions
       function tcChallengeDetailsUrl(challenge) {
-        return TC_URLS.baseChallengeDetailsUrl + challenge.id + '?type=develop&lc=true';
+        return ConfigService.getBaseChallengeDetailsUrl() + challenge.id + '?type=develop&lc=true';
       }
 
       function initiateAnnounceWinners() {
@@ -170,7 +170,7 @@
       }
 
       function tcMemberProfileUrl(memberHandle) {
-        return TC_URLS.baseMemberProfileUrl + memberHandle;
+        return ConfigService.getBaseMemberProfileUrl() + memberHandle;
       }
 
       function readyToAnnounce() {

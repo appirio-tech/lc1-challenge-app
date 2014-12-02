@@ -9,7 +9,7 @@
      * @name ScorecardController
      * @ngInject
      */
-    function ScorecardController($location, $q, $scope, matchmedia, ChallengeService, Utils, TC_SCORING, TC_URLS, resolvedScorecard, resolvedCurrentChallenge) {
+    function ScorecardController($location, $q, $scope, matchmedia, ChallengeService, Utils, TC_SCORING, ConfigService, resolvedScorecard, resolvedCurrentChallenge) {
 
       var vm = this;
       vm.scorecardItems = resolvedScorecard.content.scorecardItems.content;
@@ -22,16 +22,12 @@
       vm.alerts = [];
       vm.closeAlert = closeAlert;
 
-
-
       // vm.scorecard.scorecardItems.content[2].comment = ""; // check for no comments situation
 
       // view page of scorecard total score and total score out of
 
       vm.totalScore = totalScore(resolvedScorecard.content);
       vm.outOfScore = outOfScore(resolvedScorecard.content);
-
-
 
 
       //user-agent stuff
@@ -79,7 +75,7 @@
 
       //helper functions
       function tcChallengeDetailsUrl(challenge) {
-        return TC_URLS.baseChallengeDetailsUrl + challenge.id + '?type=develop&lc=true';
+        return ConfigService.baseChallengeDetailsUrl + challenge.id + '?type=develop&lc=true';
       }
 
       function scoreItems() {
@@ -170,10 +166,9 @@
         }
       }
 
-              // 8.  At the bottom of your page put a sum of the score out of the possible points,
-        // you may assume that each scorecard item is a maximum of 4 points.
-        // So for this challenge the scorecard the max score is 6 x 4 = 24 points
-
+      // 8.  At the bottom of your page put a sum of the score out of the possible points,
+      // you may assume that each scorecard item is a maximum of 4 points.
+      // So for this challenge the scorecard the max score is 6 x 4 = 24 points
       function totalScore(scorecard) {
         var sum = 0;
         for (var i = scorecard.scorecardItems.content.length - 1; i >= 0; i--) {

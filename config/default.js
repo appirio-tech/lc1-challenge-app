@@ -38,6 +38,13 @@ module.exports = {
     Secret: process.env.TC_AUTH0_SECRET || getEnv('TC_AUTH0_SECRET') || 'bar'
   },
   authDisabled: process.env.AUTH_DISABLED,
+
+  /**
+   * URLs
+   */
+  tcWWW: process.env.TC_WWW_URL || getEnv('TC_WWW_URL'),
+  tcProjectBase: process.env.TC_PROJECT_BASE_URL || getEnv('TC_PROJECT_BASE_URL'),
+
   /**
    * Uploads configuration
    * @type {Object}

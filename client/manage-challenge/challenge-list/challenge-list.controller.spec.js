@@ -1,7 +1,7 @@
 describe('Unit: ChallengeListController', function() {
-  var ctrl, scope, TC_URLS;
+  var ctrl, scope, ConfigService;
 
-  beforeEach(module('manageChallenge'));  
+  beforeEach(module('manageChallenge'));
 
   var challenges = [
     {
@@ -26,9 +26,9 @@ describe('Unit: ChallengeListController', function() {
 
   // inject the $controller and $rootScope services
   // in the beforeEach block
-  beforeEach(inject(function($controller, $rootScope, _TC_URLS_) {
+  beforeEach(inject(function($controller, $rootScope, _ConfigService_) {
 
-   TC_URLS = _TC_URLS_;
+   ConfigService = _ConfigService_;
 
     // Create the controller
     ctrl = $controller('ChallengeListController as vm', {
@@ -36,33 +36,33 @@ describe('Unit: ChallengeListController', function() {
       //challenges come in via resolve
       resolvedChallenges: challenges
     });
-  }));  
+  }));
 
   /** Tests */
-  it('all public apis available', 
+  it('all public apis available',
     function() {
       expect(angular.isFunction(ctrl.toTCChallengeDetailsURL)).toBe(true);
       expect(angular.isFunction(ctrl.deleteChallenge)).toBe(true);
-  });  
+  });
 
-  it('loads all challenges', 
+  it('loads all challenges',
     function() {
       expect(ctrl.challenges.length).toEqual(challenges.length);
-  });  
+  });
 
-  it('by default user agent is not a phone', 
+  it('by default user agent is not a phone',
     function() {
       expect(ctrl.phone).toBe(false);
-  });  
+  });
 
-  it('by default browser to be chrome', 
+  it('by default browser to be chrome',
     function() {
       expect(ctrl.browser).toBe('chrome');
-  });  
+  });
 
-  it('should provide the correct url to the challenge details page on the tc site', 
-    function() {      
-      expect(ctrl.toTCChallengeDetailsURL(challenges[0])).toEqual(TC_URLS.baseChallengeDetailsUrl + challenges[0].id);
-  });  
+  it('should provide the correct url to the challenge details page on the tc site',
+    function() {
+      expect(ctrl.toTCChallengeDetailsURL(challenges[0])).toEqual(ConfigService.getBaseChallengeDetailsUrl() + challenges[0].id);
+  });
 
 })
