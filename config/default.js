@@ -25,25 +25,24 @@ function getEnv(name) {
 
 module.exports = {
   challenge: {
-    apiUrl: 'http://lc1-challenge-service.herokuapp.com',
+    apiUrl: getEnv('CHALLENGE_API'),
     defaultTitle: 'Untitled Challenge'
   },
   root: rootPath,
-  challengeServiceURI: 'http://lc1-challenge-service.herokuapp.com/',
-  tcAPI: 'https://qa.topcoder.com/',
+  tcAPI: getEnv('TC_API'),
   auth0: {
     Domain: process.env.TC_AUTH0_DOMAIN || 'topcoder.auth0.com',
     /* use process.env first, then .env file, last set here */
     Client: process.env.TC_AUTH0_CLIENT || getEnv('TC_AUTH0_CLIENT') || 'foo',
     Secret: process.env.TC_AUTH0_SECRET || getEnv('TC_AUTH0_SECRET') || 'bar'
   },
-  authDisabled: process.env.AUTH_DISABLED,
+  authDisabled: getEnv('AUTH_DISABLED'),
 
   /**
    * URLs
    */
-  tcWWW: process.env.TC_WWW_URL || getEnv('TC_WWW_URL'),
-  tcProjectBase: process.env.TC_PROJECT_BASE_URL || getEnv('TC_PROJECT_BASE_URL'),
+  tcWWW: getEnv('TC_WWW_URL'),
+  tcProjectBase: getEnv('TC_PROJECT_BASE_URL'),
 
   /**
    * Uploads configuration
