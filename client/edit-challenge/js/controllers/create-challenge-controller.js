@@ -111,11 +111,14 @@
 
     /*launch a challenge*/
     $scope.launch = function() {
+    // check to see if the condtions are true to launch
+     if ( $scope.publicBrowsing.complete && $scope.fileBrowsing.complete && $scope.requirements.complete && $scope.timeLine.complete && $scope.prizes.complete ) {
       ChallengeService.launch($scope.challenge).then(function(actionResponse) {
         console.log('launched challenge: ', $scope.challenge.id);
         window.location.href = '/manage/#/challenges?launchSuccess='+$scope.challenge.id;
       });
-    }
+    } else { console.log ('attmpted to launch a non ready challenge '); }
+   };
 
     /*------------------------*/
     /*  file browsing section */
