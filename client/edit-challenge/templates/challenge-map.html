@@ -93,7 +93,12 @@
     <!--End .save btn-->
     <a href="/" class="btn gray-btn cancel">CANCEL</a>
     <!--End .cancel btn-->
-    <a href="" class="btn blue-btn {{(publicBrowsing.complete && fileBrowsing.complete && requirements.complete && timeLine.complete && prizes.complete) ? '' : 'disable'}} launch" data-ng-click="launch()">LAUNCH</a>
+    <a href="" class="btn blue-btn {{(publicBrowsing.complete
+                                  && fileBrowsing.complete
+                                  && requirements.complete
+                                  && timeLine.complete
+                                  && challenge.title != 'Untitled Challenge' 
+                                  && prizes.complete) ? '' : 'disable'}} launch" data-ng-click="launch()">LAUNCH</a>
     <!--End .cancel btn-->
   </div>
   <!--End .btn-content-->

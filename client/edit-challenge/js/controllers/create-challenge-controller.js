@@ -14,6 +14,7 @@
 	function CreateChallengeController($scope, $timeout, $filter, $state, ChallengeService, challenge) {
 
     $scope.challenge = challenge;
+    $scope.setTitleToFocus = true;
     $scope.editDescription = true;
     $scope.publicBrowsing = {
       complete: false
@@ -112,7 +113,7 @@
     /*launch a challenge*/
     $scope.launch = function() {
     // check to see if the condtions are true to launch
-     if ( $scope.publicBrowsing.complete && $scope.fileBrowsing.complete && $scope.requirements.complete && $scope.timeLine.complete && $scope.prizes.complete ) {
+     if ( $scope.publicBrowsing.complete && $scope.fileBrowsing.complete && $scope.requirements.complete && $scope.timeLine.complete && $scope.prizes.complete && challenge.title != 'Untitled Challenge'  ) {
       ChallengeService.launch($scope.challenge).then(function(actionResponse) {
         console.log('launched challenge: ', $scope.challenge.id);
         window.location.href = '/manage/#/challenges?launchSuccess='+$scope.challenge.id;
