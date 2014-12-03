@@ -23,7 +23,7 @@
               <img ng-src="https://markdownjournal.com/mkd.png"/> Markdown Help
           </a>
         <a href="javascript:void(0);" data-ng-click="editDescription=true" data-ng-class="{active: editDescription}" tabindex="-1" >Write</a>
-        <a href="javascript::void(0);" data-ng-click="editDescription=false" data-ng-class="{active: !editDescription}" tabindex="-1" >Preview</a></label>
+        <a href="javascript:void(0);" data-ng-click="editDescription=false" data-ng-class="{active: !editDescription}" tabindex="-1" >Preview</a></label>
 
         <div class="descriptionPreview" data-tc-markdown="challenge.description" data-ng-show="!editDescription" data-empty="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></div>
         <textarea data-ng-show="editDescription" class="longDesc" data-maxlength="40000" data-ng-model="challenge.description" placeholder="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></textarea>
@@ -54,7 +54,7 @@
           <input data-ng-class="{'invalid' : fileNameInvalid}" data-ng-file-select="onFileSelect($files)" type="file" name="myFile" class="fileInput" id="fileUploader" tabindex="-1">
         </div>
         <!--End .fileField-->
-        <a href="javascript::void(0);" data-ng-click="doUpload()" class="upload-btn pull-right"></a>
+        <a href="javascript:void(0);" data-ng-click="doUpload()" class="upload-btn pull-right"></a>
         <!--End .upload-btn-->
         <div class="fileDescription">
           <input data-ng-class="{'invalid' : fileTitleInvalid}" data-maxlength="80" type="text" data-ng-model="fileTitle" placeholder="File Title"/>
@@ -74,11 +74,12 @@
 
         <div class="file uploading" data-ng-if="uploading">
           <div class="inner">
-            <span class="upload-label">Uploading file</span>
+             <span class="upload-label">Uploading file</span>
             <div data-progressbar data-value="progress"></div>
             <span class="percentage">{{progress}}%</span>
           </div>
         </div>
+
         <!--End .uploading-->
 
         <div class="file no-file" data-ng-if="!uploading && fileBrowsing.uploadedFiles.length===0">

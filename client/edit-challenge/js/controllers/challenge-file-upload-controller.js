@@ -41,9 +41,11 @@
     $scope.onFileSelect = function($files) {
       $scope.selectedFiles = [];
       $scope.progress = 0;
-
       $scope.selectedFile = $files[0];
-      $scope.fileName = $files[0].name;
+      // I was throwing an error becuase $scope.filename was being assigned before a file was selected
+      if ($scope.selectedFile) {
+        $scope.fileName = $files[0].name;
+      }
     };
 
     /*start uploading*/
@@ -53,15 +55,26 @@
         return;
       }
       $scope.uploading = true;
+      console.log('DEBUG starting the file upload');
       $scope.upload = $upload.upload({
         url: uploadUrl,
-        method: "POST",
+        method: 'POST',
         data: {
           title: $scope.fileTitle
         },
         file: $scope.selectedFile,
         fileFormDataName: 'file'
+      }).progress(function(evt) {
+        console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :'+ evt.config.file.name);
+        $scope.progress =  parseInt(100.0 * evt.loaded / evt.total);
+      }).success(function(data, status, headers, config) {
+        // file is uploaded successfully
+        console.log('file ' + config.file.name + 'is uploaded successfully. Response: ' + data);
       });
+
+
+
+      //;
       $scope.upload.then(function (uploadResponse) {    // success
         var actionResponse = uploadResponse.data;
         ChallengeService.getFile($scope.challenge.id, actionResponse.id)
@@ -81,6 +94,7 @@
       }, function (evt) {   // progress notify
         // Math.min is to fix IE which reports 200% sometimes
         $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        console.log('DEBUG the progress is: ' + evt.loaded);
       });
     };
 
