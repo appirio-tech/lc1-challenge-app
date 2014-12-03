@@ -53,6 +53,7 @@
         return;
       }
       $scope.uploading = true;
+      console.log('DEBUG starting the file upload');
       $scope.upload = $upload.upload({
         url: uploadUrl,
         method: "POST",
@@ -61,7 +62,17 @@
         },
         file: $scope.selectedFile,
         fileFormDataName: 'file'
+      }).progress(function(evt) {
+        console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :'+ evt.config.file.name);
+        $scope.progress =  parseInt(100.0 * evt.loaded / evt.total);
+      }).success(function(data, status, headers, config) {
+        // file is uploaded successfully
+        console.log('file ' + config.file.name + 'is uploaded successfully. Response: ' + data);
       });
+
+
+
+      //;
       $scope.upload.then(function (uploadResponse) {    // success
         var actionResponse = uploadResponse.data;
         ChallengeService.getFile($scope.challenge.id, actionResponse.id)
@@ -81,6 +92,7 @@
       }, function (evt) {   // progress notify
         // Math.min is to fix IE which reports 200% sometimes
         $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+        console.log('DEBUG the progress is: ' + evt.loaded);
       });
     };
 
