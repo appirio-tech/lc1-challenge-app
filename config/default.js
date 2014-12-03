@@ -12,8 +12,7 @@ function getEnv(name) {
    */
   if ( process.env.NODE_ENV !== 'production' ) {
     console.log('NOT running production');
-    console.log('dir', __dirname);
-    console.log('path: ', path.join(__dirname, '../env_sample'));
+    /* TODO(DG: 12/2/2014): Change 'env_sample' back to '.env'. '.env' was causing heroku not to boot. */
     env(path.join(__dirname, '../env_sample'));
     if (!process.env.hasOwnProperty(name)) {
       throw new Error('Env setting: ' + name + ' is not configured!');
