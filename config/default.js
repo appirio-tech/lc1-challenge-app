@@ -14,7 +14,7 @@ function getEnv(name) {
     console.log('NOT running production');
     console.log('dir', __dirname);
     console.log('path: ', path.join(__dirname, '../env_sample'));
-    env(path.join(__dirname, '../.env'));
+    env(path.join(__dirname, '../env_sample'));
     if (!process.env.hasOwnProperty(name)) {
       throw new Error('Env setting: ' + name + ' is not configured!');
     }
