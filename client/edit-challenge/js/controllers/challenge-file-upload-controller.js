@@ -41,9 +41,11 @@
     $scope.onFileSelect = function($files) {
       $scope.selectedFiles = [];
       $scope.progress = 0;
-
       $scope.selectedFile = $files[0];
-      $scope.fileName = $files[0].name;
+      // I was throwing an error becuase $scope.filename was being assigned before a file was selected
+      if ($scope.selectedFile) {
+        $scope.fileName = $files[0].name;
+      }
     };
 
     /*start uploading*/
@@ -56,7 +58,7 @@
       console.log('DEBUG starting the file upload');
       $scope.upload = $upload.upload({
         url: uploadUrl,
-        method: "POST",
+        method: 'POST',
         data: {
           title: $scope.fileTitle
         },

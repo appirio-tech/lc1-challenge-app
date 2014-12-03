@@ -30,7 +30,9 @@
     "bootstrap-tagsinput": "~0.4.2",
     "typeahead.js": "~0.10.4",
     "angular-sanitize": "latest",
-    "showdown": "latest"
+    "showdown": "latest",
+    "ng-file-upload": "~2.0.2"
+
   },
   "resolutions": {
     "jquery": "1.11.1",
