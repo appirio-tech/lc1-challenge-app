@@ -99,7 +99,7 @@
       var deferred = $q.defer();
       $http.post(uri, body)
         .success(function (result, status, headers, config) {
-          $log.debug('result back from create call: ', result);
+          //$log.debug('result back from create call: ', result);
           deferred.resolve(result);
         })
         .error(function (data, status, headers, config) {
