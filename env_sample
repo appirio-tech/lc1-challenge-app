@@ -8,5 +8,5 @@ AWS_REGION=bar
 AUTH_DISABLED=false
 TC_WWW_URL=http://localhost
 TC_PROJECT_BASE_URL=http://localhost
-TOPCODER_API=https://qa.topcoder.com
+TC_API=https://qa.topcoder.com
 CHALLENGE_API=http://lc1-challenge-service.herokuapp.com
