@@ -22,24 +22,6 @@ function getVal(name, defaultVal) {
   }
 }
 
-function getEnv(name) {
-  /*  if production and don't load .env file
-   * must set NODE_ENV on heroku to production for this to work
-   */
-  if ( process.env.NODE_ENV !== 'production' ) {
-    console.log('NOT running production');
-    /* TODO(DG: 12/2/2014): Change 'env_sample' back to '.env'. '.env' was causing heroku not to boot. */
-    env(path.join(__dirname, '../.env'));
-    if (!process.env.hasOwnProperty(name)) {
-      throw new Error('Env setting: ' + name + ' is not configured!');
-    }
-  return process.env[name].trim();
-  } else {
-    console.log('Running PRODUCTION');
-  }
-}
-
-
 module.exports = {
   challenge: {
     apiUrl: getVal('CHALLENGE_API'),
