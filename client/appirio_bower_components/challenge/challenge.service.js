@@ -219,7 +219,7 @@
         UserService.getCurrentUser().then(function(user) {
           var scorecardBody = {
             "status": "NEW",
-            "reviewerId": user.id,  //req'd; TODO(DG: 11/12/2014): use real user id
+            "reviewerId": user.id,  //req'd
             "reviewerHandle": user.handle,
             "submissionId": parseInt(submissionId), //req'd
             "scoreMax": maxScore,

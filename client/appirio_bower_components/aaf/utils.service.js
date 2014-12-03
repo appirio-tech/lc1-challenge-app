@@ -112,7 +112,7 @@
       var deferred = $q.defer();
       $http.put(uri, body)
         .success(function (data, status, headers, config) {
-          $log.debug('data back from update call: ', data.content);
+          //$log.debug('data back from update call: ', data.content);
           deferred.resolve(data.content);
         })
         .error(function (data, status, headers, config) {
@@ -129,7 +129,7 @@
         body: body
       })
         .success(function (data, status, headers, config) {
-          $log.debug('data back from patch call: ', data.content);
+          //$log.debug('data back from patch call: ', data.content);
           deferred.resolve(data.content);
         })
         .error(function (data, status, headers, config) {
@@ -141,7 +141,7 @@
       var deferred = $q.defer();
       $http.delete(uri, body)
         .success(function (data, status, headers, config) {
-          $log.debug('data back from delete call: ', data);
+          //$log.debug('data back from delete call: ', data);
           deferred.resolve(data.content);
         })
         .error(function (data, status, headers, config) {
