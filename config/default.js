@@ -1,10 +1,26 @@
 'use strict';
 
 var path = require('path'),
+    fs = require('fs'),
   // rootPath shouldn't end with forward slash
   rootPath = path.normalize(__dirname + '/..');
 var env = require('node-env-file');
 
+if (fs.existsSync(path.join(__dirname, '../.env'))) {
+  env(path.join(__dirname, '../.env'));
+}
+
+function getVal(name, defaultVal) {
+  if (process.env.hasOwnProperty(name)) {
+    return process.env[name].trim();
+  }
+  else if (defaultVal) {
+    return defaultVal;
+  }
+  else {
+    throw new Error('Env setting: ' + name + ' is not configured!');
+  }
+}
 
 function getEnv(name) {
   /*  if production and don't load .env file
@@ -13,7 +29,7 @@ function getEnv(name) {
   if ( process.env.NODE_ENV !== 'production' ) {
     console.log('NOT running production');
     /* TODO(DG: 12/2/2014): Change 'env_sample' back to '.env'. '.env' was causing heroku not to boot. */
-    env(path.join(__dirname, '../env_sample'));
+    env(path.join(__dirname, '../.env'));
     if (!process.env.hasOwnProperty(name)) {
       throw new Error('Env setting: ' + name + ' is not configured!');
     }
@@ -26,24 +42,24 @@ function getEnv(name) {
 
 module.exports = {
   challenge: {
-    apiUrl: getEnv('CHALLENGE_API'),
+    apiUrl: getVal('CHALLENGE_API'),
     defaultTitle: 'Untitled Challenge'
   },
   root: rootPath,
-  tcAPI: getEnv('TC_API'),
+  tcAPI: getVal('TC_API'),
   auth0: {
-    Domain: process.env.TC_AUTH0_DOMAIN || 'topcoder.auth0.com',
+    Domain: getVal('TC_AUTH0_DOMAIN', 'topcoder.auth0.com'),
     /* use process.env first, then .env file, last set here */
-    Client: process.env.TC_AUTH0_CLIENT || getEnv('TC_AUTH0_CLIENT') || 'foo',
-    Secret: process.env.TC_AUTH0_SECRET || getEnv('TC_AUTH0_SECRET') || 'bar'
+    Client: getVal('TC_AUTH0_CLIENT', 'foo'),
+    Secret: getVal('TC_AUTH0_SECRET', 'bar')
   },
-  authDisabled: getEnv('AUTH_DISABLED'),
+  authDisabled: getVal('AUTH_DISABLED'),
 
   /**
    * URLs
    */
-  tcWWW: getEnv('TC_WWW_URL'),
-  tcProjectBase: getEnv('TC_PROJECT_BASE_URL'),
+  tcWWW: getVal('TC_WWW_URL'),
+  tcProjectBase: getVal('TC_PROJECT_BASE_URL'),
 
   /**
    * Uploads configuration
