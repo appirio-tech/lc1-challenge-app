@@ -42,7 +42,7 @@
       }
 
       function getProjectUrl() {
-        return appConfig.directProjectUrl;
+        return appConfig.tcBaseProjectUrl;
       }
 
       function activate() {

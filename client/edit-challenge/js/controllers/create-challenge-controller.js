@@ -23,7 +23,7 @@
     /*save new challenge*/
     if ($scope.challenge && !$scope.challenge.id) {
       ChallengeService.createChallenge($scope.challenge).then(function(data) {
-        $state.go('edit-challenge', {challengeId: data.id});
+        $state.go('edit-challenge', {challengeId: data.id, location: replace});
       });
     }
 
