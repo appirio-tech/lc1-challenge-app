@@ -11,5 +11,4 @@
       "MAX_SCORE": 4
     })
 
-
 })(window, window.angular);

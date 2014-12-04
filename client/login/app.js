@@ -1,13 +1,16 @@
 (function(window, angular, undefined) {
   'use strict';
 
-  angular.module('tc.login', ['ngRoute', 'tc.aaf.auth'])
+  angular.module('tc.login', ['ngRoute', 'ngTable', 'tc.aaf', 'tc.aaf.auth'])
   .controller('LoginController', LoginController)
 
-  function LoginController($location, AUTH0) {
+  function LoginController($location, ConfigService) {
   	var vm = this;
-  	vm.auth0Host = AUTH0.host;
-  	vm.clientId = AUTH0.clientId;
+
+    ConfigService.activate().then(function() {
+      vm.auth0Host = 'https://' + ConfigService.getAuth0Domain();
+      vm.clientId = ConfigService.getAuth0ClientId();
+    })
 
     var port = '';
     if ($location.port() !== 80) {

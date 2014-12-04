@@ -11,18 +11,41 @@
    * @returns
    * @ngInject
    */
-  function ProfileController($location, HeaderService, TC_URLS) {
+  function ProfileController($location, $rootScope, $window, HeaderService, ConfigService) {
     var vm = this;
     vm.popoverProfile = false;
 
     //Get Profile Information
-    HeaderService.getUserProfile().then(
-      function (userProfile) {
-        vm.userInfo = userProfile;
-      },
-      function (data) {
+    ConfigService.activate().then(function() {
+      HeaderService.getUserProfile().then(
+        function (userProfile) {
+          vm.userInfo = userProfile;
+        },
+        function (data) {
 
-      });
+        });
+
+    });
+
+    //TODO(DG 12/4/2014): Move this out into separate controller
+    $rootScope.$on('Unauthorized', function(msg, data) {
+      console.info('Unauthorized!!');
+      var port = '';
+      if ($location.port() !== 80) {
+        port = ':' + $location.port();
+      }
+
+      var redirectUrl;
+      var currentBaseUrl =  $location.protocol() + '://' + $location.host() + port;
+      //console.log('host, baseUrl', $location.host(), currentBaseUrl);
+      if ($location.host().indexOf('topcoder') >= 0) {
+        redirectUrl = ConfigService.getWwwUrl() + '?action=showlogin?next=' + currentBaseUrl;
+      }
+      else {
+        redirectUrl = currentBaseUrl + '/login';
+      }
+      $window.location.href =  redirectUrl;
+    });
 
     //Profile Povover Open
     vm.profile_open = function () {
@@ -36,7 +59,7 @@
     }
 
     vm.tcMemberProfileUrl = function(memberHandle) {
-      return TC_URLS.baseMemberProfileUrl + memberHandle;
+      return ConfigService.getBaseMemberProfileUrl() + memberHandle;
     }
 
     vm.logoutUrl = function() {
@@ -46,7 +69,7 @@
       }
 
       var currentBaseUrl =  $location.protocol() + '://' + $location.host() + port;
-      return TC_URLS.baseUrl + '/?action=logout?next=' + currentBaseUrl;
+      return ConfigService.getWwwUrl() + '/?action=logout?next=' + currentBaseUrl;
     }
 
   }

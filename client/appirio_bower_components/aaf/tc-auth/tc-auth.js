@@ -2,12 +2,13 @@
   'use strict';
 
   angular.module('tc.aaf.auth', ['ngCookies'])
-  .constant("AUTH0", {
-    "host": "https://topcoder.auth0.com",
-    "clientId": "c4PVvC1z50DOlOLjLqHb5iw2fGM8teTW"
-  })
-  .constant("TC_URLS", {
-    "baseUrl": "http://tcdev22.topcoder.com/"
+  .constant("MOCK", {
+    user: {
+      "uid": 123,
+      "handle": "topcoder123",
+      "name": "Top Coder",
+      "picture": "https://www.topcoder.com/wp-content/themes/tcs-responsive/i/default-photo.png"
+    }
   })
 
   .factory('authInterceptor', AuthInterceptor)
@@ -52,7 +53,7 @@
   /**
    * @ngInject
    */
-  function AuthInterceptor($cookies, $location, $log, $q, $window, TC_URLS) {
+  function AuthInterceptor($cookies, $location, $log, $q, $rootScope, $window, MOCK) {
     return {
       //Add Auth Header
       request: function (config) {
@@ -63,7 +64,13 @@
         var token = $window.sessionStorage.token || $cookies.tcjwt;
         if (token) {
           config.headers.Authorization = 'Bearer ' + token;
+        } else {
+          config.headers['X-uid'] = MOCK.user.uid;
+          config.headers['X-handle'] = MOCK.user.handle;
+          config.headers['X-name'] = MOCK.user.name;
+          config.headers['X-picture'] = MOCK.user.picture;
         }
+
         return config;
       },
       responseError: function (rejection) {
@@ -75,16 +82,7 @@
           }
 
           $log.error('tc-auth: auth failed', rejection);
-          var redirectUrl;
-          var currentBaseUrl =  $location.protocol() + '://' + $location.host() + port;
-          //console.log('host, baseUrl', $location.host(), currentBaseUrl);
-          if ($location.host().indexOf('topcoder') >= 0) {
-            redirectUrl = TC_URLS.baseUrl + '?action=showlogin?next=' + currentBaseUrl;
-          }
-          else {
-            redirectUrl = currentBaseUrl + '/login';
-          }
-          $window.location.href =  redirectUrl
+          $rootScope.$broadcast('Unauthorized', rejection);
         }
         return $q.reject(rejection);
       }
@@ -101,7 +99,7 @@
   /**
    * @ngInject
    */
-  function UserService($q, $window, Utils, TC_URLS) {
+  function UserService($q, $window, Utils) {
     var currentUser;
 
     return {
