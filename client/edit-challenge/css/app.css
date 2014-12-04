@@ -1254,7 +1254,8 @@ footer p {
 	color: #455560;
 	resize: none;
 	width: 100%;
-	height: 212px;
+	/*height: 212px;*/
+	min-height: 212;
 	word-wrap: break-word;
 	overflow-y: auto;
 

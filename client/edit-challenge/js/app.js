@@ -20,6 +20,7 @@
     'growlNotifications',
     //'ngCookies',
     'tc.aaf',
+    'monospaced.elastic',
     //custom
     'directives'
   ])
