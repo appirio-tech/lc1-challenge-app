@@ -11,7 +11,7 @@
     "angular-route": "1.2.x",
     "angular-loader": "1.2.x",
     "angular-mocks": "~1.2.x",
-    "angular-growl-notifications" : "~2.1.x",
+    "angular-growl-notifications": "~2.1.x",
     "html5-boilerplate": "~4.3.0",
     "bootstrap": "~3.2.0",
     "jquery": ">=1.11.1",
@@ -31,8 +31,8 @@
     "typeahead.js": "~0.10.4",
     "angular-sanitize": "latest",
     "showdown": "latest",
-    "ng-file-upload": "~2.0.2"
-
+    "ng-file-upload": "~2.0.2",
+    "angular-elastic": "~2.4.2"
   },
   "resolutions": {
     "jquery": "1.11.1",
