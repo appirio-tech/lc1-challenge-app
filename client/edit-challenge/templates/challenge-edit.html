@@ -54,10 +54,11 @@
           <input data-ng-class="{'invalid' : fileNameInvalid}" data-ng-file-select="onFileSelect($files)" type="file" name="myFile" class="fileInput" id="fileUploader" tabindex="-1">
         </div>
         <!--End .fileField-->
-        <a href="javascript:void(0);" data-ng-click="doUpload()" class="upload-btn pull-right"></a>
+        <!-- <a href="javascript:void(0);" data-ng-click="doUpload()" class="upload-btn pull-right"></a> -->
+        <button data-ng-click="doUpload()" class="btn blue-btn pull-right" style=" width: 107px"> upload file</button>
         <!--End .upload-btn-->
         <div class="fileDescription">
-          <input data-ng-class="{'invalid' : fileTitleInvalid}" data-maxlength="80" type="text" data-ng-model="fileTitle" placeholder="File Title"/>
+          <input data-ng-class="{'invalid' : fileTitleInvalid}" data-maxlength="80" type="text" data-ng-model="fileTitle" placeholder="File Title"/ style="width: 90%;">
         </div>
         <!--End .description-->
       </div>
