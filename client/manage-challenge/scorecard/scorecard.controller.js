@@ -62,11 +62,11 @@
           {
             "colName": "Score",
             "col": "score"
-          },
+          }/*,
           {
             "colName": "Comment",
             "col": "comment"
-          }
+          }*/
         ];
 
 
@@ -172,7 +172,10 @@
       function totalScore(scorecard) {
         var sum = 0;
         for (var i = scorecard.scorecardItems.content.length - 1; i >= 0; i--) {
-          sum+=scorecard.scorecardItems.content[i].score
+          // condtion to only sum the scores that have been scored, -1 equates not summed
+          if ( scorecard.scorecardItems.content[i].score >= 0 ) {
+            sum+=scorecard.scorecardItems.content[i].score
+          }
         };
         return sum;
       }
