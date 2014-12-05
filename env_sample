@@ -9,4 +9,4 @@ AUTH_DISABLED=false
 TC_WWW_URL=http://localhost
 TC_PROJECT_BASE_URL=http://localhost
 TC_API=https://qa.topcoder.com
-CHALLENGE_API=http://lc1-challenge-service.herokuapp.com
+CHALLENGE_API=http://dev-lc1-challenge-service.herokuapp.com
