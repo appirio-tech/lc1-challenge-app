@@ -1324,3 +1324,7 @@ growl-notification .close-btn:hover {
        margin-top: 10px;^M
        margin-bottom: 10px;^M
 }
+
+.table > tbody > tr.odd > td{
+	background: #f3f3f3;
+}

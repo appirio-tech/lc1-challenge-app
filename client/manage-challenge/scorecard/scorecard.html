@@ -33,7 +33,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="scoreItem in $data" >
+        <tr data-ng-repeat="scoreItem in $data" data-ng-class="{warning: (vm.alerts.length > 0 && scoreItem.score === -1), odd: (!$odd && vm.alerts.length < 1)}" >
           <td>
             &nbsp;
           </td>
