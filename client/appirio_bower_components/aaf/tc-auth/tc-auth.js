@@ -35,7 +35,6 @@
     //TODO(DG: 10/30/2014): fix handling of next
     var next = '/';
     var qs = $location.search();
-    $log.debug('qs', qs)
     if (qs) {
       //TODO(DG: 10/30/2014): JWT validation
       var jwt = qs.jwt;
