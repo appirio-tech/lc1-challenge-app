@@ -4,12 +4,18 @@
     <div class="ui-container">
     <!--  removed actions here -->
       <div>
-        <h3 class="aaf-sa-subappname">
+        <!-- <h3 class="aaf-sa-subappname">
           Scorecard for your submission to  ‘{{vm.challenge.title}}’
         </h3>
          <h5 class="aaf-sa-subappname">
           Reviewd by "Reviewer Name and Date Here"
-        </h5>
+        </h5> -->
+        <h3 class="aaf-sa-subappname">
+          <i class="fa fa-check-square-o"></i>Scorecard
+        </h3>
+        <!-- /* TODO (BG: 10/22/2014): make breadcrumb an Angular component */ -->
+        <!--breadcrumb-->
+        <span class="aaf-sa-breadcrumb"><a ng-href="{{vm.tcChallengeDetailsUrl(vm.challenge)}}" target="_blank">{{vm.challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a> / <a ng-href="/manage/#/challenges/{{vm.challenge.id}}/submissions">Submissions</a> / {{vm.scorecard.submissionId}} / Scorecard / {{vm.scorecard.id}}</span>
       </div>
     </div>
   </header>
@@ -32,9 +38,10 @@
             &nbsp;
           </td>
           <td class="text-left ng-binding">
-            <h4>
-              {{scoreItem.id}}&nbsp;
-            </h4>
+            <!-- <h4> -->
+              <!-- {{scoreItem.id}}&nbsp; -->
+              {{$index + 1}}
+            <!-- </h4> -->
           </td>
           <td class="text-left ng-binding">
           <div>
@@ -43,23 +50,26 @@
             </h4>
           </div>
           <div class="nik-user-comment" data-ng-if="needToShowComment(scoreItem)">
-               <span>{{scoreItem.comment}}</span>
+               <span style="padding-left: 5px !important; color: #555;"> <i>{{scoreItem.comment}}</i></span>
           </div>
           </td>
 
           <td>
         <!-- {{$index}} -->
+           <span ng-if="scoreItem.score >= 0">
             <b class="ng-binding">{{scoreItem.score}}</b>/4
+          </span>
           </td>
-          <td data-ng-if="!phone&&needToShowComment(scoreItem)" class="text-left" data-sortable="'col4'">
+          <!-- <td data-ng-if="!phone&&needToShowComment(scoreItem)" class="text-left" data-sortable="'col4'">
             <a>1 comment<a>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
     <!--end table-->
     <div class="text-right">
-      <h2> Total Score - {{vm.totalScore}}/{{vm.outOfScore}}</h2>
+      <h3> Total Score: {{vm.totalScore}}/{{vm.outOfScore}}   ({{vm.scorecard.scorePercent}}%)</h3>
+
     </div>
     <br>
 
