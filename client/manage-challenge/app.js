@@ -8,6 +8,7 @@
     'matchmedia-ng',
     'taiPlaceholder',
     'ngTable', //TODO(DG: 11/19/2014): replace w/ ng-grid
+    'ngSanitize',
 
     'tc.aaf',
     'tc.challenge'
