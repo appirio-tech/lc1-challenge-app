@@ -34,6 +34,7 @@
         requirementText: $scope.requirements.content
       };
 
+      $scope.editRequirement = true;  // set the write tab active
       ChallengeService.createRequirement($scope.challenge.id, requirementData)
         .then(function(actionResponse) {
           // get the created requirement
