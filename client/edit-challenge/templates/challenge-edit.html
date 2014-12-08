@@ -25,7 +25,7 @@
         <a href="javascript:void(0);" data-ng-click="editDescription=true" data-ng-class="{active: editDescription}" tabindex="-1" >Write</a>
         <a href="javascript:void(0);" data-ng-click="editDescription=false" data-ng-class="{active: !editDescription}" tabindex="-1" >Preview</a></label>
 
-        <div class="descriptionPreview" data-tc-markdown="challenge.description" data-ng-show="!editDescription" data-empty="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></div>
+        <div class="descriptionPreview markdownPreview" data-tc-markdown="challenge.description" data-ng-show="!editDescription" data-empty="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></div>
         <textarea data-ng-show="editDescription" class="longDesc msd-elastic" data-maxlength="40000" data-ng-model="challenge.description" placeholder="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></textarea>
         <label>Tags</label>
         <input class="tags-input" type="text" data-ng-model="tags" data-role="tagsinput"/>

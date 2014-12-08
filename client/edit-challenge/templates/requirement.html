@@ -16,7 +16,7 @@
         </a>
         <a href="javascript:" data-ng-click="editRequirement=true" data-ng-class="{active: editRequirement}" tabindex="-1">Write</a>
         <a href="javascript:" data-ng-click="editRequirement=false" data-ng-class="{active: !editRequirement}" tabindex="-1">Preview</a></label>
-      <div class="requirementPreview" data-tc-markdown="requirements.content" data-ng-show="!editRequirement" data-empty="Type your requirement here"></div>
+      <div class="requirementPreview markdownPreview" data-tc-markdown="requirements.content" data-ng-show="!editRequirement" data-empty="Type your requirement here"></div>
       <textarea data-maxlength="10000" class="requirement-desc msd-elastic" data-ng-model="requirements.content" data-ng-show="editRequirement" placeholder="Type your requirement here"></textarea>
       <a href="javascript:" data-ng-click="addRequirement()" class="btn blue-btn add-requirement"><i></i>Add Requirement</a>
     </form>
@@ -31,10 +31,10 @@
         </div>
         <!--End .actions-->
         <strong>#{{$index + 1}}</strong>
-        <div class="requirementItemPreview" data-ng-if="!requirement.edit" data-tc-markdown="requirement.requirementText" data-empty=""></div>
+        <div class="requirementItemPreview markdownPreview " data-ng-if="!requirement.edit" data-tc-markdown="requirement.requirementText" data-empty=""></div>
         <!--<p data-ng-if="!requirement.edit">{{requirement.requirementText}}</p>-->
         <div data-ng-if="requirement.edit" class="textarea-cnt">
-          <textarea data-maxlength="10000" data-ng-model="requirement.requirementText"></textarea>
+          <textarea class="msd-elastic" data-maxlength="10000" data-ng-model="requirement.requirementText"></textarea>
         </div>
         <!--End .DESC-->
       </div>

@@ -157,7 +157,7 @@
   });
 
   directives.directive('tcMarkdown', ['$sanitize', function ($sanitize) {
-    var markdownConverter = new window.Showdown.converter({extensions: ['github', 'table']});
+    var markdownConverter = new window.Showdown.converter({extensions: ['table']});
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
