@@ -3592,6 +3592,16 @@ h3.aaf-sa-subappname {
 }
 
 
+.markdownPreview li {
+
+	list-style-type: decimal;
+	list-style-position: inside;
+	margin-left: 15px;
+	-webkit-padding-start: 20px;
+}
+.markdownPreview ul li{
+	list-style-type: disc;
+}
 
 /* start markdown tables */
 
