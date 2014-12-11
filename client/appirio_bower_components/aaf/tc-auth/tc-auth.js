@@ -31,7 +31,7 @@
   /**
    * @ngInject
    */
-  function LoginHandler($location, $log, $window) {
+  function LoginHandler($cookies, $location, $log, $window) {
     //TODO(DG: 10/30/2014): fix handling of next
     var next = '/';
     var qs = $location.search();
@@ -41,6 +41,7 @@
 
       //store token on client
       $window.sessionStorage.token = jwt;
+      $cookies.tcjwt = jwt;
 
       //clear tokens from qs
       $location.search('jwt', null);

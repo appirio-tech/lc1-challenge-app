@@ -28,7 +28,7 @@ module.exports = {
     defaultTitle: 'Untitled Challenge'
   },
   root: rootPath,
-  tcAPI: getVal('TC_API'),
+  userAPI: getVal('USER_API'),
   auth0: {
     Domain: getVal('TC_AUTH0_DOMAIN', 'topcoder.auth0.com'),
     /* use process.env first, then .env file, last set here */
