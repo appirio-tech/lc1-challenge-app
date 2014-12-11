@@ -167,7 +167,7 @@
       $scope.challenge.subEndAt = dtTenSet.toISOString();
 	}
     $scope.timeLine.stdt = regStartAt;
-    $scope.timeLine.timeSelectedStart = $filter('date')(regStartAt, 'HH:mm:ss');
+    $scope.timeLine.timeSelectedStart = $filter('date')(regStartAt, 'HH:00:00');
 
     if ($scope.challenge.subEndAt) {
       subEndAt = new Date($scope.challenge.subEndAt);
@@ -176,7 +176,7 @@
       $scope.challenge.subEndAt = subEndAt.toISOString();
     }
     $scope.timeLine.enddt = subEndAt;
-    $scope.timeLine.timeSelectedEnd = $filter('date')(subEndAt, 'HH:mm:ss');
+    $scope.timeLine.timeSelectedEnd = $filter('date')(subEndAt, 'HH:00:00');
 
     /*open start calendar*/
     $scope.openStartCal = function($event) {

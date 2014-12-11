@@ -155,9 +155,10 @@
       }
     };
   });
-
+/*
+  // Moved to appirio_bower_componenets/aaf/ui_components/tcMarkdown.directive.js  
   directives.directive('tcMarkdown', ['$sanitize', function ($sanitize) {
-    var markdownConverter = new window.Showdown.converter({extensions: ['github', 'table']});
+    var markdownConverter = new window.Showdown.converter({extensions: ['table']});
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
@@ -183,7 +184,7 @@
       }
     };
   }]);
-
+*/
   // make the title the focus
   directives.directive('focusMe', function($timeout, $parse) {
   return {
