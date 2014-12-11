@@ -6,6 +6,19 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
 
+    protractor: {
+      options: {
+        configFile: "protractor/protractor.conf", // Default config file
+        keepAlive: true, // If false, the grunt process stops when the test fails.
+        noColor: false // If true, protractor will not use colors in its output.
+      },
+      challengeEdit: {
+        options: {
+          configFile: "config/challenge-edit.protractor.conf", // Config file for Challenge Edit Testing
+        }
+      },
+    },
+
 
     'swagger-js-codegen': {
       options: {
@@ -45,15 +58,23 @@ module.exports = function(grunt) {
 
 
   //grunt.registerTask('default', ['swagger-js-codegen']);
-
   grunt.registerTask('default', ['nodemon']);
-
 
 
   // generate swagger clients
   grunt.registerTask('swagger-clients', 'generate challenge angular service', function () {
     grunt.task.run('swagger-js-codegen');
   });
+
+  // Register end-to-end testing task
+  grunt.registerTask('test', 'end-to-end testing for challenge service', function(option) {
+    if (option == null) {
+      grunt.warn('Default option currently does not serve any purpose, other than to demonstrate context-sensitive grunt works.');
+    } else {
+      grunt.task.run('protractor:'+option);
+    }
+  });
+
 
 
 };

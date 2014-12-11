@@ -17,6 +17,12 @@ you may copy `env_sample` to `.env`
 
 start with `grunt` or `node server/web.js`
 
+## Test
+
+End-to-End testing using [http://angular.github.io/protractor/#/api](protractor) has been added to the app. For further documentation, please refer to `docs/e2e_challenge_testing.md`.
+
+To start testing, execute `grunt test:challengeEdit`. (the app must be running in another terminal grunt)')
+
 ## Heroku
 you may need to add a buildpack for node and grunt
 `heroku config:set BUILDPACK_URL=https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git`
