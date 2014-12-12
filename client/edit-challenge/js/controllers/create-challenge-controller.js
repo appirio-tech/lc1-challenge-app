@@ -266,7 +266,7 @@
       // use moment.js
       var start = moment(concatenateDateTime($scope.timeLine.stdt, $scope.timeLine.timeSelectedStart));
       var end = moment(concatenateDateTime($scope.timeLine.enddt, $scope.timeLine.timeSelectedEnd));
-      $scope.timeLine.dateDiff = end.diff(start, 'days');
+      $scope.timeLine.dateDiff = end.diff(start, 'hours');
     }
 
 
