@@ -144,7 +144,7 @@
         var allScored = allItemsScored(vm.scorecard.scorecardItems.content);
 
         if (!allScored) {
-          vm.alerts.push({ type: 'warning', msg: "Scorecard can't be submitted until all requirements have been scored." });
+          vm.alerts[0] = { type: 'warning', msg: "Scorecard can't be submitted until all requirements have been scored." };
         }
         else {
           scoreItems();

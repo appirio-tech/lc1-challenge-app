@@ -18,8 +18,10 @@
     'ngSanitize',
     'duScroll',
     'growlNotifications',
+    'ngTable', //TODO(DG: 11/19/2014): replace w/ ng-grid
     //'ngCookies',
     'tc.aaf',
+    'tc.aaf.auth',
     'monospaced.elastic',
     //custom
     'directives'

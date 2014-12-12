@@ -22,6 +22,7 @@
     vm.totalCount = resolvedChallenges.metadata.totalCount;
     vm.toTCChallengeDetailsUrl = toTCChallengeDetailsUrl;
     vm.toTCProjectUrl = toTCProjectUrl;
+    vm.tcMemberProfileUrl = tcMemberProfileUrl;
     vm.deleteChallenge = deleteChallenge;
     vm.alerts = [];
     vm.closeAlert = closeAlert;
@@ -76,10 +77,14 @@
       return ConfigService.getProjectUrl() + '?formData.projectId=' + challenge.projectId;
     }
 
+    function tcMemberProfileUrl(memberHandle) {
+      return ConfigService.getBaseMemberProfileUrl() + memberHandle;
+    }    
+
     function deleteChallenge(challenge) {
       _.remove(vm.challenges, { 'id': challenge.id });
       ChallengeService.deleteChallenge(challenge.id).then(function(res) {
-        vm.alerts.push({ type: 'warning', msg: "Challenge has been deleted." });
+        vm.alerts[0] = { type: 'warning', msg: "Challenge has been deleted." };
         vm.totalCount = vm.totalCount - 1;
         vm.tableParams.reload();
       });

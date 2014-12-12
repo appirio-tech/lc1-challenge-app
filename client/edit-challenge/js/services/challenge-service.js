@@ -10,9 +10,9 @@
 	  .module('edit.challenge')
     .service('ChallengeService', ChallengeService);
 
-  ChallengeService.$inject = ['$timeout', 'Restangular'];
+  ChallengeService.$inject = ['$q', '$timeout', 'Restangular', 'UserService'];
 
-  function ChallengeService($timeout, Restangular) {
+  function ChallengeService($q, $timeout, Restangular, UserService) {
 
     var Challenges = Restangular.service('challenges');
     var Accounts = Restangular.service('accounts');
@@ -54,7 +54,14 @@
 
     /*create new challenge*/
     function createChallenge(data) {
-      return Challenges.post(data);
+      var deferred = $q.defer();
+      UserService.getCurrentUser().then(function(user) {
+        data.creatorHandle = user.handle;
+        Challenges.post(data).then(function(res) {
+          deferred.resolve(res);
+        })
+      });
+      return deferred.promise;      
     }
 
     /*get a challenge*/
