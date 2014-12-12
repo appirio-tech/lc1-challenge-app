@@ -64,7 +64,7 @@ var multiparty = require('multiparty'),
   HTTP_NO_CONTENT = 204;
 
 var headers = {
-  'x-amz-acl': 'public-read',
+//  'x-amz-acl': 'public-read',
 };
 
 var checkOptions = function(options) {

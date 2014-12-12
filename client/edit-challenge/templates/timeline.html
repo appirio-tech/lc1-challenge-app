@@ -1,4 +1,4 @@
-<section id="section-4" class="timeline" data-ng-style="setSectionMinHeight()">
+<section id="section-4" class="timeline" data-ng-style="setSectionMinHeight()" ng-init="mydbug = false">
   <header>
     <i></i>
     <h4>Timeline</h4>
@@ -53,6 +53,7 @@
             <li data-ng-repeat="time in times"><a href="javascript:" data-ng-click="setEndTime(time)">{{time.time}}</a></li>
           </ul>
         </div>
+
         <!-- End .time-select -->
         <span class="arrow"></span>
         <!-- End .arrow -->
@@ -65,6 +66,20 @@
         Duration : {{timeLine.dateDiff}} {{timeLine.dateDiff > 1 ? 'Days':'Day'}}
     </div>
   </div>
+  <!-- Debug set ng-init mydebug eq true to display this section -->
+  <span  ng-if="mydbug" >
+  <div class="well col-md-6">
+    <strong>DEBUG: </strong> turn of with ng-init mydbug = false <br>
+    timeLine.complete {{timeLine.complete}} <br/>
+    timeLine.timeSelectedEnd {{timeLine.timeSelectedEnd}} <br/>
+    regStartAt {{challenge.regStartAt}}
+  </div>
+  <div class="well col-md-6">
+    timeLine.timeSelectedEnd {{timeLine.timeSelectedEnd}} <br/>
+    subEndAt {{challenge.subEndAt}}
+  </div>
+</span>
+
   <!--End .section content-->
 </section>
 <!--End .section-->

@@ -112,6 +112,9 @@
 
     /*launch a challenge*/
     $scope.launch = function() {
+      // since the timelines are not in the challenge scope we need to set them here:
+      $scope.challenge.regStartAt = concatenateDateTime($scope.timeLine.stdt, $scope.timeLine.timeSelectedStart);
+      $scope.challenge.subEndAt = concatenateDateTime($scope.timeLine.enddt, $scope.timeLine.timeSelectedEnd);
     // check to see if the condtions are true to launch
      if ( $scope.publicBrowsing.complete && $scope.fileBrowsing.complete && $scope.requirements.complete && $scope.timeLine.complete && $scope.prizes.complete && challenge.title != 'Untitled Challenge'  ) {
       ChallengeService.launch($scope.challenge).then(function(actionResponse) {
