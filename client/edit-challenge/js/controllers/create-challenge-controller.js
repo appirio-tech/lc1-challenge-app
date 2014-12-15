@@ -51,7 +51,7 @@
       if ($scope.prizes.customerAccountId) {
         $scope.challenge.accountId = ''+$scope.prizes.customerAccountId;
       };
-      // grap prizes
+      // grab prizes
       var prizes = [];
       _.each($scope.placePrizes.places, function(place) {
         if (place.active && place.prize > 0) {
@@ -112,9 +112,23 @@
 
     /*launch a challenge*/
     $scope.launch = function() {
+      /*  First we need to set some scope before we launch this code also exist in save but can't just blidly cause
+          save since it might cause a race condtition
+      */
       // since the timelines are not in the challenge scope we need to set them here:
       $scope.challenge.regStartAt = concatenateDateTime($scope.timeLine.stdt, $scope.timeLine.timeSelectedStart);
       $scope.challenge.subEndAt = concatenateDateTime($scope.timeLine.enddt, $scope.timeLine.timeSelectedEnd);
+
+      // Now we need to set the prize.
+      var prizes = [];
+      _.each($scope.placePrizes.places, function(place) {
+        if (place.active && place.prize > 0) {
+          prizes.push(Number(place.prize));
+        }
+     });
+     $scope.challenge.prizes = prizes;
+
+
     // check to see if the condtions are true to launch
      if ( $scope.publicBrowsing.complete && $scope.fileBrowsing.complete && $scope.requirements.complete && $scope.timeLine.complete && $scope.prizes.complete && challenge.title != 'Untitled Challenge'  ) {
       ChallengeService.launch($scope.challenge).then(function(actionResponse) {
