@@ -148,19 +148,27 @@ module.exports = function(options, config) {
         storageLocation : config.uploads.storageProvider
       });
       s3Client.putStream(part, targetPath, headers, function(err, s3Response) {
-        if (err) {
-          routeHelper.addError(req, err, s3Response.statusCode);
-        } else {
-          console.log('s3 response code' + s3Response.statusCode);
-          if(s3Response.statusCode === HTTP_OK) {
-            req.body = file;
+        if ( s3Response ) {
+          if (err) {
+            routeHelper.addError(req, err, s3Response.statusCode);
           } else {
-            // S3 response code is not HTTP OK error occured during upload
-            routeHelper.addError(req, new Error('upload failed'), s3Response.statusCode);
-          }
+            console.log('s3 response code' + s3Response.statusCode);
+            if(s3Response.statusCode === HTTP_OK) {
+              req.body = file;
+            } else {
+              // S3 response code is not HTTP OK error occured during upload
+              routeHelper.addError(req, new Error('upload failed'), s3Response.statusCode);
+            }
+           }
+          next();
         }
-        next();
+      if (!s3Response) {
+        console.log('the s3response failed ');
+      }
       });
+    });
+    form.on('error', function(err) {
+      console.log('there was an error in the upload');
     });
     form.on('close', onEnd);
     form.parse(req);
