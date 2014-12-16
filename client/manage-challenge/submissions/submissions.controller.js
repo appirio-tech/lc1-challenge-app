@@ -128,8 +128,6 @@
           if (payout.id) {
             var promise = ChallengeService.updateScorecard(vm.challenge.id, payout);
             scorecardPromises.push(promise);
-          } else {
-            console.log('no payout for ', payout)
           }
         });
 
