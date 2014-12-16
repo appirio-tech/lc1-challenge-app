@@ -5,7 +5,7 @@
 
 
    // markdown Directive
-  .directive('tcMarkdown', ['$sanitize', function($sanitize) {
+  .directive('tcMarkdown', ['$sanitize', '$log', function($sanitize, $log) {
     var markdownConverter = new window.Showdown.converter({
       extensions: ['github', 'table']
     });
@@ -28,7 +28,7 @@
             }
           });
         } else {
-          console.log('tcMarkdown attribute is not set');
+          $log.error('tcMarkdown attribute is not set');
         }
       }
     };

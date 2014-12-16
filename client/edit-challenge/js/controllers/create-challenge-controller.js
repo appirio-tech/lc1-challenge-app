@@ -7,11 +7,13 @@
 
 	angular
 	  .module('edit.challenge')
+    // uncomment to turn debug off
+    //.config(['$logProvider', function($logProvider){ $logProvider.debugEnabled(false); }])
 	  .controller('CreateChallengeController', CreateChallengeController);
 
-	CreateChallengeController.$inject = ['$scope', '$timeout', '$filter', '$state', 'ChallengeService', 'challenge'];
+	CreateChallengeController.$inject = ['$scope', '$log', '$timeout', '$filter', '$state', 'ChallengeService', 'challenge'];
 
-	function CreateChallengeController($scope, $timeout, $filter, $state, ChallengeService, challenge) {
+	function CreateChallengeController($scope, $log, $timeout, $filter, $state, ChallengeService, challenge) {
 
     $scope.challenge = challenge;
     $scope.setTitleToFocus = true;
@@ -67,9 +69,10 @@
         //after a successful save show the growl
         $scope.showSuccessGrowl = true;
 
-        console.log('updated challenge: ', actionResponse.id);
+
+        $log.debug('updated challenge: ', actionResponse.id);
       }, function(errorResponse) {
-        console.log('update challenge: error: ', errorResponse);
+        $log.error('update challenge: error: ', errorResponse);
       });
 
     };
@@ -132,10 +135,10 @@
     // check to see if the condtions are true to launch
      if ( $scope.publicBrowsing.complete && $scope.fileBrowsing.complete && $scope.requirements.complete && $scope.timeLine.complete && $scope.prizes.complete && challenge.title != 'Untitled Challenge'  ) {
       ChallengeService.launch($scope.challenge).then(function(actionResponse) {
-        console.log('launched challenge: ', $scope.challenge.id);
+        $log.debug('launched challenge: ', $scope.challenge.id);
         window.location.href = '/manage/#/challenges?launchSuccess='+$scope.challenge.id;
       });
-    } else { console.log ('attmpted to launch a non ready challenge '); }
+    } else { $log.warn ('attmpted to launch a non ready challenge '); }
    };
 
     /*------------------------*/
@@ -425,7 +428,7 @@
           });
         },
         select: function(event, ui) {
-          console.log('item: ', ui.item);
+          $log.info('item: ', ui.item);
           $scope.checkPrizeComplete();
           // values are in ui.item
           $scope.prizes.customerAccountId = ui.item.customerAccountId;

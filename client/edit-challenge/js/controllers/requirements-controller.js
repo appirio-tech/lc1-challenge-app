@@ -9,9 +9,9 @@
     .module('edit.challenge')
     .controller('RequirementsController', RequirementsController);
 
-  RequirementsController.$inject = ['$scope', 'ChallengeService'];
+  RequirementsController.$inject = ['$scope', '$log', 'ChallengeService'];
 
-  function RequirementsController($scope, ChallengeService) {
+  function RequirementsController($scope, $log, ChallengeService ) {
 
     if ($scope.challenge.id) {
       ChallengeService.getRequirements($scope.challenge.id).then(function(data) {
@@ -38,6 +38,7 @@
       ChallengeService.createRequirement($scope.challenge.id, requirementData)
         .then(function(actionResponse) {
           // get the created requirement
+          $log.debug('New Requirement added: ',  actionResponse.id)
           return ChallengeService.getRequirement($scope.challenge.id, actionResponse.id);
         })
         .then(function(requirement) {
@@ -49,7 +50,7 @@
           }
           return requirement;
         }, function(err) {
-          console.log('create requirement: error: ', err);
+          $log.error('create requirement: error: ', err);
         });
 
     };
@@ -59,9 +60,9 @@
       requirement.edit = !requirement.edit;
       if (!requirement.edit) {
         ChallengeService.updateRequirement(requirement).then(function(actionResponse) {
-          console.log('saved requirement: ', actionResponse.id);
+          $log.debug('saved requirement: ', actionResponse.id);
         }, function(err) {
-          console.log('save requirement: error: ', err);
+          $log.error('save requirement: error: ', err);
         });
       }
     };
@@ -75,7 +76,7 @@
           $scope.requirements.complete = false;
         }
       }, function(err) {
-        console.log('delete requirement: error: ', err);
+        $log.error('delete requirement: error: ', err);
       });
     };
 

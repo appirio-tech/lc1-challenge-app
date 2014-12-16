@@ -155,43 +155,13 @@
       }
     };
   });
-/*
-  // Moved to appirio_bower_componenets/aaf/ui_components/tcMarkdown.directive.js  
-  directives.directive('tcMarkdown', ['$sanitize', function ($sanitize) {
-    var markdownConverter = new window.Showdown.converter({extensions: ['table']});
-    return {
-      restrict: 'A',
-      link: function (scope, element, attrs) {
-        if (attrs.tcMarkdown) {
-          scope.$watch(attrs.tcMarkdown, function (newVal) {
-            if (newVal) {
-              var html = $sanitize(markdownConverter.makeHtml(newVal));
-              element.html(html);
-              angular.element(element).removeClass('previewEmpty');
-            } else {
-              if(attrs.empty){
-                element.html(attrs.empty);
-              }
-              else{
-                element.html('--empty--');
-              }
-              angular.element(element).addClass('previewEmpty');
-            }
-          });
-        } else {
-          console.log('tcMarkdown attribute is not set');
-        }
-      }
-    };
-  }]);
-*/
+
   // make the title the focus
   directives.directive('focusMe', function($timeout, $parse) {
   return {
     link: function(scope, element, attrs) {
       var model = $parse(attrs.focusMe);
       scope.$watch(model, function(value) {
-        //console.log('value=',value);
         if(value === true) {
           $timeout(function() {
             element[0].focus();
@@ -199,7 +169,6 @@
         }
       });
       element.bind('blur', function() {
-        //console.log('blur')
         scope.$apply(model.assign(scope, false));
       })
     }
