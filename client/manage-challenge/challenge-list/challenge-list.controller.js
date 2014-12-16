@@ -70,7 +70,7 @@
 
     //helper functions
     function toTCChallengeDetailsUrl(challenge) {
-      return ConfigService.getBaseChallengeDetailsUrl() + challenge.id + '?type=develop&lc=true';
+      return ConfigService.getBaseChallengeDetailsUrl() + challenge.id + '/?type=develop&lc=true';
     }
 
     function toTCProjectUrl(challenge) {
