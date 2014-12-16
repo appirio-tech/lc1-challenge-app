@@ -9,9 +9,9 @@
     .module('edit.challenge')
     .controller('RequirementsController', RequirementsController);
 
-  RequirementsController.$inject = ['$scope', 'ChallengeService', '$log'];
+  RequirementsController.$inject = ['$scope', '$log', 'ChallengeService'];
 
-  function RequirementsController($scope, ChallengeService, $log) {
+  function RequirementsController($scope, $log, ChallengeService ) {
 
     if ($scope.challenge.id) {
       ChallengeService.getRequirements($scope.challenge.id).then(function(data) {

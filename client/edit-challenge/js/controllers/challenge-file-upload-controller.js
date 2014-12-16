@@ -10,9 +10,9 @@
     .controller('ChallengeFileUploadController', ChallengeFileUploadController);
 
 
-  ChallengeFileUploadController.$inject = ['$scope', '$timeout', '$document', '$upload', 'ChallengeService', '$log'];
+  ChallengeFileUploadController.$inject = ['$scope', '$log', '$timeout', '$document', '$upload', 'ChallengeService'];
 
-  function ChallengeFileUploadController($scope, $timeout, $document, $upload, ChallengeService, $log) {
+  function ChallengeFileUploadController($scope, $log,  $timeout, $document, $upload, ChallengeService) {
 
     function resetUploadForm() {
       $scope.fileName = '';

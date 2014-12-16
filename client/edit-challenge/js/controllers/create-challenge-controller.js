@@ -11,9 +11,9 @@
     //.config(['$logProvider', function($logProvider){ $logProvider.debugEnabled(false); }])
 	  .controller('CreateChallengeController', CreateChallengeController);
 
-	CreateChallengeController.$inject = ['$scope', '$timeout', '$filter', '$state', 'ChallengeService', 'challenge', '$log'];
+	CreateChallengeController.$inject = ['$scope', '$log', '$timeout', '$filter', '$state', 'ChallengeService', 'challenge'];
 
-	function CreateChallengeController($scope, $timeout, $filter, $state, ChallengeService, challenge, $log) {
+	function CreateChallengeController($scope, $log, $timeout, $filter, $state, ChallengeService, challenge) {
 
     $scope.challenge = challenge;
     $scope.setTitleToFocus = true;
