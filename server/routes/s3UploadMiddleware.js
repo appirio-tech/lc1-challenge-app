@@ -148,11 +148,11 @@ module.exports = function(options, config) {
         storageLocation : config.uploads.storageProvider
       });
       s3Client.putStream(part, targetPath, headers, function(err, s3Response) {
-        if ( s3Response ) {
+        if (s3Response) {
+          console.log('s3 response code' + s3Response.statusCode);
           if (err) {
             routeHelper.addError(req, err, s3Response.statusCode);
           } else {
-            console.log('s3 response code' + s3Response.statusCode);
             if(s3Response.statusCode === HTTP_OK) {
               req.body = file;
             } else {
@@ -162,9 +162,9 @@ module.exports = function(options, config) {
            }
           next();
         }
-      if (!s3Response) {
-        console.log('the s3response failed ');
-      }
+        else {
+          console.log('no response from s3');
+        }
       });
     });
     form.on('error', function(err) {
