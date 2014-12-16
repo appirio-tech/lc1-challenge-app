@@ -1,0 +1,14 @@
+.main section .content .uploadBar .fileField .fileInput {
+    height: 35px;
+    width: 79px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 5;
+    opacity: 0;
+}
+
+.main section .content .price-area .box .set-prize .input-cnt input{
+    padding: 7px 0;
+    text-align: center;
+}

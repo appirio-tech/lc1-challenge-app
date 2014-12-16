@@ -1,0 +1,41 @@
+<section id="section-5" class="prize" data-ng-style="setSectionMinHeight()">
+  <header>
+    <i></i>
+    <h4>Prizes</h4>
+    <span>How much do the winners receive?</span>
+  </header>
+  <!--End .section header-->
+  <div class="content">
+    <p class="prize-desc">
+      Generous prize amounts will give your challenge more attention from the community: expect more submissions and higher quality.
+    </p>
+    <!--End desc-->
+
+    <div class="price-area">
+      <div class="box" data-ng-repeat="place in placePrizes.places">
+        <a data-ng-if="!place.active" href="javascript:" data-ng-click="setPlacePrize(place,$index)" class="add-prize" tabindex="-1" ></a>
+        <div data-ng-if="place.active" class="set-prize">
+          <i>{{$index+1}}</i>
+          <a data-ng-hide="prizes.activeCount === 1" href="javascript:" class="close-btn" data-ng-click="removePlacePrize(place,$index)" tabindex="-1"></a>
+          <div class="input-cnt">
+            <input data-numbers-only="numbers-only" data-ng-model="place.prize" data-ng-blur="updatePrizes()" type="text">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End price area-->
+
+    <div class="total-prize">
+      Prize Total : ${{prizes.totalPrize | number:0}}
+    </div>
+    <!--End price area-->
+    <p class="customer-account-desc">Challenge prizes will be charged to Topcoder project id (e.g. 1234):  <span>(additional fees may apply, not shown here.)</span></p>
+    <!--End customer-account-desc-->
+    <div class="customer-account-holder">
+      <input class="customer-account-name" type="text" data-ng-model="challenge.projectId"  >
+    </div>
+    <!--End customer-accounts-->
+  </div>
+  <!--End .section content-->
+</section>
+<!--End .section-->

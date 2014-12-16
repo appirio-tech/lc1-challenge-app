@@ -1,0 +1,69 @@
+<div>
+  <!--sub headers-->
+  <header class="sub-header">
+    <div class="ui-container">
+      <!--actions-->
+      <div class="actions desktop">
+        <a href="javascript:void(0);" ng-click="vm.submitScorecard()" class="btn" style="width:90px">Submit</a>
+        <a href="javascript:void(0);" ng-click="vm.saveAndNav()" class="btn" style="width:90px">Save</a>
+        <a href="javascript:history.back()" class="btn" style="width:100px">Cancel</a>
+      </div>
+      <div>
+        <h3 class="aaf-sa-subappname">
+          <i class="fa fa-check-square-o"></i>Scorecard
+        </h3>
+        <!-- /* TODO (BG: 10/22/2014): make breadcrumb an Angular component */ -->
+        <!--breadcrumb-->
+        <span class="aaf-sa-breadcrumb"><a ng-href="{{vm.tcChallengeDetailsUrl(vm.challenge)}}" target="_blank">{{vm.challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a> / <a ng-href="/manage/#/challenges/{{vm.challenge.id}}/submissions">Submissions</a> / {{vm.scorecard.submissionId}} / Scorecard / {{vm.scorecard.id}}</span>
+      </div>
+    </div>
+  </header>
+  <div class="ui-container">
+    <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)" >{{alert.msg}}</alert>
+    <table data-ng-table="vm.tableParams" class="table subAppTable {{browser==='safari'?'safari':''}}">
+      <thead>
+        <tr>
+          <th class="checkAll">
+            &nbsp;
+          </th>
+          <th data-ng-repeat="header in vm.columnHeaders">
+            <div>{{header.colName}}</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="scoreItem in $data" data-ng-class="{warning: (vm.alerts.length > 0 && scoreItem.score === -1), odd: (!$odd && vm.alerts.length < 1)}">
+          <td>
+            &nbsp;
+          </td>
+          <td class="text-left">
+            {{$index + 1}}
+          </td>
+          <td class="text-left" style="max-width:300px;"  >
+            <!-- {{scoreItem.requirement.requirementText}} -->
+            <!-- <br/> DEBUG: {{scoreItem.score}} -->
+            <div class="markdownPreview" data-tc-markdown="scoreItem.requirement.requirementText"></div>
+          </td>
+
+          <td>
+        <!-- {{$index}} -->
+            <div class="btn-group pull-left" data-toggle="buttons-radio" data-container="body" >
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event); class="btn btn-score" tooltip="Remove score selection" tooltip-append-to-body="true" btn-radio="-1" checked="checked" ><span class="fa fa-ban"></i></button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Incomplete or does not meet Expectations" tooltip-append-to-body="true" btn-radio="0">0</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Well below expectations" tooltip-append-to-body="true" btn-radio="1">1</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Slightly below expectations" tooltip-append-to-body="true" btn-radio="2">2</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Meets expectations" tooltip-append-to-body="true" btn-radio="3">3</button>
+              <button type="button" ng-model="scoreItem.score" ng-click=setActive($event);  class="btn btn-score" tooltip="Exceeds expectations" tooltip-append-to-body="true" btn-radio="4">4</button>
+
+            </div>
+          </td>
+          <td data-ng-if="!phone" class="text-left" data-sortable="'col4'">
+            <textarea ng-model="scoreItem.comment" rows="3" cols="50" placeholder="Optional comment"></textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--end table-->
+
+  </div>
+</div>

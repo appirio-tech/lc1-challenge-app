@@ -1,0 +1,30 @@
+[
+  {
+    "id": 6,
+    "challengeId": 4,
+    "place": "1",
+    "prize": "$750",
+    "reviewer": "eRashid",
+    "score": 98.2,
+    "submission": {
+      "submitter": {
+        "handle": "fireice"
+      }
+    }
+  },
+    {
+    "id": 7,
+    "challengeId": 4,
+    "place": "2",
+    "prize": "$500",
+    "reviewer": "eRashid",
+    "score": 92.2,
+    "submission": {
+      "submitter": {
+        "handle": "albertwang"
+      },      
+      "submittedAt": "2014/10/08 7:12 PM",
+      "url": "data/submission.pdf"
+    }
+  }
+]

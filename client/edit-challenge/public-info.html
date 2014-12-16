@@ -1,0 +1,128 @@
+<!doctype html>
+<html data-ng-app="edit.challenge">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+  <!-- TODO: Evaluate if we still need/want these -->
+  <!--external fonts-->
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Bree+Serif">
+
+  <!-- CSS Style -->
+  <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/app.css">
+
+  <!--[if lt IE 10]>
+  <link rel="stylesheet" type="text/css" media="all" href="css/ie-9.css"/>
+  <![endif]-->
+
+  <title>Edit Challenge</title>
+</head>
+
+<body>
+  <growl-notifications></growl-notifications>
+
+
+
+  <div class="ui-wrapper">
+    <header class="header">
+      <div class="ui-navbar clearfix">
+        <div class="ui-content">
+          <a id="logo" href="/" class="text-hide logo">APPIRIO</a>
+          <!-- TODO(DG: 12/2/2014): Re-enable Identity selector. Took out for 0.1 release
+          <div class="pull-right main-actions">
+            <nav>
+              <ul>
+                <li data-ng-class="{'active':popoverProfile}">
+                  <a href="javascript:void(0);" class="icon icon-profile"></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        -->
+          <!-- End .main-container -->
+        </div>
+        <!-- End .ui-content -->
+      </div>
+      <!-- End .ui-navbar -->
+
+      <div class="header-action clearfix">
+        <div class="ui-content">
+          <div class="pull-left">
+            <h3>Create New Architecture Challenge</h3>
+          </div>
+        </div>
+      </div>
+      <!-- End Header Action -->
+
+    </header>
+    <!-- End header -->
+
+    <!-- Needed for routes -->
+    <div data-ui-view></div>
+
+  </div>
+
+    <footer>
+      <div data-ng-include="'appirio_bower_components/aaf/layout/footer.html'"></div>
+    </footer>
+
+  <!-- TODO: evaluate using includes mean style -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/jqueryui/jquery-ui.min.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="bower_components/restangular/dist/restangular.min.js"></script>
+  <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/angular-growl-notifications/dist/angular-growl-notifications.js"/>
+  <script src="bower_components/ng-file-upload/angular-file-upload-shim.js"></script>
+  <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
+
+  <!-- bowerize these guys -->
+  <!-- TODO: use 'vendor; for 3rd party; don't use 'min' files -->
+  <script src="js/angular/angular-scroll.min.js"></script>
+  <script src="js/angular/autocomplete.js"></script>
+
+
+
+  <script src="bower_components/angular-placeholder-tai/lib/tai-placeholder.js"></script>
+  <script src="bower_components/lodash/dist/lodash.js"></script>
+  <script src="bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
+  <script src="bower_components/typeahead.js/dist/typeahead.jquery.js"></script>
+  <script src="bower_components/typeahead.js/dist/bloodhound.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/showdown/src/showdown.js"></script>
+  <script src="bower_components/showdown/src/extensions/github.js"></script>
+  <script src="bower_components/showdown/src/extensions/table.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-elastic/elastic.js"></script>
+  <script src="bower_components/ng-table/ng-table.js"></script>
+
+  <script src="appirio_bower_components/aaf/aaf.module.js"></script>
+  <script src="appirio_bower_components/aaf/aaf.vars.js"></script>
+  <script src="appirio_bower_components/aaf/utils.service.js"></script>
+  <script src="appirio_bower_components/aaf/tc-auth/tc-auth.js"></script>
+  <script src="appirio_bower_components/aaf/ui-components/tcMarkdown.directive.js"></script>
+
+  <!-- custom js -->
+  <script src="js/app.js"></script>
+  <script src="js/directives/app-directives.js"></script>
+  <script src="js/services/challenge-service.js"></script>
+  <script src="js/controllers/create-challenge-controller.js"></script>
+  <script src="js/controllers/requirements-controller.js"></script>
+  <script src="js/controllers/challenge-file-upload-controller.js"></script>
+
+  <!--[if IE 9]>
+  <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
+  <![endif]-->
+
+  <script src="appirio_bower_components/aaf/ga.js"></script>
+
+</body>
+</html>

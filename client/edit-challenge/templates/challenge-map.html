@@ -1,0 +1,106 @@
+<!--challenge-map-->
+<aside class="challenge-map" data-resize data-scroll data-ng-style="setChallengePanelHeightPosition()">
+
+  <h3>Challenge Map</h3>
+
+  <div class="challenge-cnt">
+
+    <a data-du-smooth-scroll data-du-scrollspy href="#section-1" id="map1" class="map {{publicBrowsing.complete ? 'complete':''}} {{isFirstSection? 'current':''}}" data-ng-style="setHeight()">
+      <div class="bg"></div>
+      <!--End .bg-->
+      <h2 class="title" title="Information For Public Browsing">
+        <span data-ng-style="setWidth()">INFORMATION FOR PUBLIC BROWSING</span>
+      </h2>
+      <!--End .title-->
+      <div class="icon">
+        <span>
+          <i></i>
+        </span>
+      </div>
+    </a>
+    <!--End .map-->
+
+    <a data-du-smooth-scroll data-du-scrollspy href="#section-3" id="map3" class="map {{requirements.complete ? 'complete':''}}" data-ng-style="setHeight()" title="Requirements">
+      <div class="bg"></div>
+      <!--End .bg-->
+      <h2 class="title">
+        <span data-ng-style="setWidth()">REQUIREMENTS</span>
+      </h2>
+      <!--End .title-->
+      <div class="icon">
+        <span>
+          <i></i>
+        </span>
+      </div>
+    </a>
+    <!--End .map-->
+
+    <a data-du-smooth-scroll data-du-scrollspy href="#section-2" id="map2" class="map {{fileBrowsing.complete ? 'complete':''}}" data-ng-style="setHeight()" title="Information For Registered User">
+      <div class="bg"></div>
+      <!--End .bg-->
+      <h2 class="title">
+        <span data-ng-style="setWidth()">INFORMATION FOR REGISTERED USER</span>
+      </h2>
+      <!--End .title-->
+      <div class="icon">
+        <span>
+          <i></i>
+        </span>
+      </div>
+    </a>
+    <!--End .map-->
+
+    <a data-du-smooth-scroll data-du-scrollspy href="#section-4" id="map4" class="map {{timeLine.complete ? 'complete':''}}" data-ng-style="setHeight()" title="Timeline">
+      <div class="bg"></div>
+      <!--End .bg-->
+      <h2 class="title">
+        <span data-ng-style="setWidth()">TIMELINE</span>
+      </h2>
+      <!--End .title-->
+      <div class="icon">
+        <span>
+          <i></i>
+        </span>
+      </div>
+    </a>
+    <!--End .map-->
+
+    <a data-du-smooth-scroll data-du-scrollspy href="#section-5" id="map5" class="map {{prizes.complete ? 'complete':''}}" data-ng-style="setHeight()" title="Prizes">
+      <div class="bg"></div>
+      <!--End .bg-->
+      <h2 class="title">
+          <span data-ng-style="setWidth()">PRIZES</span>
+      </h2>
+      <!--End .title-->
+      <div class="icon">
+        <span>
+          <i></i>
+        </span>
+      </div>
+    </a>
+    <!--End .map-->
+
+  </div>
+  <!--End .challenge-cnt-->
+
+   <growl-notification ng-if="showSuccessGrowl">
+       <a href="javascript:void(0);" ng-click="$growlNotification.remove()" class="close-btn"></a>
+       Your challenge has been saved. You may continue to edit it.
+  </growl-notification>
+   <!--End of the growl notification-->
+  <div class="button-holder">
+    <a href="" class="btn blue-btn save" data-ng-click="saveChallenge()">SAVE</a>
+    <!--End .save btn-->
+    <a href="/" class="btn gray-btn cancel">CANCEL</a>
+    <!--End .cancel btn-->
+    <a href="" class="btn blue-btn {{(publicBrowsing.complete
+                                  && fileBrowsing.complete
+                                  && requirements.complete
+                                  && timeLine.complete
+                                  && challenge.title != 'Untitled Challenge'
+                                  && prizes.complete) ? '' : 'disable'}} launch" data-ng-click="launch()">LAUNCH</a>
+    <!--End .cancel btn-->
+  </div>
+  <!--End .btn-content-->
+</aside>
+<!--End .challenge map-->

@@ -1,0 +1,85 @@
+<section id="section-4" class="timeline" data-ng-style="setSectionMinHeight()" ng-init="mydbug = false">
+  <header>
+    <i></i>
+    <h4>Timeline</h4>
+    <span>For how long should the challenge run?</span>
+  </header>
+  <!--End .section header-->
+  <div class="content">
+    <p class="timeline-desc">The longer you leave a challenge open, the more registrations you’re likely to receive (and the more time you leave submitters to bake some quality in.) Shorter times, of course, can be useful for quick turnaround.</p>
+    <!--End .description-->
+    <div class="date-select">
+      <div class="date-box start-date">
+        <label>Start Date</label>
+        <a href="javascript:" class="calendar-btn" data-ng-click="openStartCal($event)"></a>
+        <div class="date-picker">
+          <input type="text" data-ng-click="openStartCal($event)" readonly data-datepicker-popup="{{format}}" data-ng-model="timeLine.stdt" data-is-open="timeLine.startOpened" data-min-date="minDate" data-show-weeks="{{false}}" data-show-button-bar="{{false}}">
+        </div>
+
+        <label class="time-label">Start Time</label>
+        <!-- End label -->
+        <!-- <span class="time-zone">GMT</span> -->
+        <!-- End label -->
+        <div class="btn-group" data-dropdown data-is-open="timeLine.isopen">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-ng-disabled="disabled">
+            <span class="caret"></span>{{timeLine.timeSelectedStart}}
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li data-ng-repeat="time in times"><a href="javascript:" data-ng-click="setStartTime(time)">{{time.time}}</a></li>
+          </ul>
+        </div>
+        <!-- End .time-select -->
+        <span class="arrow"></span>
+        <!-- End .arrow -->
+      </div>
+      <!-- End .start date -->
+
+      <div class="date-box end-date">
+        <label>End Date</label>
+        <a href="javascript:" class="calendar-btn" data-ng-click="openEndCal($event)"></a>
+        <div class="date-picker">
+          <input type="text" data-ng-click="openEndCal($event)" readonly data-datepicker-popup="{{format}}" data-ng-model="timeLine.enddt" data-is-open="timeLine.endOpened" data-min-date="timeLine.startDate" data-show-weeks="{{false}}" data-show-button-bar="{{false}}">
+        </div>
+
+        <label class="time-label">End Time</label>
+        <!-- End label -->
+        <!-- <span class="time-zone">GMT</span> -->
+        <!-- End label -->
+        <div class="btn-group" data-dropdown data-is-open="timeLine.isopenStart">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-ng-disabled="disabled">
+            <span class="caret"></span>{{timeLine.timeSelectedEnd}}
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li data-ng-repeat="time in times"><a href="javascript:" data-ng-click="setEndTime(time)">{{time.time}}</a></li>
+          </ul>
+        </div>
+
+        <!-- End .time-select -->
+        <span class="arrow"></span>
+        <!-- End .arrow -->
+      </div>
+      <!-- End .end date -->
+    </div>
+    <!--End .date select-->
+
+    <div class="date-range">
+        Duration : {{timeLine.dateDiff}} {{timeLine.dateDiff > 1 ? 'Days':'Day'}}
+    </div>
+  </div>
+  <!-- Debug set ng-init mydebug eq true to display this section -->
+  <span  ng-if="mydbug" >
+  <div class="well col-md-6">
+    <strong>DEBUG: </strong> turn of with ng-init mydbug = false <br>
+    timeLine.complete {{timeLine.complete}} <br/>
+    timeLine.timeSelectedEnd {{timeLine.timeSelectedEnd}} <br/>
+    regStartAt {{challenge.regStartAt}}
+  </div>
+  <div class="well col-md-6">
+    timeLine.timeSelectedEnd {{timeLine.timeSelectedEnd}} <br/>
+    subEndAt {{challenge.subEndAt}}
+  </div>
+</span>
+
+  <!--End .section content-->
+</section>
+<!--End .section-->

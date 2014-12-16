@@ -1,0 +1,96 @@
+<div class="ui-navbar" data-ng-controller="ProfileController as vm">
+  <div class="ui-container">
+    <a href="/" class="text-hide logo"></a>
+
+    <div class="pull-right main-actions">
+      <nav>
+        <ul>
+          <li data-ng-class="{'active':vm.popoverProfile}">
+            <a href="javascript:void(0);" class="text-hide icon icon-profile"
+               data-ng-click="vm.profile_open()"
+               off-click="vm.profile_close()">Profile
+            </a>
+          </li>
+        </ul>
+
+        <!-- User Profile Popover -->
+        <div
+          class="ui-popover popover-profile"
+          data-ng-class="{'popover-open':vm.popoverProfile}"
+          force-click>
+          <div class="popover-content">
+            <div class="media">
+              <a href="javascript:void(0);" class="text-hide icon-close"
+                 data-ng-click="vm.profile_close()">
+                Close
+              </a>
+
+              <div class="pull-left">
+                <img src="img/user-thumb.png" data-ng-src="{{vm.userInfo.picture}}" alt="Thumb" class="thumbnail"/>
+              </div>
+              <div class="media-body">
+                <h4>{{vm.userInfo.name}}</h4>
+                {{vm.userInfo.handle}}
+              </div>
+            </div>
+
+            <div class="actions">
+              <ul>
+                <li>
+                  <a href="{{vm.tcMemberProfileUrl(vm.userInfo.handle)}}/" target="_blank"
+                     class="icon-my-profile">My Profile</a>
+                </li>
+                <li>
+                  <a href="http://community.topcoder.com/tc?module=MyHome" target="_blank"
+                     class="icon-account-settings">Account Settings</a>
+                </li>
+                <li>
+                  <a href="{{vm.logoutUrl()}}" class="icon-sign-out">Sign Out</a>
+                </li>
+              </ul>
+            </div>
+            <!-- End .actions -->
+          </div>
+        </div>
+        <!-- End .popover-profile User Profile Popover -->
+      </nav>
+    </div>
+    <!-- End .main-actions -->
+  </div>
+  <!-- End .ui-container -->
+</div>
+<!-- End .ui-navbar -->
+
+<div class="header-action">
+  <div class="ui-container">
+
+    <div class="ui-popover popover-subApplication"
+         data-ng-class="{'popover-open':directPanel}"
+         force-click>
+      <ul>
+        <li
+          data-ng-repeat="subApplication in subApplications"
+          data-ng-class="{even: $index%2 === 1}">
+          <a href="javascript:void(0);" data-ng-href="{{subApplication.href}}"
+             data-ng-class="{disabled:subApplication.disabled}">
+            <img src="img/sub-applications-thumb.png" data-ng-src="{{subApplication.thumb}}" alt="Application"
+                 class="thumbnail"/>
+            {{subApplication.name}}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="pull-left">
+      <a href="/" class="text-hide icon-hamburger"
+         data-ng-click="direct_open()"
+         data-ng-class="{active:directPanel}"
+         off-click="direct_hide()">
+        Hamburger
+      </a>
+
+      <h3><a href="#/challenges" style="color:inherit">Challenge Management</a></h3>
+    </div>
+  </div>
+</div>
+<!-- End .header-action -->

@@ -1,0 +1,66 @@
+<div>
+  <!--sub headers-->
+  <header class="sub-header">
+    <div class="ui-container">
+        <!--title-->
+        <div>
+          <h3>
+            <i class="fa fa-file-archive-o"></i>Results
+          </h3>
+          <!-- /* TODO (BG: 10/22/2014): make breadcrumb an Angular component */ -->
+          <!--breadcrumb-->
+          <span class="aaf-sa-breadcrumb"><a ng-href="{{vm.tcChallengeDetailsUrl(vm.challenge)}}" target="_blank">{{vm.challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a> / Results </span>
+        </div>
+    </div>
+  </header>
+
+  <div class="ui-container">
+    <table data-ng-table="vm.tableParams" class="table subAppTable {{browser==='safari'?'safari':''}}">
+      <thead>
+        <tr>
+          <th class="checkAll">
+          &nbsp;
+          </th>
+          <!-- Configurable Headers -->
+          <th class="sortable" data-ng-class="{
+          'sort-asc': vm.tableParams.isSortBy(header.col, 'asc'),
+          'sort-desc': vm.tableParams.isSortBy(header.col, 'desc')
+          }" data-ng-repeat="header in vm.columnHeaders">
+            <div data-ng-click="vm.tableParams.sorting(header.col, vm.tableParams.isSortBy(header.col, 'asc') ? 'desc' : 'asc')">{{header.colName}}<i></i></div>
+          </th>
+          <th data-ng-if="!phone" class="text-center" colspan="3"><div>Action</div></th>
+        </tr>
+      </thead>
+
+      <tbody data-ng-repeat="result in $data">
+        <tr data-ng-class="$odd?'odd':''">
+          <td>
+          &nbsp;
+          </td>
+          <td class="text-left" data-sortable="'place'">
+            {{result.scorecard.place}}
+          </td>
+          <td class="text-left" data-sortable="'prize'">
+            {{result.scorecard.prize | noFractionCurrency}}
+          </td>
+          <td class="text-left" data-sortable="'submission.submitter.handle'">
+            <a href="{{vm.tcMemberProfileUrl(result.submitterHandle)}}" target="_blank">{{result.submitterHandle}}</a>
+          </td>
+          <td data-ng-if="!phone" class="text-left" data-sortable="'scoreSum'">
+          {{result.scorecard.scorePercent | number:1}}
+
+          </td>
+          <td class="action-btn">
+            <a ng-href="{{result.file.fileUrl}}" class="fa fa-2x fa-download" title="Download Submission"></a>
+          </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <div class="custom-pager">
+      <span data-ng-if="!phone" class="label">Showing items <b>1-{{vm.tableParams.total()}}</b> of <b>{{vm.tableParams.total()}}</b></span>
+    </div>
+
+  </div>
+</div>

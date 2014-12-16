@@ -1,0 +1,109 @@
+<div class="main has-challenge-map">
+
+  <!-- include challenge-map template -->
+  <data-ng-include src="'templates/challenge-map.html'"></data-ng-include>
+
+  <section id="section-1" class="public-browsing" data-ng-style="setSectionMinHeight()">
+    <header>
+      <i></i>
+      <h4>Information for Public Browsing</h4>
+      <span>I'm a community member — why should I care about your challenge?</span>
+    </header>
+    <!--End .section header-->
+    <div class="content">
+      <form name="form1">
+        <label>Challenge Title</label>
+        <input data-maxlength="80" data-ng-model="challenge.title" type="text" placeholder="Short, descriptive and catchy is your best bet" focus-me="setTitleToFocus" />
+        <label>Challenge Overview <span style="font-size: .8em;">(Limit 100 chars)</label>
+        <textarea class="shortDesc" data-maxlength="100" data-ng-model="challenge.overview" placeholder="This is will be used in listings and search results, as well as for social media promotion (tweets, Facebook summary, etc.)"></textarea>
+
+
+        <label class="desc">Description
+          <a style="white-space: nowrap; margin-right: 85px" href="http://daringfireball.net/projects/markdown/syntax" target="_blank" tabindex="-1">
+              <img ng-src="https://markdownjournal.com/mkd.png"/> Markdown Help
+          </a>
+        <a href="javascript:void(0);" data-ng-click="editDescription=true" data-ng-class="{active: editDescription}" tabindex="-1" >Write</a>
+        <a href="javascript:void(0);" data-ng-click="editDescription=false" data-ng-class="{active: !editDescription}" tabindex="-1" >Preview</a></label>
+
+        <div class="descriptionPreview markdownPreview" data-tc-markdown="challenge.description" data-ng-show="!editDescription" data-empty="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></div>
+        <textarea data-ng-show="editDescription" class="longDesc msd-elastic" data-maxlength="40000" data-ng-model="challenge.description" placeholder="Give the audience a summary of why this challenge will be interesting enough to try and solve for you"></textarea>
+        <label>Tags</label>
+        <input class="tags-input" type="text" data-ng-model="tags" data-role="tagsinput"/>
+      </form>
+    </div>
+    <!--End .section content-->
+  </section>
+  <!--End .section-->
+
+  <!-- include requirement template -->
+  <data-ng-include src="'templates/requirement.html'"></data-ng-include>
+
+  <section id="section-2" class="registered-contestants" data-ng-style="setSectionMinHeight()" data-ng-controller="ChallengeFileUploadController">
+    <header>
+      <i></i>
+      <h4>Information for Registered Contestants</h4>
+      <span>Provide additional guidance for contestants to excel</span>
+    </header>
+    <!--End .section header-->
+    <div class="content">
+      <p class="guidance">
+      At times a picture or diagram is all that’s needed to convey an idea or insight into a problem. Take this time to consider giving your audience any necessary documents, pictures, or other types of files they may need in order to get up to speed with your challenge.
+      </p>
+      <!--End .guidance-->
+      <div class="uploadBar">
+        <div class="fileField pull-left">
+          <p class="fileNameDisplay {{fileName ==='' ? 'fileNameDisplayNoFile' : ''}}">{{fileName!=='' ? fileName : 'Select File'}}</p>
+          <label for="fileUploader" class="fileBrowser btn gray-btn">Browse</label>
+          <input data-ng-class="{'invalid' : fileNameInvalid}" data-ng-file-select="onFileSelect($files)" type="file" name="myFile" class="fileInput" id="fileUploader" tabindex="-1">
+        </div>
+        <!--End .fileField-->
+        <!-- <a href="javascript:void(0);" data-ng-click="doUpload()" class="upload-btn pull-right"></a> -->
+        <button data-ng-click="doUpload()" class="btn blue-btn pull-right" style=" width: 107px"> upload file</button>
+        <!--End .upload-btn-->
+        <div class="fileDescription">
+          <input data-ng-class="{'invalid' : fileTitleInvalid}" data-maxlength="80" type="text" data-ng-model="fileTitle" placeholder="File Title"/ style="width: 90%;">
+        </div>
+        <!--End .description-->
+      </div>
+
+      <div class="file-holder">
+        <div class="file" data-ng-repeat="file in fileBrowsing.uploadedFiles">
+          <a href="javascript:void(0);" class="close-btn" data-ng-click="deleteFile(file)" tabindex="-1" ></a>
+          <!--End .close btn-->
+          <i data-size="{{file.size | bytes}}">{{file.extension}}</i>
+          <h3>{{file.name}}</h3>
+          <p>{{file.title}}</p>
+        </div>
+        <!--End .file-->
+
+        <div class="file uploading" data-ng-if="uploading">
+          <div class="inner">
+             <span class="upload-label">Uploading file</span>
+            <div data-progressbar data-value="progress"></div>
+            <span class="percentage">{{progress}}%</span>
+          </div>
+        </div>
+
+        <!--End .uploading-->
+
+        <div class="file no-file" data-ng-if="!uploading && fileBrowsing.uploadedFiles.length===0">
+          <div class="inner">
+            <label><input type="checkbox" data-ng-model="noFile" data-ng-change="changeNoFile(noFile)" tabindex="-1">No files to attach</label>
+          </div>
+        </div>
+        <!--End .noFile-->
+      </div>
+        <!--End .file-holder-->
+    </div>
+      <!--End .section content-->
+  </section>
+  <!--End .section-->
+
+  <!-- include timeline template -->
+  <data-ng-include src="'templates/timeline.html'"></data-ng-include>
+
+  <!-- include prizes template -->
+  <data-ng-include src="'templates/prizes.html'"></data-ng-include>
+
+</div>
+<!-- End .main -->

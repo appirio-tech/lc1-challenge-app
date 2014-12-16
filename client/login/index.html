@@ -1,0 +1,39 @@
+<!doctype html>
+<html data-ng-app="tc.login">
+<head>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+
+  <title>Topcoder Challenge Management</title>
+</head>
+
+<body ng-controller="LoginController as vm">
+    <div >
+      <h1>Temp Login Page for Louder Crowd</h1>
+      <div ng-repeat="connection in vm.connections">
+        <a href="{{vm.auth0Host}}/authorize?response_type=code&scope=openid%20profile&client_id={{vm.clientId}}&redirect_uri={{vm.redirectUri}}&connection={{connection.name}}">{{connection.displayName}}</a>
+      </div>
+	  </div>
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/ng-table/ng-table.js"></script>
+
+  <script src="appirio_bower_components/aaf/aaf.module.js"></script>
+  <script src="appirio_bower_components/aaf/aaf.vars.js"></script>
+  <script src="appirio_bower_components/aaf/utils.service.js"></script>
+  <script src="appirio_bower_components/aaf/tc-auth/tc-auth.js"></script>
+
+  <!-- Custom App Code -->
+  <script src="app.js"></script>
+
+  <!--[if IE 9]>
+  <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
+  <![endif]-->
+
+</body>
+</html>

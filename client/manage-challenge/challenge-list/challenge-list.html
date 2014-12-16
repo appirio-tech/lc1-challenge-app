@@ -1,0 +1,90 @@
+<div>
+  <!--sub headers-->
+  <header class="sub-header">
+    <div class="ui-container">
+      <!--actions-->
+      <div class="actions desktop">
+        <a href="/edit/#/new" class="btn add-new"><i></i>New Challenge</a>
+      </div>
+      <!-- End .actions -->
+      <h3>
+        <i class="fa fa-trophy"></i>Challenge Listing
+      </h3>
+    </div>
+  </header>
+
+  <div class="ui-container">
+
+<!-- post launch alert -->
+   <div data-ng-show="launchedChallenge" class="launchSuccessAlert alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+    </button>
+    <strong>Success!</strong> Your challenge has been launched. Visit the <a href="{{ConfigService.getBaseChallengeDetailsUrl()+challengeUrl}}" target="_blank">challenge page on Topcoder</a>
+  </div>
+
+    <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)" >{{alert.msg}}</alert>
+
+    <table data-ng-table="vm.tableParams" class="table subAppTable {{browser==='safari'?'safari':''}}">
+      <thead>
+        <tr>
+          <th class="checkAll">
+          &nbsp;
+          </th>
+          <!-- Configurable Headers -->
+          <th class=" sortable" data-ng-class="{
+          'sort-asc': vm.tableParams.isSortBy(header.col, 'asc'),
+          'sort-desc': vm.tableParams.isSortBy(header.col, 'desc')
+          }" data-ng-repeat="header in vm.columnHeaders">
+            <div data-ng-click="vm.tableParams.sorting(header.col, vm.tableParams.isSortBy(header.col, 'asc') ? 'desc' : 'asc')">{{header.colName}}<i></i></div>
+          </th>
+          <th data-ng-if="!phone" class="text-center" colspan="3"><div>Action</div></th>
+        </tr>
+      </thead>
+
+      <tbody data-ng-repeat="challenge in $data">
+        <tr data-ng-class="$odd?'odd':''">
+          <td>
+          &nbsp;
+          </td>
+          <td class="text-left" data-sortable="'id'">
+          {{challenge.id}}
+          </td>
+          <td class="text-left" data-sortable="'title'" ng-switch on="challenge.status">
+            <a ng-href="/edit/#/challenges/{{challenge.id}}/edit" ng-switch-when="DRAFT">{{challenge.title}} <i></i></a>
+
+            <a ng-href="{{vm.toTCChallengeDetailsUrl(challenge)}}" target="_blank" ng-switch-default>{{challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a>
+
+          </td>
+          <td class="text-left" data-sortable="'projectId'">
+          <a ng-href="{{vm.toTCProjectUrl(challenge)}}" target="_blank">{{challenge.projectId}} <i ng-if="challenge.projectId" class="fa fa-sm fa-external-link-square"></i> </a>
+          </td>
+          <td class="text-left" data-sortable="'creatorHandle'">
+            <a ng-href="{{vm.tcMemberProfileUrl(challenge.creatorHandle)}}" target="_blank">{{challenge.creatorHandle}}</a>
+          </td>
+          <td class="text-left" data-sortable="'updatedAt'">
+          {{challenge.updatedAt | date:'MMM dd yyyy HH:mm a (Z)' }}
+          </td>
+          <td data-ng-if="!phone" class="text-left" data-sortable="'status'">
+          {{challenge.statusDisplay}}
+          </td>
+          <td data-ng-if="!phone" class="action-btn" ng-switch on="challenge.status">
+            <a ng-href="#/challenges/{{challenge.id}}/submissions" class="fa fa-2x fa-eye" ng-switch-when="REVIEW" title="View Submissions"></a>
+            <a ng-href="#/challenges/{{challenge.id}}/submissions" class="fa fa-2x fa-eye" ng-switch-when="SUBMISSION" title="View Submissions"></a>
+            <a ng-href="#/challenges/{{challenge.id}}/results" class="fa fa-2x fa-eye" ng-switch-when="COMPLETE" title="View Results"></a>
+            <a ng-href="/edit/#/challenges/{{challenge.id}}/edit" class="fa fa-2x fa-pencil" ng-switch-default title="Edit Challenge"></a>
+          </td>
+          <td data-ng-if="!phone" class="action-btn">
+            <a href="javascript:void(0);" ng-click="vm.deleteChallenge(challenge)" class="fa fa-2x fa-trash" data-ng-if="challenge.status === 'DRAFT'" title="Delete Challenge"></a>
+          </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <div class="custom-pager">
+      <span data-ng-if="!phone" class="label">Showing items <b>{{vm.tableParams.page() * 10 -9 }}-{{vm.tableParams.page() * 10 - 10 + vm.tableParams.data.length}}   </b> of <b>{{vm.totalCount}}</b></span>
+
+    </div>
+
+  </div>
+</div>

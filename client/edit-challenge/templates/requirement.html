@@ -1,0 +1,48 @@
+<section id="section-3" class="requirements" data-ng-style="setSectionMinHeight()" data-ng-controller="RequirementsController">
+  <header>
+    <i></i>
+    <h4>Requirements</h4>
+    <span>What are your requirements?</span>
+  </header>
+  <!--End .section header-->
+  <div class="content">
+  <p class="guidance">
+    These requirements will form the basis for submission <em>scoring</em>, so write plainly and clearly. Break your requirements up — several smaller, gradeable requirements are better than one long rambling one.
+  </p>
+    <form name="requirementForm">
+      <label class="requirement-desc-label">Content
+        <a style="white-space: nowrap; margin-right: 85px" href="http://daringfireball.net/projects/markdown/syntax" target="_blank" tabindex="-1">
+            <img ng-src="https://markdownjournal.com/mkd.png"/> Markdown Help
+        </a>
+        <a href="javascript:" data-ng-click="editRequirement=true" data-ng-class="{active: editRequirement}" tabindex="-1">Write</a>
+        <a href="javascript:" data-ng-click="editRequirement=false" data-ng-class="{active: !editRequirement}" tabindex="-1">Preview</a></label>
+      <div class="requirementPreview markdownPreview" data-tc-markdown="requirements.content" data-ng-show="!editRequirement" data-empty="Type your requirement here"></div>
+      <textarea data-maxlength="10000" class="requirement-desc msd-elastic" data-ng-model="requirements.content" data-ng-show="editRequirement" placeholder="Type your requirement here"></textarea>
+      <a href="javascript:" data-ng-click="addRequirement()" class="btn blue-btn add-requirement"><i></i>Add Requirement</a>
+    </form>
+    <!--End .form-->
+
+    <div class="requirement-list">
+      <div class="list-item" data-ng-repeat="requirement in requirements.requirementList | orderBy:'id'">
+        <div class="actions">
+          <a data-ng-show="!requirement.edit" href="javascript:" data-ng-click="saveRequirement(requirement)" class="edit" tabindex="-1"></a>
+          <a data-ng-show="requirement.edit" href="javascript:" data-ng-click="saveRequirement(requirement)" class="save" tabindex="-1"></a>
+          <a href="javascript:" data-ng-click="deleteRequirement(requirement)" class="delete" tabindex="-1"></a>
+        </div>
+        <!--End .actions-->
+        <strong>#{{$index + 1}}</strong>
+        <div class="requirementItemPreview markdownPreview " data-ng-if="!requirement.edit" data-tc-markdown="requirement.requirementText" data-empty=""></div>
+        <!--<p data-ng-if="!requirement.edit">{{requirement.requirementText}}</p>-->
+        <div data-ng-if="requirement.edit" class="textarea-cnt">
+          <textarea class="msd-elastic" data-maxlength="10000" data-ng-model="requirement.requirementText"></textarea>
+        </div>
+        <!--End .DESC-->
+      </div>
+      <!--End .list-item-->
+
+    </div>
+    <!--End .requirement-list-->
+  </div>
+  <!--End .section content-->
+</section>
+<!--End .section-->

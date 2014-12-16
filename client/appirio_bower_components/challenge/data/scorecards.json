@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "sequence": "1",
+    "challengeId": 30044025,
+    "reviewer": "aRashid",
+    "score": 90.2,
+    "status": "Saved",
+    "submission": {
+      "submittedAt": "2014/09/29 3:34 AM",
+      "url": "data/submission.pdf"
+    }
+  },
+  {
+    "id": 2,
+    "sequence": "2",
+    "challengeId": 30044025,
+    "reviewer": "bRashid",
+    "score": 30.2,
+    "status": "Complete",
+    "submission": {
+      "submittedAt": "2014/09/29 3:34 PM",
+      "url": "data/submission.pdf"
+    }
+  },
+  {
+    "id": 3,
+    "sequence": "3",
+    "challengeId": 30044025,
+    "reviewer": "cRashid",
+    "score": 0.0,
+    "status": "Saved",
+    "submission": {
+      "submittedAt": "2014/09/30 3:34 AM",
+      "url": "data/submission.pdf"
+    }
+  },
+  {
+    "id": 4,
+    "sequence": "1",
+    "challengeId": 30046283,
+    "reviewer": "dRashid",
+    "score": 89.2,
+    "status": "Complete",
+    "submission": {
+      "submittedAt": "2014/10/01 5:01 PM",
+      "url": "data/submission.pdf"
+    }
+  },
+  {
+    "id": 5,
+    "sequence": "2",
+    "challengeId": 30046283,
+    "reviewer": "eRashid",
+    "score": 0.0,
+    "status": "New",
+    "submission": {
+      "submittedAt": "2014/10/02 7:12 PM",
+      "url": "data/submission.pdf"
+    }
+  },
+  {
+    "id": 6,
+    "sequence": "2",
+    "challengeId": 30046184,
+    "reviewer": "eRashid",
+    "score": 98.2,
+    "status": "Complete",
+    "submission": {
+      "submittedAt": "2014/10/02 6:12 PM",
+      "url": "data/submission.pdf"
+    }
+  },
+    {
+    "id": 7,
+    "sequence": "1",
+    "challengeId": 30046184,
+    "reviewer": "eRashid",
+    "score": 92.2,
+    "status": "Complete",
+    "submission": {
+      "submittedAt": "2014/10/08 7:12 PM",
+      "url": "data/submission.pdf"
+    }
+  }
+]

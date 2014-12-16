@@ -1,0 +1,41 @@
+{
+  "name": "lc1-challenge-app",
+  "description": "Topcoder Challenge Management",
+  "version": "0.0.1",
+  "homepage": "https://github.com/appirio-tech/lc1-challenge-app",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.2.x",
+    "angular-cookies": "~1.2.x",
+    "angular-route": "1.2.x",
+    "angular-loader": "1.2.x",
+    "angular-mocks": "~1.2.x",
+    "angular-growl-notifications": "~2.1.x",
+    "html5-boilerplate": "~4.3.0",
+    "bootstrap": "~3.2.0",
+    "jquery": ">=1.11.1",
+    "jqueryui": "~1.11.1",
+    "angular-resource": "~1.2.0",
+    "angular-ui-bootstrap-bower": "~0.11.2",
+    "matchmedia-ng": "~1.0.3",
+    "angular-placeholder-tai": "~1.0.1",
+    "ng-table": "~0.3.3",
+    "html5shiv": "~3.7.2",
+    "lodash": "~2.4.1",
+    "restangular": "~1.4.0",
+    "angular-ui-router": "~0.2.11",
+    "moment": "~2.8.3",
+    "fontawesome": "~4.2",
+    "bootstrap-tagsinput": "~0.4.2",
+    "typeahead.js": "~0.10.4",
+    "angular-sanitize": "latest",
+    "showdown": "latest",
+    "ng-file-upload": "~2.0.2",
+    "angular-elastic": "~2.4.2"
+  },
+  "resolutions": {
+    "jquery": "1.11.1",
+    "angular": "1.2.27"
+  }
+}
