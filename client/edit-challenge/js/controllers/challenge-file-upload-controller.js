@@ -9,9 +9,10 @@
     .module('edit.challenge')
     .controller('ChallengeFileUploadController', ChallengeFileUploadController);
 
-  ChallengeFileUploadController.$inject = ['$scope', '$timeout', '$document', '$upload', 'ChallengeService'];
 
-  function ChallengeFileUploadController($scope, $timeout, $document, $upload, ChallengeService) {
+  ChallengeFileUploadController.$inject = ['$scope', '$timeout', '$document', '$upload', 'ChallengeService', '$log'];
+
+  function ChallengeFileUploadController($scope, $timeout, $document, $upload, ChallengeService, $log) {
 
     function resetUploadForm() {
       $scope.fileName = '';
@@ -55,7 +56,7 @@
         return;
       }
       $scope.uploading = true;
-      console.log('DEBUG starting the file upload');
+      $log.debug('starting the file upload');
       $scope.upload = $upload.upload({
         url: uploadUrl,
         method: 'POST',
@@ -65,11 +66,11 @@
         file: $scope.selectedFile,
         fileFormDataName: 'file'
       }).progress(function(evt) {
-        console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :'+ evt.config.file.name);
+        $log.debug('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :'+ evt.config.file.name);
         $scope.progress =  parseInt(100.0 * evt.loaded / evt.total);
       }).success(function(data, status, headers, config) {
         // file is uploaded successfully
-        console.log('file ' + config.file.name + 'is uploaded successfully. Response: ' + data);
+        $log.info('file ' + config.file.name + 'is uploaded successfully. Response: ' + data);
       });
 
 
@@ -86,15 +87,14 @@
             // clear form
             resetUploadForm();
           }, function(err) {
-            console.log('getFile: error: ', err);
+            $log.error('getFile: error: ', err);
           });
 
       }, function (err) {    // error
-        console.log('doUpload: error: ', err);
+        $log.error('doUpload: error: ', err);
       }, function (evt) {   // progress notify
         // Math.min is to fix IE which reports 200% sometimes
         $scope.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-        console.log('DEBUG the progress is: ' + evt.loaded);
       });
     };
 
