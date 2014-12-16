@@ -136,7 +136,7 @@ module.exports = function(options, config) {
       var part = results[1];
       var fileName = part.filename;
       headers['Content-Length'] = part.byteCount;
-      var targetPath = '/challenges' + '/' + req.params.challengeId + '/' + fileName;
+      var targetPath = 'challenges' + '/' + req.params.challengeId + '/' + fileName;
       var fileUrl = targetPath;
       _.extend(file, {
         // filePath : targetPath,
