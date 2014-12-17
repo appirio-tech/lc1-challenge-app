@@ -22,6 +22,7 @@
       vm.alerts = [];
       vm.closeAlert = closeAlert;
       vm.tcMemberProfileUrl = tcMemberProfileUrl;
+      vm.download = download;
 
       vm.readyToAnnounce = readyToAnnounce();
 
@@ -177,6 +178,11 @@
         return (vm.challenge.status === 'REVIEW') && allScorecardsSubmitted();
       }
 
+      function download(fileDownloadUrl) {
+        ChallengeService.getSignedUrl(fileDownloadUrl).then(function(url) {
+          window.location = url
+        })
+      }
     }
 
 

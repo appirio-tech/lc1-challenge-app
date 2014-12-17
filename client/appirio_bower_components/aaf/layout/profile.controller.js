@@ -29,7 +29,7 @@
 
     //TODO(DG 12/4/2014): Move this out into separate controller
     $rootScope.$on('Unauthorized', function(msg, data) {
-      console.info('Unauthorized!!');
+      //console.info('Unauthorized!!');
       var port = '';
       if ($location.port() !== 80) {
         port = ':' + $location.port();
