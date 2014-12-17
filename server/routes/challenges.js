@@ -12,6 +12,9 @@ var clientHelper = require('./clientHelper');
 var Challenge = require('../challenge-consumer').Challenge;
 var controllerHelper = require('./controllerHelper');
 var config = require('config');
+var request = require('request');
+var Q = require('q');
+
 /**
  * Upload middleware
  * @type {Object}
@@ -56,6 +59,9 @@ router.route('/configuration')
   .get(getChallengeConfiguration, routeHelper.renderJson);
 router.route('/:challengeId/launch')
   .post(launchChallenge, challengeController.update, routeHelper.renderJson);
+
+router.route('/:challengeId/submissions/:submissionId/files/:fileId/download')
+  .get(getSubmissionFileDownloadUrl);
 
   /*  from master
   .post(challengeController.get, launchChallenge, challengeController.update, routeHelper.renderJson);
@@ -114,6 +120,44 @@ function getChallengeConfiguration(req, res, next) {
   next();
 }
 
+function getSubmissionFileDownloadUrl(req, res, next) {
+  var challengeId = req.params.challengeId;
+  var submissionId = req.params.submissionId;
+  var fileId = req.params.fileId;
+  
+  var headers = {authorization: req.headers.authorization};
+  
+  request({
+      method: 'GET',
+      uri: config.challenge.apiUrl + '/challenges/' + challengeId + '/submissions/' + submissionId + '/files/' + fileId + '/download', //domain + path,
+      //qs: queryParameters,
+      headers: headers,
+      //json: body,
+      rejectUnauthorized: false
+  }, function(error, response, body) {
+      if (error) {
+          //deferred.reject(error);
+          res.status(404).send('unable to get file url')
+      } else {
+          if (/^application\/(.*\\+)?json/.test(response.headers['content-type'])) {
+              try {
+                  body = JSON.parse(body);
+              } catch (e) {
+
+              }
+          }
+          if (response.statusCode >= 200 && response.statusCode <= 299) {
+            res.json(body)
+          } else {
+            res.status(404).send('unable to get file url')
+              // deferred.reject({
+              //     response: response,
+              //     body: body
+              // });
+          }
+      }
+  });  
+}
 
 /**
  * Requirement resource

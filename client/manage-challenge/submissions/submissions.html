@@ -59,9 +59,8 @@
                   {{submission.scorecard.statusDisplay || 'New'}}
               </td>
               <!-- TODO: logic for actions -->
-              <td data-ng-if="!phone" class="action-btn">
-                  <!-- use download attribute to do download -->
-                  <a href="{{submission.file.fileUrl}}" download class="fa fa-2x fa-download" title="Download Submission"></a>
+              <td data-ng-if="!phone" class="action-btn">                  
+                  <a ng-click="vm.download(submission.file.downloadUrl)"  class="fa fa-2x fa-download" title="Download Submission"></a>
               </td>
                <td data-ng-if="!phone" class="action-btn">
                   <a ng-if="!submission.scorecard.id" href="#/challenges/{{vm.challenge.id}}/submissions/{{submission.id}}/new" class="fa fa-2x fa-check-square-o" title="Create Scorecard"></a>

@@ -34,7 +34,9 @@
       updateScorecardItems: updateScorecardItems,
 
       //Result APIs
-      getResults: getResults
+      getResults: getResults,
+
+      getSignedUrl: getSignedUrl
     };
 
     return serviceAPI;
@@ -43,8 +45,7 @@
 
     function getSubmissions(challengeId) {
       var deferred = $q.defer();
-      Utils.apiGet('/challenges/' + challengeId + '/submissions').then(function (result) {
-        // Enable once statuses are available on submissions
+      Utils.apiGet('/challenges/' + challengeId + '/submissions?fields=id,challengeId,status,createdAt,submitterHandle,submitterId,files').then(function (result) {
         _.forEach(result.content, function(submission) {
           submission.statusDisplay = Utils.initCase(submission.status)
         });
@@ -59,19 +60,15 @@
     function getSubsAndFiles(challengeId) {
       var deferred = $q.defer();
       getSubsAndScorecards(challengeId).then(function(subsScores) {
-        Utils.apiGet('/challenges/' + challengeId + '/files/').then(function(res) {
-
-          var files = res.content;
-          angular.forEach(files, function(file, key) {
-            if (file.submissionId) {
-              var key = _.findKey(subsScores.content, {id: file.submissionId})
-              if (key) {
-                subsScores.content[key].file = file;
-              }
-            }
-          });
-          deferred.resolve(subsScores);
-        })
+        angular.forEach(subsScores.content, function(subsScore, key) {
+          var files = subsScore.files;
+          if (files && (files.length > 0) && files[0].submissionId) {
+            var file = files[0];
+            subsScore.file = file;              
+            subsScore.file.downloadUrl = '/challenges/' + challengeId + '/submissions/' + file.submissionId + '/files/' + file.id + '/download';
+          }
+        });
+        deferred.resolve(subsScores);
       });
 
       return deferred.promise;
@@ -317,6 +314,14 @@
       }
     }
 
+    function getSignedUrl(fileDownloadUrl) {
+      var deferred = $q.defer();
+      Utils.apiGet(fileDownloadUrl).then(function(res) {
+        deferred.resolve(res.content.url);
+      });
+
+      return deferred.promise;
+    }
   }
 
 })(window, window.angular);
