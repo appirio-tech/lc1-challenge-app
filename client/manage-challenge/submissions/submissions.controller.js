@@ -108,10 +108,10 @@
         //validate that all scorecards have SUBMITTED status
         //if not valid, show error
         if (vm.challenge.status !== 'REVIEW') {
-          vm.alerts.push({ type: 'warning', msg: "Challenge needs to be in Review status before winners can be declared." });
+          vm.alerts[0] = ({ type: 'warning', msg: "Challenge needs to be in Review status before winners can be declared." });
         }
         else if (!allScorecardsSubmitted()) {
-          vm.alerts.push({ type: 'warning', msg: "Challenge winners can't be declared until all scorecards have been submitted." });
+          vm.alerts[0] = ({ type: 'warning', msg: "Challenge winners can't be declared until all scorecards have been submitted." });
         }
       }
 

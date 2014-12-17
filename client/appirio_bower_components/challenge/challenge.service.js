@@ -110,12 +110,6 @@
     }
 
     function updateChallenge(challenge) {
-      //TODO(DG: 11/16/2014): replace w/ swagger client or real ajax call
-      //var deferred = $q.defer();
-      // var body = {
-      //   challengeId: challenge.id, //TODO(DG: 11/16/2014): Remove; currently req'd #280
-      // };
-
       return Utils.apiUpdate('/challenges/' + challenge.id, challenge);
     }
 
