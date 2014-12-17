@@ -63,10 +63,11 @@
     <!--End .date select-->
 
     <div class="date-range">
-        Duration : {{timeLine.dateDiff}} {{timeLine.dateDiff > 1 ? 'Days':'Day'}} <br>
-        Kyles Duration Calculation:
-        {{timeLine.dateDiff < 1 ? 'less than 1' : timeLine.dateDiff / 24 | number : 0   }} Days
-        {{timeLine.dateDiff % 24 }} hours
+        <!-- Duration : {{timeLine.dateDiff}} {{timeLine.dateDiff > 1 ? 'Days':'Day'}} <br> -->
+         Duration:
+        {{timeLine.dateDiff < 1 ? '' : timeLine.dateDiff + ' Days  ' }} <!-- show the days difference number and label if it is greater than zero  -->
+        {{timeLine.hourDiff % 24}} Hours
+        {{timeLine.hourDiff <= 0 ? 'You can not have a negative duration, please correct your error' : '' }}
     </div>
   </div>
   <!-- Debug set ng-init mydebug eq true to display this section -->

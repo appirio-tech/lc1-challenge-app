@@ -40,10 +40,11 @@
     $scope.saveChallenge = function() {
       //reset the flag that shows the growl notification
       $scope.showSuccessGrowl = false;
-      if ($scope.timeLine.complete) {
+      // We should not be checking for is complete just to save
+      //if ($scope.timeLine.complete) {
         $scope.challenge.regStartAt = concatenateDateTime($scope.timeLine.stdt, $scope.timeLine.timeSelectedStart);
         $scope.challenge.subEndAt = concatenateDateTime($scope.timeLine.enddt, $scope.timeLine.timeSelectedEnd);
-      };
+      //};
 
       if ($scope.prizes.customerAccountName) {
         $scope.challenge.account = $scope.prizes.customerAccountName;
@@ -154,15 +155,15 @@
     };
 
     var startNew = false;
-	var dtTenSet;
+    var dtTenSet;
     var dtMinDate = Date.now();
     var dtTenDayCounts = 240 * 60 * 60 * 1000;
-	var regStartAt;
-	var subEndAt;
+    var regStartAt;
+    var subEndAt;
 
     if ($scope.challenge.regStartAt) {
       regStartAt = new Date($scope.challenge.regStartAt);
-	} else {
+    } else {
       regStartAt = new Date(dtMinDate);
       $scope.challenge.regStartAt = regStartAt.toISOString();
 
@@ -233,12 +234,13 @@
         }
       }
       calculateDuration();
-      if ($scope.timeLine.stdt && $scope.timeLine.enddt && $scope.timeLine.dateDiff > 0) {
+      // do hour diff instead
+      if ($scope.timeLine.stdt && $scope.timeLine.enddt && $scope.timeLine.hourDiff > 0) {
         $scope.timeLine.complete = true;
       } else {
         $scope.timeLine.complete = false;
       }
-    };
+    }
 
     /*set end date*/
     $scope.$watch('timeLine.stdt', function() {
@@ -266,7 +268,13 @@
       // use moment.js
       var start = moment(concatenateDateTime($scope.timeLine.stdt, $scope.timeLine.timeSelectedStart));
       var end = moment(concatenateDateTime($scope.timeLine.enddt, $scope.timeLine.timeSelectedEnd));
-      $scope.timeLine.dateDiff = end.diff(start, 'hours');
+      $scope.timeLine.dateDiff = end.diff(start, 'days');
+      $scope.timeLine.hourDiff = end.diff(start, 'hours');
+      // set the timeline complete to false if the challenge is less then 1 hour long, this will prevent launching
+      if ($scope.timeLine.hourDiff < 1 ) {
+        $scope.timeLine.complete = false;
+
+      }
     }
 
 
