@@ -45,7 +45,7 @@
 
     function getSubmissions(challengeId) {
       var deferred = $q.defer();
-      Utils.apiGet('/challenges/' + challengeId + '/submissions?fields=id,challengeId,status,createdAt,submitterHandle,submitterId,files').then(function (result) {
+      Utils.apiGet('/challenges/' + challengeId + '/submissions?fields=id,challengeId,status,updatedAt,submitterHandle,submitterId,files').then(function (result) {
         _.forEach(result.content, function(submission) {
           submission.statusDisplay = Utils.initCase(submission.status)
         });
