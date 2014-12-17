@@ -23,19 +23,23 @@ function getVal(name, defaultVal) {
 }
 
 module.exports = {
+  authEnabled: getVal('AUTH_ENABLED'),
+
   challenge: {
     apiUrl: getVal('CHALLENGE_API'),
     defaultTitle: 'Untitled Challenge'
   },
   root: rootPath,
+
   userAPI: getVal('USER_API'),
+  
   auth0: {
     Domain: getVal('TC_AUTH0_DOMAIN', 'topcoder.auth0.com'),
     /* use process.env first, then .env file, last set here */
     Client: getVal('TC_AUTH0_CLIENT', 'foo'),
     Secret: getVal('TC_AUTH0_SECRET', 'bar')
   },
-  authDisabled: getVal('AUTH_DISABLED'),
+  
 
   /**
    * URLs
