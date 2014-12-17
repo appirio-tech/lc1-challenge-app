@@ -16,6 +16,7 @@
     vm.challenge = resolvedCurrentChallenge;
     vm.tcChallengeDetailsUrl = tcChallengeDetailsUrl;
     vm.tcMemberProfileUrl = tcMemberProfileUrl;
+    vm.download = download;
 
     //user-agent stuff
     vm.browser = Utils.getBrowser();
@@ -56,6 +57,13 @@
 
     function tcMemberProfileUrl(memberHandle) {
       return ConfigService.getBaseMemberProfileUrl() + memberHandle;
+    }
+
+    function download(fileDownloadUrl) {
+      console.log('fileDownloadUrl', fileDownloadUrl)
+      ChallengeService.getSignedUrl(fileDownloadUrl).then(function(url) {
+        window.location = url
+      })
     }
 
   }
