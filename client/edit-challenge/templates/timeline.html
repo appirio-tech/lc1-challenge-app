@@ -63,18 +63,29 @@
     <!--End .date select-->
 
     <div class="date-range">
-        Duration : {{timeLine.dateDiff}} {{timeLine.dateDiff > 1 ? 'Days':'Day'}}
+        <!-- Duration : {{timeLine.dateDiff}} {{timeLine.dateDiff > 1 ? 'Days':'Day'}} <br> -->
+         Duration:
+        {{timeLine.dateDiff < 1 ? '' : timeLine.dateDiff + ' Days  ' }} <!-- show the days difference number and label if it is greater than zero  -->
+        {{timeLine.hourDiff % 24}} Hours
+        {{timeLine.hourDiff <= 0 ? 'You can not have a negative duration, please correct your error' : '' }}
     </div>
   </div>
   <!-- Debug set ng-init mydebug eq true to display this section -->
   <span  ng-if="mydbug" >
-  <div class="well col-md-6">
+  <div class="well col-md-3">
     <strong>DEBUG: </strong> turn of with ng-init mydbug = false <br>
     timeLine.complete {{timeLine.complete}} <br/>
     timeLine.timeSelectedEnd {{timeLine.timeSelectedEnd}} <br/>
     regStartAt {{challenge.regStartAt}}
   </div>
   <div class="well col-md-6">
+    timeLine: <br/>
+    <pre>
+    {{timeLine | json : spacing }}
+  </pre>
+
+  </div>
+  <div class="well col-md-3">
     timeLine.timeSelectedEnd {{timeLine.timeSelectedEnd}} <br/>
     subEndAt {{challenge.subEndAt}}
   </div>
