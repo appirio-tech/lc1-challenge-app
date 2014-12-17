@@ -40,3 +40,6 @@ temp
 
 #env file
 .env*
+
+#local files
+local*
