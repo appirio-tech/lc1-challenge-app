@@ -57,11 +57,21 @@
       var deferred = $q.defer();
       UserService.getCurrentUser().then(function(user) {
         data.creatorHandle = user.handle;
+        data.creatorId = user.id;
         Challenges.post(data).then(function(res) {
-          deferred.resolve(res);
+          var body = {
+            role: 'OWNER',
+            userId: user.id,
+            userHandle: user.handle
+          }
+          Restangular.one('challenges', res.id).all('participants').post(body).then(function(res2){
+            deferred.resolve(res);
+          });
         })
       });
-      return deferred.promise;      
+      //console.log('challenge id ', res.id);
+      console.log('userHandle ', data.creatorHandle);
+      return deferred.promise;
     }
 
     /*get a challenge*/
