@@ -75,7 +75,7 @@
 
       //helper functions
       function tcChallengeDetailsUrl(challenge) {
-        return ConfigService.baseChallengeDetailsUrl + challenge.id + '?type=develop&lc=true';
+        return ConfigService.getBaseChallengeDetailsUrl() + challenge.id + '/?type=develop&lc=true';
       }
 
       function scoreItems() {
