@@ -25,8 +25,9 @@
   app.use('/edit', express.static(__dirname + '/../client/edit-challenge'));
   app.use('/manage', express.static(__dirname + '/../client/manage-challenge'));
   app.use('/login', express.static(__dirname + '/../client/login'));
-  //app.use('/bower_components', express.static(__dirname + '/../client/bower_components'));
+  app.use('/bower_components', express.static(__dirname + '/../client/bower_components'));
   app.use('/*/appirio_bower_components', express.static(__dirname + '/../client/appirio_bower_components'));
+  app.use('/appirio_bower_components', express.static(__dirname + '/../client/appirio_bower_components'));
 
   //server side routes
   //challenge management
@@ -52,12 +53,12 @@
   var bodyParser = require('body-parser');
   app.use(bodyParser.json());
 
-  var challenges = require('./routes/challenges');
-  var tags = require('./routes/tags');
-  var accounts = require('./routes/accounts');
-  app.use('/challenges', challenges);
-  app.use('/tags', tags);
-  app.use('/accounts', accounts);
+  var challengeRoutes = require('./routes/challenges');
+  var tagRoutes = require('./routes/tags');
+  var accountRoutes = require('./routes/accounts');
+  app.use('/challenges', challengeRoutes);
+  app.use('/tags', tagRoutes);
+  app.use('/accounts', accountRoutes);
 
   //TODO(DG: 11/14/2104): enable if we want app specific error handling
   // app.use(function (err, req, res, next) {

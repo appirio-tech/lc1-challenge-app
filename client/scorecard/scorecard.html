@@ -1,0 +1,127 @@
+<!doctype html>
+<html data-ng-app="manageChallenge">
+<head>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/public/manage-challenge/css/app.css">
+
+  <title>Topcoder Scorecard</title>
+</head>
+
+<body data-ng-class="{'no-direct-scroll':directPanel,'no-application-scroll':applicationsPanel}" ng-controller="AppController">
+
+  <div class="ui-wrapper" data-ng-class="{'direct-open':directPanel,'applications-open':applicationsPanel}">
+    <div class="ui-page ui-animate">
+
+      <header class="header">
+        <div class="ui-navbar">
+          <div class="ui-container">
+            <a href="javascript:void(0);" class="text-hide logo"></a>
+          </div>
+          <!-- End .ui-container -->
+        </div>
+        <!-- End .ui-navbar -->
+
+        <div class="header-action">
+          <div class="ui-container">
+
+            <div class="ui-popover popover-subApplication"
+                 data-ng-class="{'popover-open':directPanel}"
+                 force-click>
+              <ul>
+                <li
+                  data-ng-repeat="subApplication in subApplications"
+                  data-ng-class="{even: $index%2 === 1}">
+                  <a href="javascript:void(0);" data-ng-href="{{subApplication.href}}"
+                     data-ng-class="{disabled:subApplication.disabled}">
+                    <img src="/public/manage-challenge/img/sub-applications-thumb.png" data-ng-src="{{subApplication.thumb}}" alt="Application"
+                         class="thumbnail"/>
+                    {{subApplication.name}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="pull-left">
+              <a href="javascript:void(0);" class="text-hide icon-hamburger"
+                 data-ng-click="direct_open()"
+                 data-ng-class="{active:directPanel}"
+                 off-click="direct_hide()">
+                Hamburger
+              </a>
+
+              <h3><a href="javascript:void(0);" style="color:inherit">Scorecard</a></h3>
+            </div>
+          </div>
+        </div>
+        <!-- End .header-action -->
+
+      </header>
+      <!-- App section (ng-view) -->
+      <div class="main" data-ng-class="{'panel-open':mobileSearch}" data-ng-view></div>
+    </div>
+
+    <footer>
+      <div data-ng-include="'appirio_bower_components/aaf/layout/footer.html'"></div>
+    </footer>
+
+  </div>
+
+  <!-- TODO(DG: 10/16/2014): use grunt/bower magic to do replacement, minfication, etc for prod release -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/jqueryui/jquery-ui.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/lodash/dist/lodash.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/matchmedia-ng/matchmedia-ng.js"></script>
+  <script src="bower_components/angular-placeholder-tai/lib/tai-placeholder.js"></script>
+  <script src="bower_components/ng-table/ng-table.js"></script>
+  <!-- Markdown libs -->
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/showdown/src/showdown.js"></script>
+  <script src="bower_components/showdown/src/extensions/github.js"></script>
+  <script src="bower_components/showdown/src/extensions/table.js"></script>
+
+  <!-- Custom App Code -->
+  <script src="/public/scorecard/scorecard-app.js"></script>
+  <script src="/public/scorecard/scorecard-app.routes.js"></script>
+  <script src="/public/manage-challenge/app.vars.js"></script>
+
+  <script src="/public/scorecard/readonly-scorecard.controller.js"></script>
+
+  <!-- Generic Challenge Stuff -->
+  <script src="appirio_bower_components/challenge/challenge.module.js"></script>
+  <script src="appirio_bower_components/challenge/challenge.service.js"></script>
+
+  <!-- AAF Stuff -->
+  <script src="appirio_bower_components/aaf/aaf.module.js"></script>
+  <script src="appirio_bower_components/aaf/aaf.vars.js"></script>
+  <script src="appirio_bower_components/aaf/utils.service.js"></script>
+  <script src="appirio_bower_components/aaf/layout/header.service.js"></script>
+  <script src="appirio_bower_components/aaf/layout/profile.controller.js"></script>
+  <script src="appirio_bower_components/aaf/ui-components/no-fraction-currency-filter.js"></script>
+  <script src="appirio_bower_components/aaf/ui-components/checkbox.directive.js"></script>
+  <script src="appirio_bower_components/aaf/ui-components/force-click.directive.js"></script>
+  <script src="appirio_bower_components/aaf/ui-components/num-fixed-length.directive.js"></script>
+  <script src="appirio_bower_components/aaf/ui-components/off-click.directive.js"></script>
+  <script src="appirio_bower_components/aaf/ui-components/resize.directive.js"></script>
+  <script src="appirio_bower_components/aaf/ui-components/tcMarkdown.directive.js"></script>
+
+  <script src="appirio_bower_components/aaf/tc-auth/tc-auth.js"></script>
+
+  <!--[if IE 9]>
+  <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
+  <![endif]-->
+
+  <script src="appirio_bower_components/aaf/ga.js"></script>
+
+</body>
+</html>

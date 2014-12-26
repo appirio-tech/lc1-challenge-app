@@ -64,7 +64,7 @@
           var files = subsScore.files;
           if (files && (files.length > 0) && files[0].submissionId) {
             var file = files[0];
-            subsScore.file = file;              
+            subsScore.file = file;
             subsScore.file.downloadUrl = '/challenges/' + challengeId + '/submissions/' + file.submissionId + '/files/' + file.id + '/download';
           }
         });

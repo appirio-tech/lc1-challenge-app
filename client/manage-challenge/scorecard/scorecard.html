@@ -11,10 +11,10 @@
           Reviewd by "Reviewer Name and Date Here"
         </h5> -->
         <h3 class="aaf-sa-subappname">
-          <i class="fa fa-check-square-o"></i>Scorecard for your submission to  ‘{{vm.challenge.title}}’
+          <i class="fa fa-check-square-o"></i>Challenge: ‘{{vm.challenge.title}}’
         </h3>
         <h5>
-          Reviewd by  {{vm.scorecard.reviewerHandle}} at {{vm.scorecard.updatedAt | date:'MMM dd yyyy HH:mm a (Z)' }}
+          Reviewed by <a ng-href="{{vm.tcMemberProfileUrl(vm.scorecard.reviewerHandle)}}/" target="_blank">{{vm.scorecard.reviewerHandle}}</a> at {{vm.scorecard.updatedAt | date:'MMM dd yyyy HH:mm a (Z)' }}
         </h5>
         <!-- /* TODO (BG: 10/22/2014): make breadcrumb an Angular component */ -->
         <!--breadcrumb-->

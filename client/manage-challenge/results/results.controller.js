@@ -60,9 +60,8 @@
     }
 
     function download(fileDownloadUrl) {
-      console.log('fileDownloadUrl', fileDownloadUrl)
       ChallengeService.getSignedUrl(fileDownloadUrl).then(function(url) {
-        window.location = url
+        window.location = url;
       })
     }
 

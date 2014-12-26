@@ -21,6 +21,7 @@
       vm.submitScorecard = submitScorecard;
       vm.alerts = [];
       vm.closeAlert = closeAlert;
+      vm.tcMemberProfileUrl = tcMemberProfileUrl;
 
       // vm.scorecard.scorecardItems.content[2].comment = ""; // check for no comments situation
 
@@ -192,6 +193,10 @@
 
       function closeAlert(index) {
         vm.alerts.splice(index, 1);
+      }
+
+      function tcMemberProfileUrl(memberHandle) {
+        return ConfigService.getBaseMemberProfileUrl() + memberHandle;
       }
 
     }
