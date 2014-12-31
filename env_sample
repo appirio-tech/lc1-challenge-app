@@ -1,11 +1,10 @@
-AUTH_DISABLED=false
+AUTH_ENABLED=false
 AWS_BUCKET=foo
 AWS_KEY=foo
 AWS_REGION=bar
 AWS_SECRET=bar
 CHALLENGE_API=http://dev-lc1-challenge-service.herokuapp.com
-STORAGE_PROVIDER=S3
-TC_API=https://qa.topcoder.com
+STORAGE_PROVIDER=local
 TC_AUTH0_CLIENT=foo
 TC_AUTH0_SECRET=bar
 TC_PROJECT_BASE_URL=http://localhost
