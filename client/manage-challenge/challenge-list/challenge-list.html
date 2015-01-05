@@ -2,15 +2,20 @@
   <!--sub headers-->
   <header class="sub-header">
     <div class="ui-container">
+
       <!--actions-->
       <div class="actions desktop">
+
         <a href="/edit/#/new" class="btn add-new"><i></i>New Challenge</a>
       </div>
+      <input class="pull-right" type="text" ng-model="filter.title"/>
+
       <!-- End .actions -->
       <h3>
         <i class="fa fa-trophy"></i>Challenge Listing
       </h3>
     </div>
+
   </header>
 
   <div class="ui-container">
@@ -24,7 +29,8 @@
 
     <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)" >{{alert.msg}}</alert>
 
-    <table data-ng-table="vm.tableParams" class="table subAppTable {{browser==='safari'?'safari':''}}">
+    <!-- <input class="pull-right" type="text" ng-model="filter.title"/> -->
+    <table data-ng-table="vm.tableParams" show-filter="true" class="table subAppTable {{browser==='safari'?'safari':''}}">
       <thead>
         <tr>
           <th class="checkAll">
@@ -49,7 +55,7 @@
           <td class="text-left" data-sortable="'id'">
           {{challenge.id}}
           </td>
-          <td class="text-left" data-sortable="'title'" ng-switch on="challenge.status">
+          <td class="text-left" data-filter="{ 'title' : 'text' } " data-sortable="'title'" ng-switch on="challenge.status">
             <a ng-href="/edit/#/challenges/{{challenge.id}}/edit" ng-switch-when="DRAFT">{{challenge.title}} <i></i></a>
 
             <a ng-href="{{vm.toTCChallengeDetailsUrl(challenge)}}" target="_blank" ng-switch-default>{{challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a>

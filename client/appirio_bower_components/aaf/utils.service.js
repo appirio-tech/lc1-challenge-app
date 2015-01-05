@@ -52,18 +52,29 @@
       var vm = controller;
 
       vm.columnHeaders = headers;
+      $scope.filter = { title: ''}
       vm.tableParams = new ngTableParams(
         {
           page: 1, // show first page
           count: perPage, //fixed page size
-          sorting: sorting // initial sorting
+          sorting: sorting, // initial sorting
+          filter: $scope.filter
         },
         {
           total: totalCount,
           getData: function ($defer, params) {
             // use built-in angular filter
-            var orderedData = params.sorting() ? $filter('orderBy')(data, params.orderBy()) : data;
-            $defer.resolve($scope.tableRows = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+
+             //sorting and filtering from https://github.com/esvit/ng-table/blob/master/examples/demo11.html
+             var orderedData = params.sorting ? $filter('orderBy')(data, params.orderBy()) : data;
+             orderedData = params.filter ? $filter('filter')(orderedData, params.filter()) : orderedData;
+
+             //$defer.resolve($scope.tableRows = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+             $scope.tableRows = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+             params.total(orderedData.length); // set total for recalc pagination
+             $defer.resolve($scope.tableRows);
+
+
           }
         });
     }
