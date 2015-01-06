@@ -1,4 +1,4 @@
-<div>
+<div  ng-init="mydbug=false">
   <!--sub headers-->
   <header class="sub-header">
     <div class="ui-container">
@@ -8,7 +8,6 @@
 
         <a href="/edit/#/new" class="btn add-new"><i></i>New Challenge</a>
       </div>
-      <input class="pull-right" type="text" ng-model="filter.title"/>
 
       <!-- End .actions -->
       <h3>
@@ -29,15 +28,46 @@
 
     <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" close="vm.closeAlert($index)" >{{alert.msg}}</alert>
 
-    <!-- <input class="pull-right" type="text" ng-model="filter.title"/> -->
-    <table data-ng-table="vm.tableParams" show-filter="true" class="table subAppTable {{browser==='safari'?'safari':''}}">
-      <thead>
+    <!-- debug -->
+
+    <div ng-show="mydbug==true">
+
+    <button ng-click="vm.tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+    <button ng-click="vm.tableParams.filter({})" class="btn btn-default pull-right">Clear filter</button>
+    <p><strong>Sorting:</strong> {{vm.tableParams.sorting()|json}}
+      <p><strong>Filter:</strong> {{vm.tableParams.filter()|json}}
+    </div>
+
+
+      <script id="header-template" type="text/ng-template">
+      <tr>
+      <th class="checkAll">
+      &nbsp;
+      </th> -->
+      <th class=" sortable" data-ng-class="{
+        'sort-asc': vm.tableParams.isSortBy(header.col, 'asc'),
+        'sort-desc': vm.tableParams.isSortBy(header.col, 'desc')
+      }" data-ng-repeat="header in vm.columnHeaders"
+      data-filter="{ 'header' : 'text' } ">
+      >
+      <div data-ng-click="vm.tableParams.sorting(header.col, vm.tableParams.isSortBy(header.col, 'asc') ? 'desc' : 'asc')">{{header.colName}}<i></i></div>
+      </th>
+      <th data-ng-if="!phone" class="text-center" colspan="3"><div>Action</div></th>
+      </tr>
+      </script>
+
+
+
+
+    <!-- <table data-ng-table="vm.tableParams" template-header="header-template" show-filter="true" class="table subAppTable {{browser==='safari'?'safari':''}}"> -->
+    <table data-ng-table="vm.tableParams" show-filter="true" class="table">
+      <!-- <thead>
         <tr>
           <th class="checkAll">
           &nbsp;
-          </th>
+          </th> -->
           <!-- Configurable Headers -->
-          <th class=" sortable" data-ng-class="{
+          <!-- <th class=" sortable" data-ng-class="{
           'sort-asc': vm.tableParams.isSortBy(header.col, 'asc'),
           'sort-desc': vm.tableParams.isSortBy(header.col, 'desc')
           }" data-ng-repeat="header in vm.columnHeaders">
@@ -45,32 +75,39 @@
           </th>
           <th data-ng-if="!phone" class="text-center" colspan="3"><div>Action</div></th>
         </tr>
-      </thead>
+      </thead> -->
 
-      <tbody data-ng-repeat="challenge in $data">
-        <tr data-ng-class="$odd?'odd':''">
+      <!-- <tbody data-ng-repeat="challenge in $data"> -->
+
+
+        <tr data-ng-repeat="challenge in $data" data-ng-class="$odd?'odd':''" >
           <td>
           &nbsp;
           </td>
-          <td class="text-left" data-sortable="'id'">
+          <td class="text-left sortable" data-title="'Id'"  data-filter="{ 'id' : 'text' } " data-sortable="'id'">
           {{challenge.id}}
           </td>
-          <td class="text-left" data-filter="{ 'title' : 'text' } " data-sortable="'title'" ng-switch on="challenge.status">
+          <td class="text-left sortable"
+              data-title="'Name'"
+              data-filter="{ 'title' : 'text' } "
+              data-sortable="'title'" ng-switch on="challenge.status"
+              header-class=""
+              >
             <a ng-href="/edit/#/challenges/{{challenge.id}}/edit" ng-switch-when="DRAFT">{{challenge.title}} <i></i></a>
 
             <a ng-href="{{vm.toTCChallengeDetailsUrl(challenge)}}" target="_blank" ng-switch-default>{{challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a>
 
           </td>
-          <td class="text-left" data-sortable="'projectId'">
+          <td class="text-left" data-title="'Project Id'" data-sortable="'projectId'"  data-filter="{ 'projectId' : 'text' } ">
           <a ng-href="{{vm.toTCProjectUrl(challenge)}}" target="_blank">{{challenge.projectId}} <i ng-if="challenge.projectId" class="fa fa-sm fa-external-link-square"></i> </a>
           </td>
-          <td class="text-left" data-sortable="'creatorHandle'">
+          <td class="text-left" data-title="'Created By'" data-sortable="'creatorHandle'" data-filter="{ 'creatorHandle' : 'text' } ">
             <a ng-href="{{vm.tcMemberProfileUrl(challenge.creatorHandle)}}" target="_blank">{{challenge.creatorHandle}}</a>
           </td>
-          <td class="text-left" data-sortable="'updatedAt'">
+          <td class="text-left" data-title="'Last Updated'" data-sortable="'updatedAt'" >
           {{challenge.updatedAt | date:'MMM dd yyyy HH:mm a (Z)' }}
           </td>
-          <td data-ng-if="!phone" class="text-left" data-sortable="'status'">
+          <td data-ng-if="!phone" class="text-left" data-title="'Status'" data-sortable="'status'"  data-filter="{ 'status' : 'text' } ">
           {{challenge.statusDisplay}}
           </td>
           <td data-ng-if="!phone" class="action-btn" ng-switch on="challenge.status">
@@ -79,7 +116,7 @@
             <a ng-href="#/challenges/{{challenge.id}}/results" class="fa fa-2x fa-eye" ng-switch-when="COMPLETE" title="View Results"></a>
             <a ng-href="/edit/#/challenges/{{challenge.id}}/edit" class="fa fa-2x fa-pencil" ng-switch-default title="Edit Challenge"></a>
           </td>
-          <td data-ng-if="!phone" class="action-btn">
+          <td data-ng-if="!phone" data-title="'Action'" class="action-btn">
             <a href="javascript:void(0);" ng-click="vm.deleteChallenge(challenge)" class="fa fa-2x fa-trash" data-ng-if="challenge.status === 'DRAFT'" title="Delete Challenge"></a>
           </td>
         </tr>
