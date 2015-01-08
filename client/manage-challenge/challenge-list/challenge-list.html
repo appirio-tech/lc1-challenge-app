@@ -81,36 +81,34 @@
 
 
         <tr data-ng-repeat="challenge in $data" data-ng-class="$odd?'odd':''" >
-          <td>
+          <td width="4%">
           &nbsp;
           </td>
-          <td class="text-left sortable" data-title="'Id'"  data-filter="{ 'id' : 'text' } " data-sortable="'id'">
+          <td class="text-left sortable" data-title="'Id'"  data-filter="{ 'id' : 'text' } " data-sortable="'id'" width="4.5%">
           {{challenge.id}}
           </td>
           <td class="text-left sortable"
               data-title="'Name'"
               data-filter="{ 'title' : 'text' } "
               data-sortable="'title'" ng-switch on="challenge.status"
-              header-class=""
-              >
+              width="25%" >
             <a ng-href="/edit/#/challenges/{{challenge.id}}/edit" ng-switch-when="DRAFT">{{challenge.title}} <i></i></a>
-
             <a ng-href="{{vm.toTCChallengeDetailsUrl(challenge)}}" target="_blank" ng-switch-default>{{challenge.title}} <i class="fa fa-sm fa-external-link-square"></i></a>
 
           </td>
-          <td class="text-left" data-title="'Project Id'" data-sortable="'projectId'"  data-filter="{ 'projectId' : 'text' } ">
+          <td class="text-left" data-title="'Project Id'" data-sortable="'projectId'"  data-filter="{ 'projectId' : 'text' } " width="11%">
           <a ng-href="{{vm.toTCProjectUrl(challenge)}}" target="_blank">{{challenge.projectId}} <i ng-if="challenge.projectId" class="fa fa-sm fa-external-link-square"></i> </a>
           </td>
-          <td class="text-left" data-title="'Created By'" data-sortable="'creatorHandle'" data-filter="{ 'creatorHandle' : 'text' } ">
+          <td class="text-left" data-title="'Created By'" data-sortable="'creatorHandle'" data-filter="{ 'creatorHandle' : 'text' } " width="12%">
             <a ng-href="{{vm.tcMemberProfileUrl(challenge.creatorHandle)}}" target="_blank">{{challenge.creatorHandle}}</a>
           </td>
-          <td class="text-left" data-title="'Last Updated'" data-sortable="'updatedAt'" >
+          <td class="text-left" data-title="'Last Updated'" data-sortable="'updatedAt'" width="21%">
           {{challenge.updatedAt | date:'MMM dd yyyy HH:mm a (Z)' }}
           </td>
-          <td data-ng-if="!phone" class="text-left" data-title="'Status'" data-sortable="'status'"  data-filter="{ 'status' : 'text' } ">
+          <td data-ng-if="!phone" class="text-left" data-title="'Status'" data-sortable="'status'"  data-filter="{ 'status' : 'text' }" width="8%">
           {{challenge.statusDisplay}}
           </td>
-          <td data-ng-if="!phone" class="action-btn" ng-switch on="challenge.status">
+          <td data-ng-if="!phone" class="action-btn" ng-switch on="challenge.status" >
             <a ng-href="#/challenges/{{challenge.id}}/submissions" class="fa fa-2x fa-eye" ng-switch-when="REVIEW" title="View Submissions"></a>
             <a ng-href="#/challenges/{{challenge.id}}/submissions" class="fa fa-2x fa-eye" ng-switch-when="SUBMISSION" title="View Submissions"></a>
             <a ng-href="#/challenges/{{challenge.id}}/results" class="fa fa-2x fa-eye" ng-switch-when="COMPLETE" title="View Results"></a>

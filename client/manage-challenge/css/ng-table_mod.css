@@ -82,6 +82,15 @@
 	opacity: 0.6;
 	*/
 }
+
+.ng-table th.sortable.sort-asc div:after {
+	/*left: 110px;*/
+	right: -2px;
+	width: 16px;
+	height: 11px;
+	background:  url("../img/desktop/icons.png") -189px -11px no-repeat;
+}
+
 .ng-table th.filter .input-filter {
 	margin: 0;
 	display: block;
