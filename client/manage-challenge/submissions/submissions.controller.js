@@ -121,7 +121,7 @@
         2. update challenge status
         3. Nav to results
         */
-        var today = $filter('date')(Date.now(), 'yyyy-MM-ddTHH:mmZ', 'UTC'); //, timezone
+        var today = $filter('date')(Date.now(), 'yyyy-MM-ddTHH:mm:ss.sssZ', 'UTC'); //, timezone
 
         var deferred = $q.defer();
         var scorecardPromises = [];
