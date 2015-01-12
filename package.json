@@ -41,6 +41,7 @@
     "lodash": "^2.4.1",
     "logfmt": "~1.2.0",
     "multiparty": "^4.0.0",
+    "newrelic": "^1.14.6",
     "node-env-file": "^0.1.4",
     "passport": "~0.2.1",
     "passport-auth0": "~0.2.0",
