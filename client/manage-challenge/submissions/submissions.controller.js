@@ -121,7 +121,18 @@
         2. update challenge status
         3. Nav to results
         */
-        var today = $filter('date')(Date.now(), 'yyyy-MM-ddTHH:mm:ss.sssZ', 'UTC'); //, timezone
+
+
+        var toUTCDate = function(date){
+          var _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+          return _utc;
+        };
+
+        var millisToUTCDate = function(millis){
+          return toUTCDate(new Date(millis));
+        };
+
+        var today = millisToUTCDate(Date.now());
 
         var deferred = $q.defer();
         var scorecardPromises = [];
@@ -138,14 +149,14 @@
             id: vm.challenge.id,
             title: vm.challenge.title,
             status: vm.challenge.status,
-            completedAt: today,
+            completedAt: today.toISOString(),
             projectSource: 'TOPCODER'
-          }
+          };
           ChallengeService.updateChallenge(body).then(function(challenge) {
             deferred.resolve(challenge);
             $location.path('/challenges/' + vm.challenge.id + '/results');
           });
-        })
+        });
 
         return deferred.promise;
 
@@ -156,7 +167,7 @@
       }
 
       function allScorecardsSubmitted() {
-        var submissions = vm.submissions
+        var submissions = vm.submissions;
         var allSubmitted = true;
         _.forEach(submissions, function(submission) {
           allSubmitted = allSubmitted && submission.scorecard && (submission.scorecard.status === 'SUBMITTED')
