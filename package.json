@@ -29,7 +29,7 @@
     "express-jwt": "~0.2.1",
     "express-params": "0.0.3",
     "forever": "^0.13.0",
-    "fs-extra": "^0.12.0",
+    "fs-extra": "^0.30.0",
     "grunt": "^0.4.5",
     "grunt-nodemon": "^0.3.0",
     "grunt-protractor-runner": "^1.1.4",
